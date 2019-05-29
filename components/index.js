@@ -1,3 +1,3 @@
-export default Print = () => {
-  console.log('----------------');
+export const Print = () => {
+  console.log('------- 你成功了 ---------');
 }
