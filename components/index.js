@@ -1,3 +1,1 @@
-export const Print = () => {
-  console.log('------- 你成功了 ---------');
-}
+export { default as InputNumber } from './input-number';
