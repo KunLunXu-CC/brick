@@ -1,0 +1,42 @@
+*{box-sizing: border-box;}
+body{
+  padding: 0;
+  margin: 0
+}
+
+.qyrc-scroll{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255, 0, 0, 0.2);
+  .iframe{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: -1;
+  }
+  .qyrc-scroll-content{
+    position: relative;
+    background: rgba(0, 255, 0, 0.2);
+    float: left;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .qyrc-scroll-axis{
+    position: absolute;
+    max-width: 15px;
+    top: 0;
+    height: 100%;
+
+    .qyrc-scroll-axis-block{
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
