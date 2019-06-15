@@ -3,7 +3,7 @@
 <div align="center">
   一套个人 React UI 组件库
   <br/><br/>
-</div><br/><br/>
+</div>
 
 ## 特性
 
@@ -41,7 +41,7 @@ npm run build:publish
 
 ## TODO
 
-- [x] [组件]滚动条
-- [ ] [组件]markdown 预览组件
-- [ ] [组件]markdown 文本编辑组件
-- [ ] [配置]单元测试配置
+- [x] [组件] 滚动条
+- [ ] [组件] markdown 预览组件
+- [ ] [组件] markdown 文本编辑组件
+- [ ] [配置] 单元测试配置
