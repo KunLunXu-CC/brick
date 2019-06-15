@@ -21,7 +21,7 @@
   this.scale               组件（包裹层）高度/内容块高度
  */
 import React from 'react';
-import { getClassName } from '../../util/helper';
+import { getClassName } from '../../utils';
 class Scroll extends React.Component{
   constructor(props){
     super(props);
