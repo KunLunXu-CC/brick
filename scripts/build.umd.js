@@ -21,7 +21,7 @@ const LOGO = `
               __                    _
   _______  __/ /_____        __  __(_)
  / ___/ / / / //_/ _ \\______/ / / / /
-/ /__/ /_/ / ,< /  __/_____/ /_/ / /  
+/ /__/ /_/ / ,< /  __/_____/ /_/ / /
 \\___/\\__,_/_/|_|\\___/     \\__,_/_/
 
 `
@@ -104,6 +104,7 @@ module.exports = {
         cache: true,
         parallel: true,
         uglifyOptions: {
+          warnings: false,
           compress: {
             drop_debugger: true,
             drop_console: false

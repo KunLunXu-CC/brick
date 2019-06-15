@@ -38,7 +38,7 @@ module.exports = {
     "no-sequences": "error",
     "no-shadow-restricted-names": "error",
     "no-unneeded-ternary": "error",
-    "no-unused-expressions": "error",
+    "no-unused-expressions": "off",
     "no-unused-vars": "off",
     "no-use-before-define": ["error", "nofunc"],
     "no-var": "error",

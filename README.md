@@ -18,6 +18,51 @@
 - [ant-design](https://github.com/ant-design/ant-design)
 - [cuke-ui](https://github.com/cuke-ui/cuke-ui)
 
+## 使用
+
+- 一次引入完整样式
+
+```js
+import React from "react"
+import { Scrollbar } from "qyrc"
+import "qyrc/dist/qyrc.min.css"
+```
+
+- 按需加载: 手动加载样式模块
+
+```js
+import React from "react"
+import { Scrollbar } from "qyrc"
+import "qyrc/lib/scrollbar/style"
+```
+
+- 按需加载: 通过 babel-plugin-import 实现
+
+```js
+// babel babel-plugin-import 插件配置： 创建多个 babel-plugin-import 实例
+module.exports = {
+  plugins: [
+    ["babel-plugin-import", {
+      "libraryName": "qyrc",
+      "libraryDirectory": "es",
+      "style": true
+    },'cuke-ui'],
+
+    ["babel-plugin-import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": true
+    },'antd'],
+  ]
+}
+```
+
+```js
+// 按需引入组件
+import React from "react"
+import { Scrollbar } from "qyrc"
+```
+
 ## 本地开发
 
 - 运行开发环境
@@ -38,10 +83,3 @@ npm run commit
 ```shell
 npm run build:publish
 ```
-
-## TODO
-
-- [x] [组件] 滚动条
-- [ ] [组件] markdown 预览组件
-- [ ] [组件] markdown 文本编辑组件
-- [ ] [配置] 单元测试配置

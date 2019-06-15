@@ -4,6 +4,7 @@
     ["@babel/plugin-transform-runtime"],
     // 修饰器
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties"],
     // asyn await 支持
     ["@babel/plugin-transform-async-to-generator"]
   ],

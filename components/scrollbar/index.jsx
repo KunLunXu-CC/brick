@@ -21,7 +21,7 @@
   this.scale               组件（包裹层）高度/内容块高度
  */
 import React from 'react';
-import { getClassName } from '../../utils';
+import { getClassName } from '../utils';
 class Scroll extends React.Component{
   constructor(props){
     super(props);
@@ -99,10 +99,10 @@ class Scroll extends React.Component{
    * 鼠标滚动事件
    * @param {Object} e 事件对象
    */
-  onScroll = (e) => {
-    e = e || window.event;
+  onScroll = (event) => {
+    const e = event || window.event;
     const status = this.getScrollStatus(e, this.wrapperRef.current);
-    if (!!status){
+    if (status){
       const shifting = this.shifting * status;
       this.refreshScroll(shifting);
     }
@@ -120,7 +120,7 @@ class Scroll extends React.Component{
       this.state.contentMarginTop === 0 && shifting > 0
     ];
 
-    filter.findIndex( v => v ) === -1 &&
+    (filter.findIndex( v => v ) === -1) &&
     this.setState((state) => {
       let contentMarginTop = state.contentMarginTop + shifting;
       contentMarginTop < maxContentMarginTop ? ( contentMarginTop = maxContentMarginTop ) : null;
