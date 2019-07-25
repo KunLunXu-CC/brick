@@ -1,6 +1,6 @@
-import Introduce from './pages/base/Introduce';
-import scrollbar from './pages/container/Scrollbar';
-import ModalDemo from './pages/container/modal';
+import ModalDemo from '@pages//container/modal';
+import Introduce from '@pages/base/Introduce';
+import scrollbar from '@pages/container/Scrollbar';
 
 export default [
   {

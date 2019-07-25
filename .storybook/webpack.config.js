@@ -2,7 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 
 // 路径别名
-const alias = {};
+const alias = {
+  "@components": path.resolve(__dirname, '../components'),
+  "@pages": path.resolve(__dirname, '../stories/pages'),
+};
 
 module.exports = {
   mode: 'production',
