@@ -1,5 +1,6 @@
-import Introduce from './pages/base/Introduce';
-import scrollbar from './pages/container/Scrollbar';
+import Introduce from '@pages/base/Introduce';
+import scrollbar from '@pages/container/Scrollbar';
+
 export default [
   {
     title: '介绍',

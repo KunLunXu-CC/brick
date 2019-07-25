@@ -1,6 +1,6 @@
 import React from 'react';
-import { Scrollbar } from '../../../../components';
-import '../../../../components/scrollbar/style';
+import { Scrollbar } from '@components';
+import '@components/scrollbar/style';
 
 export default () => {
   return (

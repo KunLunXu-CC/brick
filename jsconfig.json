@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": ["stories/pages/*"],
+      "@components/*": ["components/*"]
+    },
+    "target": "ES6",
+    "module": "es6",
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules"]
+}
