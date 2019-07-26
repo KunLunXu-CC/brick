@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import useElementResize from './useElementResize';
+import useElementResize from './useNew';
 
 const useState = (props) => {
   const modalRef = useRef(null);
