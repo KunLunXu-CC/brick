@@ -37,7 +37,7 @@ const createCover = () => {
  * @param {Number} threshold    容错值 
  * @returns {string}            当前位置
  */
-const getPosition = (e, target, dragRef, threshold) => {
+const getPosition = (e, target, threshold) => {
   const { width, height } = target.getBoundingClientRect();
   const { offsetX, offsetY } = e;
 
@@ -67,7 +67,6 @@ const getPosition = (e, target, dragRef, threshold) => {
  * @returns {String}          返回当前区块位置, 参考 getCursorStyle 方法
  */
 export default (ref, {
-  dragRef = {},
   threshold = 10, 
   resizable = true
 } = {}) => {
@@ -81,7 +80,7 @@ export default (ref, {
 
     const onMouseMove = (e) => {
       if (lock) return;
-      const _position = getPosition(e, target, dragRef, threshold);
+      const _position = getPosition(e, target, threshold);
       setPosition(_position);
       target.style.cursor = getCursorStyle(_position);
       cover.style.cursor = getCursorStyle(_position);
@@ -95,7 +94,7 @@ export default (ref, {
 
     const onMouseDown = (e) => {
       // TODO: 是否可以修改为 e.target 是 target 的子类或者相同
-      if (e.target !== target && e.target !== dragRef.current) return;
+      if (e.target !== target) return;
       e.preventDefault();
       onMouseMove(e);
       lock = true;
