@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 
+// 操作类型和 css cursor 值映射表
 const OPERATION_TYPE_MAP_CURSOR = {
   drag: 'move',
   top: 'n-resize',
@@ -24,7 +25,13 @@ const createCover = () => {
   return cover;
 };
 
-// 获取 originClient
+/**
+ * 获取 originClient 值
+ * @param {Object} e               事件对象
+ * @param {Object} target          目标对象
+ * @param {String} operationType   操作类型
+ * @returns {Object}               源 client
+ */
 const getOriginClient = ({ e, target, operationType }) => {
   const originClient = { x: e.clientX, y: e.clientY };
   if (!!operationType){
@@ -34,11 +41,17 @@ const getOriginClient = ({ e, target, operationType }) => {
     /right/i.test(operationType) && (originClient.x = targetRect.right);
     /bottom/i.test(operationType) && (originClient.y = targetRect.bottom);
   }
-  console.log('originClient::', originClient);
   return originClient;
 };
 
-// 获取 boundary
+/**
+ * 合并计算 boundary 值
+ * @param {Object} boundary        传入 boundary
+ * @param {Object} target          目标对象
+ * @param {String} operationType   操作类型
+ * @param {Number} constraintSize  modal 限制大小
+ * @returns {Object}               限制边界， client 限制范围
+ */
 const getBoundary = ({ boundary, target, operationType, constraintSize }) => {
   const targetParentRect = target.parentNode.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
@@ -55,22 +68,49 @@ const getBoundary = ({ boundary, target, operationType, constraintSize }) => {
   return _boundary;
 };
 
-// TODO: 方法编写， 根据操作类型返回 params
-const getParams = ({ e, originClient, operationType, previousParams, boundary }) => {
-  // 1. 修正 e.clientX e.clientY
-
-  // 2. 根据操作类型计算偏移值
-
-  // 3. 根据操作类型计算 params
-
-  return {};
+/**
+ * 修正 client 值
+ * @param {Object} e          事件对象
+ * @param {Object} boundary   client 限制范围
+ * @returns {Object}          返回当前 { clientX, clientY }
+ */
+const correctClient = (e, boundary) => {
+  const correctValue = (v, min, max) => (
+    v < min ? min : v > max ? max : v
+  );
+    return {
+      clientX: correctValue(e.clientX, boundary.left, boundary.right),
+      clientY: correctValue(e.clientY, boundary.top, boundary.bottom),
+    };
 };
 
 /**
- * # 运动方式有两种： resize drag, 细分为：left right top bottom leftTop rightTop leftBottom rightBottom
- * 
- * 计算需要存储数据： originClient type lock corve
+ * 获取 params 参数值
+ * @param {Object} e                事件对象
+ * @param {Object} originClient     源 client， 鼠标按下时记录的 client
+ * @param {String} operationType    操作类型
+ * @param {Object} previousParams   上一次 params 或者说是操作前 params
+ * @param {Object} boundary         client 限制范围
+ * @returns {Object}                计算后 params
  */
+const getParams = ({ e, originClient, operationType, previousParams, boundary }) => {
+  const { clientX, clientY } = correctClient(e, boundary);
+  const offsetW =
+    /left/i.test(operationType) ? originClient.x - clientX :
+    /right/i.test(operationType) ? clientX - originClient.x : 0;
+  const offsetH =
+    /top/i.test(operationType) ? originClient.y - clientY :
+    /bottom/i.test(operationType) ? clientY - originClient.y : 0;
+
+  const offsetX = /(left|drag)/i.test(operationType) ? clientX - originClient.x : 0;
+  const offsetY = /(top|drag)/i.test(operationType) ? clientY - originClient.y : 0;
+  return {
+    width: previousParams.width + offsetW,
+    height: previousParams.height + offsetH,
+    offsetX: previousParams.offsetX + offsetX,
+    offsetY: previousParams.offsetY + offsetY,
+  };
+};
 
 export default (modakRef, {
   dragRef = {},
@@ -94,9 +134,7 @@ export default (modakRef, {
     let originClient = { x: null, y: null };
     let cover = createCover();
 
-    /* 通用方法: 代码块 */
-
-    // 处理操作类型, 并设置样式
+    // 处理计算 operationType 值, 并设置样式
     const handeOperationType = (event) => {
       let _operationType = operationType;
       if (lock){return false;}
@@ -105,12 +143,12 @@ export default (modakRef, {
       } else {
         const { offsetX, offsetY } = event;
         const { width, height } = target.getBoundingClientRect();
-  
+
         const inTop = offsetY < threshold;
         const inLeft = offsetX < threshold;
         const inRight = width - offsetX < threshold;
         const inBottom = height - offsetY < threshold;
-  
+
         const possibilities = [
           { conds: inLeft && inTop, value: 'leftTop' },
           { conds: inRight && inTop, value: 'rightTop' },
@@ -125,7 +163,6 @@ export default (modakRef, {
         _operationType = possibilities.find(v => v.conds).value;
       }
       if (_operationType === operationType){return false;}
-      console.log('operationType', operationType);
       operationType = _operationType;
       target.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
       cover.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
@@ -133,21 +170,19 @@ export default (modakRef, {
 
     /* 主要控制分支 */
     function onHanding(e){
-      console.log('处理事件');
       tem = getParams({
         e,
-        originClient, 
+        originClient,
         operationType,
-        previousParams, 
-        boundary: _boundary, 
+        previousParams,
+        boundary: _boundary,
       });
       setParams({ ...tem });
-    } 
+    }
 
     function onStop(e){
-      console.log('鼠标弹起');
       previousParams = { ...tem };
-
+      target.style.cursor = 'auto';
       lock = false;
       cover.remove();
       window.removeEventListener('mouseup', onStop);
@@ -155,7 +190,6 @@ export default (modakRef, {
     }
 
     function onStart(e){
-      console.log('鼠标按下');
       handeOperationType(e);
       originClient = getOriginClient({ e, target, operationType });
       _boundary = getBoundary({ boundary, target, operationType, constraintSize });
@@ -165,11 +199,11 @@ export default (modakRef, {
       window.addEventListener('mouseup', onStop);
       window.addEventListener('mousemove', onHanding);
     }
-    
+
     function onHover(e){
-      console.log('鼠标移动');
       handeOperationType(e);
     }
+
     target.addEventListener('mousedown', onStart);
     target.addEventListener('mousemove', onHover);
     return () => {
