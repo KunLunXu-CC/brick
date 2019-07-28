@@ -140,7 +140,7 @@ export default (modakRef, {
       if (lock){return false;}
       if (event.target === drag && event.type === 'mousedown'){
         _operationType = 'drag';
-      } else {
+      } else if (event.target === target){
         const { offsetX, offsetY } = event;
         const { width, height } = target.getBoundingClientRect();
 

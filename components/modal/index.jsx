@@ -15,6 +15,7 @@ export default (props) => {
   return (
     <div ref={state.modalRef}
       style={{
+        padding: 20,
         background: 'red',
         width: state.width,
         height: state.height,
