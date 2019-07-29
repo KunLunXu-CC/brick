@@ -1,13 +1,16 @@
 import classNames from 'classnames';
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 
 import { Icon } from '..';
 
 import useElementResize from './useNew';
 
-const useState = (props) => {
+const useStateHook = (props) => {
   const modalRef = useRef(null);
-  const resizeParams = useElementResize(modalRef, { 
+  const [min, setMin] = useState(props.min);
+  const [max, setMax] = useState(props.max);
+
+  const resizeParams = useElementResize(modalRef, {
     dragRef: props.dragRef,
     threshold: props.threshold,
     defaultParams: props.defaultParams,
@@ -15,8 +18,10 @@ const useState = (props) => {
   });
 
   const params = useMemo(() => {
-    return { ...resizeParams };
-  }, [resizeParams, props.max, props.min]);
+    const _params = { ...resizeParams, ...(props.max || max), ...(props.min || min) };
+    props.onResize && props.onResize({ ..._params });
+    return _params;
+  }, [resizeParams, props.max, props.min, max, min]);
 
   const onClose = (e) => {
     props.onClose && props.onClose(e);
@@ -24,13 +29,20 @@ const useState = (props) => {
   };
 
   const onMin = (e) => {
-    props.onMin && props.onMin(e);
     console.log('min');
+    props.onMin && props.onMin(e);
   };
 
   const onMax = (e) => {
-    props.onMax && props.onMax(e);
-    console.log('max');
+    const parentNodeRect = modalRef.current.parentNode.getBoundingClientRect();
+    const reset = max ? null : {
+      offsetX: 0,
+      offsetY: 0,
+      width: parentNodeRect.width,
+      height: parentNodeRect.height,
+    };
+    props.onMax && props.onMax(e, modalRef);
+    setMax(reset);
   };
 
   return { ...params, modalRef, onClose, onMin, onMax };
@@ -43,7 +55,7 @@ const defaultProps = {
 };
 
 const Modal = (props) => {
-  const state = useState(props);
+  const state = useStateHook(props);
   return (
     <div
       ref={state.modalRef}
@@ -59,20 +71,20 @@ const Modal = (props) => {
         <span
           className={classNames('qyrc-modal-tool', props.toolClassName)}
           style={{ top: props.threshold, left: props.threshold, ...props.toolStyle }}>
-          <Icon 
-            type="icon-guanbi6-copy" 
+          <Icon
+            type="icon-guanbi6-copy"
             onClick={state.onClose}
-            className="qyrc-modal-tool-item qyrc-modal-tool-close" 
+            className="qyrc-modal-tool-item qyrc-modal-tool-close"
           />
           <Icon
-            type="icon-suoxiao" 
+            type="icon-suoxiao"
             onClick={state.onMin}
-            className="qyrc-modal-tool-item qyrc-modal-tool-max" 
+            className="qyrc-modal-tool-item qyrc-modal-tool-max"
           />
           <Icon
-            type="icon-suoxiao2" 
+            type="icon-suoxiao2"
             onClick={state.onMax}
-            className="qyrc-modal-tool-item qyrc-modal-tool-min" 
+            className="qyrc-modal-tool-item qyrc-modal-tool-min"
           />
         </span>
         {props.children}
