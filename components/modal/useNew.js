@@ -122,8 +122,8 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {Object} defaultParams     默认 params 参数
  */
 export default (modakRef, {
-  dragRef = {},
   threshold = 10,
+  dragRef = null,
   boundary = null,
   constraintSize = 200,
   defaultParams = { width: 500, height: 500, offsetX: 0, offsetY: 0 },
@@ -133,7 +133,6 @@ export default (modakRef, {
   useEffect(() => {
     if (!modakRef || !modakRef.current){return false;}
     const target = modakRef.current;
-    const drag = dragRef.current;
 
     let tem = null;
     let lock = false;
@@ -147,7 +146,7 @@ export default (modakRef, {
     const handeOperationType = (event) => {
       let _operationType = operationType;
       if (lock){return false;}
-      if (event.target === drag && event.type === 'mousedown'){
+      if (dragRef && event.target === dragRef.current && event.type === 'mousedown'){
         _operationType = 'drag';
       } else if (event.target === target){
         const { offsetX, offsetY } = event;

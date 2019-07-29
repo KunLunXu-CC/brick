@@ -1,0 +1,16 @@
+.qyrc-modal {
+  position: absolute;
+  background: rgba(255, 0, 0, 0.1);
+};
+
+.qyrc-modal-body {
+  position: relative;
+};
+
+.qyrc-modal-tool {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background: red;
+}

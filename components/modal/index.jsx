@@ -1,18 +1,19 @@
 import classNames from 'classnames';
 import React, { useRef } from 'react';
 
+import { Icon } from '..';
+
 import useElementResize from './useNew';
 
 const useState = (props) => {
   const modalRef = useRef(null);
-  const dragRef = useRef(null);
   const params = useElementResize(modalRef, { 
-    dragRef,
+    dragRef: props.dragRef,
     threshold: props.threshold,
     defaultParams: props.defaultParams,
     constraintSize: props.constraintSize,
   });
-  return { ...params, modalRef, dragRef };
+  return { ...params, modalRef };
 };
 
 const defaultProps = {
@@ -35,8 +36,19 @@ const Modal = (props) => {
       }}
       className={classNames('qyrc-modal', props.className)}
     >
-      <div ref={state.dragRef} style={{ background: 'blue' }}>拖拽目标</div>
-      {props.children}
+      <div className="qyrc-modal-body">
+        <span className="qyrc-modal-tool" onMouseDown={(e) => {
+          e.nativeEvent.stopImmediatePropagation();
+          e.stopPropagation();
+        }}>
+          <Icon type="icon-guanbi6-copy" onClick={(e) => {
+            
+          }}/>
+          <Icon type="icon-suoxiao2" />
+          <Icon type="icon-suoxiao" />
+        </span>
+        {props.children}
+      </div>
     </div>
   );
 };
