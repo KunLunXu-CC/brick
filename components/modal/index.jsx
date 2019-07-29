@@ -30,7 +30,6 @@ const Modal = (props) => {
       style={{
         width: state.width,
         height: state.height,
-        padding: props.threshold * 1.5,
         transform: `translate(${state.offsetX}px, ${state.offsetY}px)`,
         ...props.style,
       }}
@@ -49,6 +48,9 @@ const Modal = (props) => {
         </span>
         {props.children}
       </div>
+      {/* <div style={{ width: '100%', height: '100%' }}>
+
+      </div> */}
     </div>
   );
 };

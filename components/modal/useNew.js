@@ -146,30 +146,36 @@ export default (modakRef, {
     const handeOperationType = (event) => {
       let _operationType = operationType;
       if (lock){return false;}
-      if (dragRef && event.target === dragRef.current && event.type === 'mousedown'){
-        _operationType = 'drag';
-      } else if (event.target === target){
-        const { offsetX, offsetY } = event;
-        const { width, height } = target.getBoundingClientRect();
+      
+      // 1. resize 相关处理
+      const targetRect = target.getBoundingClientRect();
+      const inTop = event.clientY - targetRect.top < threshold;
+      const inLeft = event.clientX - targetRect.left < threshold;
+      const inRight = targetRect.right - event.clientX < threshold;
+      const inBottom = targetRect.bottom - event.clientY < threshold;
 
-        const inTop = offsetY < threshold;
-        const inLeft = offsetX < threshold;
-        const inRight = width - offsetX < threshold;
-        const inBottom = height - offsetY < threshold;
+      const possibilities = [
+        { conds: inLeft && inTop, value: 'leftTop' },
+        { conds: inRight && inTop, value: 'rightTop' },
+        { conds: inLeft && inBottom, value: 'leftBottom' },
+        { conds: inRight && inBottom, value: 'rightBottom' },
+        { conds: inBottom, value: 'bottom' },
+        { conds: inRight, value: 'right' },
+        { conds: inLeft, value: 'left' },
+        { conds: inTop, value: 'top' },
+        { conds: true, value: null },
+      ];
+      _operationType = possibilities.find(v => v.conds).value;
 
-        const possibilities = [
-          { conds: inLeft && inTop, value: 'leftTop' },
-          { conds: inRight && inTop, value: 'rightTop' },
-          { conds: inLeft && inBottom, value: 'leftBottom' },
-          { conds: inRight && inBottom, value: 'rightBottom' },
-          { conds: inBottom, value: 'bottom' },
-          { conds: inRight, value: 'right' },
-          { conds: inLeft, value: 'left' },
-          { conds: inTop, value: 'top' },
-          { conds: true, value: null },
-        ];
-        _operationType = possibilities.find(v => v.conds).value;
-      }
+      // 2. 拖拽处理
+      const conds = [
+        !_operationType,
+        event.type === 'mousedown',
+        !!dragRef && event.target === dragRef.current,
+      ];
+      conds.every(v => v) && ( _operationType = 'drag');
+
+      // 3. 业务处理
       if (_operationType === operationType){return false;}
       operationType = _operationType;
       target.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
@@ -190,7 +196,6 @@ export default (modakRef, {
 
     function onStop(e){
       previousParams = { ...tem };
-      target.style.cursor = 'auto';
       lock = false;
       cover.remove();
       window.removeEventListener('mouseup', onStop);
@@ -203,7 +208,7 @@ export default (modakRef, {
       _boundary = getBoundary({ boundary, target, operationType, constraintSize });
 
       lock = true;
-      document.body.appendChild(cover);
+      !!operationType && document.body.appendChild(cover);
       window.addEventListener('mouseup', onStop);
       window.addEventListener('mousemove', onHanding);
     }

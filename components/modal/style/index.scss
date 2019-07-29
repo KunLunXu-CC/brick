@@ -9,8 +9,12 @@
 
 .qyrc-modal-tool {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 20px;
+  left: 20px;
+
+  height: 100px;
+  width: 100px;
+  margin: 20px;
 
   background: red;
 }
