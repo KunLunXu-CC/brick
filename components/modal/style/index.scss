@@ -7,14 +7,35 @@
   position: relative;
 };
 
+/* 工具栏 */
 .qyrc-modal-tool {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  cursor: pointer;
+  color: transparent;
 
-  height: 100px;
-  width: 100px;
-  margin: 20px;
+  &:hover{
+    color: #333;
+  }
+  &-item {
+    border-radius: 50%;
+    font-size: 18px;
+    padding: 2px;
+    margin: {
+      left: 5px;
+      right: 5px;
+    };
+  }
 
-  background: red;
+  &-close {
+    background: #ff625a;
+  }
+
+  &-min {
+    background: #ffc12f;
+  }
+
+  &-max {
+    background: #29ce42;
+  }
 }
+

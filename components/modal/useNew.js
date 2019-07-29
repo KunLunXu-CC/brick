@@ -122,7 +122,7 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {Object} defaultParams     默认 params 参数
  */
 export default (modakRef, {
-  threshold = 10,
+  threshold = 5,
   dragRef = null,
   boundary = null,
   constraintSize = 200,
