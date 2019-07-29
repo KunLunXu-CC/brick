@@ -7,8 +7,8 @@ import useElementResize from './useNew';
 
 const useStateHook = (props) => {
   const modalRef = useRef(null);
-  const [min, setMin] = useState(props.min);
-  const [max, setMax] = useState(props.max);
+  const [isMin, setIsMin] = useState(props.isMin || false);
+  const [isMax, setIsMax] = useState(props.isMax || false);
 
   const resizeParams = useElementResize(modalRef, {
     dragRef: props.dragRef,
@@ -18,8 +18,23 @@ const useStateHook = (props) => {
   });
 
   const params = useMemo(() => {
-    const _params = { ...resizeParams, ...(props.max || max), ...(props.min || min) };
+    const parentNodeRect = modalRef.current.parentNode.getBoundingClientRect();
+    const max = isMax ? props.maxParams || {
+      offsetX: 0,
+      offsetY: 0,
+      width: parentNodeRect.width,
+      height: parentNodeRect.height,
+    } : null;
+
+    const min = isMin ? props.minParams || {
+      offsetX: 0,
+      offsetY: 0,
+      width: 100,
+      height: 100,
+    } : null;
+    const _params = { ...resizeParams, ...max, ...min };
     props.onResize && props.onResize({ ..._params });
+    setMax(_params);
     return _params;
   }, [resizeParams, props.max, props.min, max, min]);
 
@@ -34,15 +49,8 @@ const useStateHook = (props) => {
   };
 
   const onMax = (e) => {
-    const parentNodeRect = modalRef.current.parentNode.getBoundingClientRect();
-    const reset = max ? null : {
-      offsetX: 0,
-      offsetY: 0,
-      width: parentNodeRect.width,
-      height: parentNodeRect.height,
-    };
-    props.onMax && props.onMax(e, modalRef);
-    setMax(reset);
+    setIsMax(!isMax);
+    props.onMax && props.onMax(e, !isMax);
   };
 
   return { ...params, modalRef, onClose, onMin, onMax };
