@@ -1,10 +1,11 @@
 import React from 'react';
 import { Modal } from '../../../../components';
 import '../../../../components/modal/style';
+import './index.scss';
 
 export default () => {
   return (
-    <div style={{ width: 500, height: 500, background: 'rgba(0, 255, 0, 0.1)', margin: 50 }}>
+    <div className="modal-demo">
       <Modal>
         this is modal
       </Modal>

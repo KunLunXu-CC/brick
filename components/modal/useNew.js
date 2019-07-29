@@ -21,7 +21,7 @@ const createCover = () => {
   cover.style.left = 0;
   cover.style.right = 0;
   cover.style.bottom = 0;
-  cover.style.background = 'rgba(255, 0, 0, 0.1)';
+
   return cover;
 };
 
@@ -112,12 +112,21 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
   };
 };
 
+/**
+ * 弹窗 hook
+ * @param {Object} modakRef          弹窗 ref
+ * @param {Object} dragRef           可拖拽元素 ref
+ * @param {NUmber} threshold         容错率
+ * @param {Object} boundary          边界限制， 默认为弹窗父原始 rect
+ * @param {Number} constraintSize    宽高限制大小(最小宽、高)
+ * @param {Object} defaultParams     默认 params 参数
+ */
 export default (modakRef, {
   dragRef = {},
   threshold = 10,
   boundary = null,
-  constraintSize = 100,
-  defaultParams = { width: 100, height: 100, offsetX: 0, offsetY: 0 },
+  constraintSize = 200,
+  defaultParams = { width: 500, height: 500, offsetX: 0, offsetY: 0 },
 } = {}) => {
   const [params, setParams] = useState(defaultParams);
 
