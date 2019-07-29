@@ -38,7 +38,9 @@
     "url": "https://github.com/qianyin925/qyrc/issues"
   },
   "homepage": "https://github.com/qianyin925/qyrc#readme",
-  "dependencies": {},
+  "dependencies": {
+    "classnames": "^2.2.6"
+  },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",

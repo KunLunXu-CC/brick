@@ -40,6 +40,7 @@ module.exports = {
     "no-unneeded-ternary": "error",
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
+    "no-extra-boolean-cast": "off",
     "no-use-before-define": ["error", "nofunc"],
     "no-var": "error",
     "prefer-arrow-callback": "error",

@@ -6,3 +6,4 @@ node_modules
 dist
 .vscode
 **/*.snap
+/components/**/**/iconfont.js

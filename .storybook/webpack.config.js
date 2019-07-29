@@ -13,7 +13,7 @@ module.exports = {
     rules: [
       { // js 模块打包
         test: /\.(mjs|js|jsx)$/,
-        exclude: [ path.resolve(__dirname, 'node_modules') ],
+        exclude: [ path.resolve(__dirname, 'node_modules')],
         use: ['babel-loader', 'eslint-loader']
       }, { // 样式文件打包
         test: /\.(css|scss)$/,
