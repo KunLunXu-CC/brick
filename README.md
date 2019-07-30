@@ -83,3 +83,55 @@ npm run commit
 ```shell
 npm run build:publish
 ```
+
+## 版本发布流程
+
+### github 版本发布
+
+- 拉取远程仓库数据
+
+```shell
+git checkout master
+git pull origin master
+# 拉取远程数据包括 tag 信息
+git fetch origin --prune
+```
+
+- 版本发布， 生成 changelog 和  tag
+
+```shell
+# 1.0.0 表示当前要发布的版本
+npm run release -- --release-as 1.1.0
+```
+
+- push commit 和 tag 到远程
+
+```shell
+git push --follow-tags origin master
+```
+
+- 创建 github releases: 直接讲 changelog 当前版本信息拷贝过去
+
+### npm 包发布
+
+- npm 包编译
+
+```shell
+npm run build:publish
+```
+
+- 发布包
+
+```shell
+# 1. 切换官方源头
+npm config set registry http://registry.npmjs.org
+
+# 2. 登录 npm
+npm login
+
+# 3. 发布包
+npm publish --access public
+
+# 4. 如果需要则切换回淘宝源
+npm config set registry https://registry.npm.taobao.org/
+```
