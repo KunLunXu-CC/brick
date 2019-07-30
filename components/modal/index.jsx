@@ -1,10 +1,43 @@
 import _ from 'lodash';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 
 import { Icon } from '..';
-
 import useResize from './useResize';
+
+// props 默认值
+const defaultProps = {
+  threshold: 5,
+  constraintSize: 200,
+  defaultParams: { width: 500, height: 500, offsetX: 0, offsetY: 0 },
+};
+
+// props 参数校验
+const paramsType =  PropTypes.shape({
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  offsetX: PropTypes.number.isRequired,
+  offsetY: PropTypes.number.isRequired,
+});
+const propTypes = {
+  threshold: PropTypes.number,
+  constraintSize: PropTypes.number,
+  defaultParams: paramsType,
+  minParams: paramsType,
+  maxParams: paramsType,
+  dragRef: PropTypes.object,
+  style: PropTypes.object,
+  className: PropTypes.string,
+  toolStyle: PropTypes.object,
+  toolClassName: PropTypes.string,
+  isMin: PropTypes.bool,
+  isMax: PropTypes.bool,
+  onClose: PropTypes.func,
+  onMin: PropTypes.func,
+  onMax: PropTypes.func,
+  onResize: PropTypes.func,
+};
 
 const useStateHook = (props) => {
   // modal 弹窗最外层元素  ref
@@ -39,36 +72,30 @@ const useStateHook = (props) => {
       };
     }
     const _params = { ...resizeParams, ...maxParams, ...minParams };
-    props.onResize && props.onResize({ ..._params });
+    _.isFunction(props.onResize) && props.onResize({ ..._params });
     return _params;
   }, [resizeParams, isMax, isMin]);
 
   // 关闭事件
   const onClose = (e) => {
-    props.onClose && props.onClose(e);
+    _.isFunction(props.onClose) && props.onClose(e);
   };
 
   // 最小化事件
   const onMin = (e) => {
     const reset = !isMin;
     _.has(props, 'isMin') ? null : setIsMin(reset);
-    props.onMin && props.onMin(e, reset);
+    _.isFunction(props.onMin) && props.onMin(e, reset);
   };
 
   // 最大化事件
   const onMax = (e) => {
     const reset = !isMax;
     _.has(props, 'isMax') ? null : setIsMax(reset);
-    props.onMax && props.onMax(e, reset);
+    _.isFunction(props.onMax) && props.onMax(e, reset);
   };
 
   return { ...params, modalRef, onClose, onMin, onMax, isMax, isMin };
-};
-
-const defaultProps = {
-  threshold: 5,
-  constraintSize: 200,
-  defaultParams: { width: 500, height: 500, offsetX: 0, offsetY: 0 },
 };
 
 const Modal = (props) => {
@@ -114,5 +141,5 @@ const Modal = (props) => {
 };
 
 Modal.defaultProps = defaultProps;
-
+Modal.propTypes = propTypes;
 export default Modal;
