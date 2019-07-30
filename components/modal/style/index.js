@@ -1,2 +1,5 @@
-// 如果组件需要额外样式文件则需要一同引入
+// 当前组件样式
 import './index.scss';
+
+// Icon 组件样式
+import '../../Icon/style';

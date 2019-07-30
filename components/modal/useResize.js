@@ -1,5 +1,14 @@
 import { useState, useMemo, useEffect } from 'react';
 
+// 改 hook 默认参数
+const DEFAULT_OPTION = {
+  threshold: 5,
+  dragRef: null,
+  boundary: null,
+  constraintSize: 200,
+  defaultParams: { width: 500, height: 500, offsetX: 0, offsetY: 0 },
+};
+
 // 操作类型和 css cursor 值映射表
 const OPERATION_TYPE_MAP_CURSOR = {
   drag: 'move',
@@ -122,18 +131,17 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {Object} defaultParams     默认 params 参数
  */
 export default (modakRef, {
-  dragRef = {},
-  threshold = 10,
-  boundary = null,
-  constraintSize = 200,
-  defaultParams = { width: 500, height: 500, offsetX: 0, offsetY: 0 },
+  threshold = DEFAULT_OPTION.threshold,
+  dragRef = DEFAULT_OPTION.dragRef,
+  boundary = DEFAULT_OPTION.boundary,
+  constraintSize = DEFAULT_OPTION.constraintSize,
+  defaultParams = DEFAULT_OPTION.defaultParams,
 } = {}) => {
   const [params, setParams] = useState(defaultParams);
 
   useEffect(() => {
     if (!modakRef || !modakRef.current){return false;}
     const target = modakRef.current;
-    const drag = dragRef.current;
 
     let tem = null;
     let lock = false;
@@ -147,38 +155,44 @@ export default (modakRef, {
     const handeOperationType = (event) => {
       let _operationType = operationType;
       if (lock){return false;}
-      if (event.target === drag && event.type === 'mousedown'){
-        _operationType = 'drag';
-      } else if (event.target === target){
-        const { offsetX, offsetY } = event;
-        const { width, height } = target.getBoundingClientRect();
+      
+      // 1. resize 相关处理
+      const targetRect = target.getBoundingClientRect();
+      const inTop = event.clientY - targetRect.top < threshold;
+      const inLeft = event.clientX - targetRect.left < threshold;
+      const inRight = targetRect.right - event.clientX < threshold;
+      const inBottom = targetRect.bottom - event.clientY < threshold;
 
-        const inTop = offsetY < threshold;
-        const inLeft = offsetX < threshold;
-        const inRight = width - offsetX < threshold;
-        const inBottom = height - offsetY < threshold;
+      const possibilities = [
+        { conds: inLeft && inTop, value: 'leftTop' },
+        { conds: inRight && inTop, value: 'rightTop' },
+        { conds: inLeft && inBottom, value: 'leftBottom' },
+        { conds: inRight && inBottom, value: 'rightBottom' },
+        { conds: inBottom, value: 'bottom' },
+        { conds: inRight, value: 'right' },
+        { conds: inLeft, value: 'left' },
+        { conds: inTop, value: 'top' },
+        { conds: true, value: null },
+      ];
+      _operationType = possibilities.find(v => v.conds).value;
 
-        const possibilities = [
-          { conds: inLeft && inTop, value: 'leftTop' },
-          { conds: inRight && inTop, value: 'rightTop' },
-          { conds: inLeft && inBottom, value: 'leftBottom' },
-          { conds: inRight && inBottom, value: 'rightBottom' },
-          { conds: inBottom, value: 'bottom' },
-          { conds: inRight, value: 'right' },
-          { conds: inLeft, value: 'left' },
-          { conds: inTop, value: 'top' },
-          { conds: true, value: null },
-        ];
-        _operationType = possibilities.find(v => v.conds).value;
-      }
+      // 2. 拖拽处理
+      const conds = [
+        !_operationType,
+        event.type === 'mousedown',
+        !!dragRef && event.target === dragRef.current,
+      ];
+      conds.every(v => v) && ( _operationType = 'drag');
+
+      // 3. 业务处理
       if (_operationType === operationType){return false;}
       operationType = _operationType;
       target.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
       cover.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
     };
 
-    /* 主要控制分支 */
-    function onHanding(e){
+    // 改变大小处理中事件： mouseMove
+    const onHanding = (e) => {
       tem = getParams({
         e,
         originClient,
@@ -189,26 +203,28 @@ export default (modakRef, {
       setParams({ ...tem });
     }
 
-    function onStop(e){
-      previousParams = { ...tem };
-      target.style.cursor = 'auto';
+    // 结束操作事件: mouseUp
+    const onStop = (e) => {
+      previousParams = { ...previousParams, ...tem };
       lock = false;
       cover.remove();
       window.removeEventListener('mouseup', onStop);
       window.removeEventListener('mousemove', onHanding);
     }
 
-    function onStart(e){
+    // 操作开始事件: mouseDown
+    const onStart = (e) => {
       handeOperationType(e);
       originClient = getOriginClient({ e, target, operationType });
       _boundary = getBoundary({ boundary, target, operationType, constraintSize });
 
       lock = true;
-      document.body.appendChild(cover);
+      !!operationType && document.body.appendChild(cover);
       window.addEventListener('mouseup', onStop);
       window.addEventListener('mousemove', onHanding);
     }
 
+    // 鼠标悬停事件: mouseMove
     function onHover(e){
       handeOperationType(e);
     }
