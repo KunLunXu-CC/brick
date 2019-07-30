@@ -136,14 +136,8 @@ npm publish --access public
 npm config set registry https://registry.npm.taobao.org/
 ```
 
-### 封锁当前版本并开始新的版本迭代
+### 锁死当前开发分支并开始新的版本迭代
 
-- 将当前版本的开发分支合并到 master
+- 将当前开发分支(dev)分支名修改为当前版本 v1.1.0
 
-- 将当前分支名修改为当前版本 v1.1.0
-
-```shell
-
-```
-
-- 回到 master 开启一个新的分支 dev-next 开始新的迭代
+- 并重新切一个 dev 分支
