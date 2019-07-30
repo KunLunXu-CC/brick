@@ -140,4 +140,26 @@ npm config set registry https://registry.npm.taobao.org/
 
 - 将当前开发分支(dev)分支名修改为当前版本 v1.1.0
 
+```shell
+# 1.将本地分支改名 old_branch 为可选参数，默认修改当前分支名
+git branch –m old_branch new_branch
+
+# 2.将本地分支的远程删除
+git push origin :old_branch
+
+# 3将新分支推到远程
+git push --set-upstream origin new_branch
+
+# 3.1 如果报以下错误： 则请删除最新 tag 后重新 push
+error: src refspec v1.1.1 matches more than one.
+error: 无法推送一些引用到 'https://github.com/qianyin925/qyrc.git'
+
+# 3.2 查看所有 tag
+git tag
+
+# 3.3 删除　tag
+git tag -d v1.1.1
+
+```
+
 - 并重新切一个 dev 分支
