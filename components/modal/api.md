@@ -22,6 +22,3 @@
 | onResize       | params 改变时触发函数，初始化时也会执行一次 | Function<br/> ({ offsetX, offsetY, width, height }) => {} | --- |
 
 ## 二、 TODO
-
-- 快速点击 drag 区域后拖拽将会报错
-- props 数据校验

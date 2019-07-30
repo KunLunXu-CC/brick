@@ -205,7 +205,7 @@ export default (modakRef, {
 
     // 结束操作事件: mouseUp
     const onStop = (e) => {
-      previousParams = { ...tem };
+      previousParams = { ...previousParams, ...tem };
       lock = false;
       cover.remove();
       window.removeEventListener('mouseup', onStop);
