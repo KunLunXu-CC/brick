@@ -182,8 +182,8 @@ export default (modakRef, {
       cover.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
     };
 
-    /* 主要控制分支 */
-    function onHanding(e){
+    // 改变大小处理中事件： mouseMove
+    const onHanding = (e) => {
       tem = getParams({
         e,
         originClient,
@@ -194,7 +194,8 @@ export default (modakRef, {
       setParams({ ...tem });
     }
 
-    function onStop(e){
+    // 结束操作事件: mouseUp
+    const onStop = (e) => {
       previousParams = { ...tem };
       lock = false;
       cover.remove();
@@ -202,7 +203,8 @@ export default (modakRef, {
       window.removeEventListener('mousemove', onHanding);
     }
 
-    function onStart(e){
+    // 操作开始事件: mouseDown
+    const onStart = (e) => {
       handeOperationType(e);
       originClient = getOriginClient({ e, target, operationType });
       _boundary = getBoundary({ boundary, target, operationType, constraintSize });
@@ -213,6 +215,7 @@ export default (modakRef, {
       window.addEventListener('mousemove', onHanding);
     }
 
+    // 鼠标悬停事件: mouseMove
     function onHover(e){
       handeOperationType(e);
     }

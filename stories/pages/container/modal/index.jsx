@@ -15,12 +15,10 @@ export default (props) => {
   return (
     <div className="modal-demo">
       <Modal dragRef={state.dragRef}>
-        <div ref={state.dragRef} style={{
-          background: 'pink',
-          height: '50px',
-          width: '200px'
-        }}>拖拽区域</div>
-        this is modal
+        <div style={{ width: '100%', height: '100%', background: '#04071b' }}>
+          <div ref={state.dragRef} style={{ height: 80}}>拖拽区域
+          </div>
+        </div>
       </Modal>
     </div>
   );
