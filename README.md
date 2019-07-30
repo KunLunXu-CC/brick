@@ -91,8 +91,6 @@ npm run build:publish
 - 拉取远程仓库数据
 
 ```shell
-git checkout master
-git pull origin master
 # 拉取远程数据包括 tag 信息
 git fetch origin --prune
 ```
@@ -107,7 +105,7 @@ npm run release -- --release-as 1.1.0
 - push commit 和 tag 到远程
 
 ```shell
-git push --follow-tags origin master
+git push --follow-tags
 ```
 
 - 创建 github releases: 直接讲 changelog 当前版本信息拷贝过去
@@ -139,5 +137,16 @@ npm config set registry https://registry.npm.taobao.org/
 ### 锁死当前开发分支并开始新的版本迭代
 
 - 将当前开发分支(dev)分支名修改为当前版本 v1.1.0
+
+```shell
+# 1.将本地分支改名
+git branch –m old_branch new_branch
+
+# 2.将本地分支的远程删除
+git push origin :old_branch
+
+# 3将新分支推到远程
+git push --set-upstream origin new_branch
+```
 
 - 并重新切一个 dev 分支
