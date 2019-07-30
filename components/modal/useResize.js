@@ -1,5 +1,14 @@
 import { useState, useMemo, useEffect } from 'react';
 
+// 改 hook 默认参数
+const DEFAULT_OPTION = {
+  threshold: 5,
+  dragRef: null,
+  boundary: null,
+  constraintSize: 200,
+  defaultParams: { width: 500, height: 500, offsetX: 0, offsetY: 0 },
+};
+
 // 操作类型和 css cursor 值映射表
 const OPERATION_TYPE_MAP_CURSOR = {
   drag: 'move',
@@ -122,11 +131,11 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {Object} defaultParams     默认 params 参数
  */
 export default (modakRef, {
-  threshold = 5,
-  dragRef = null,
-  boundary = null,
-  constraintSize = 200,
-  defaultParams = { width: 500, height: 500, offsetX: 0, offsetY: 0 },
+  threshold = DEFAULT_OPTION.threshold,
+  dragRef = DEFAULT_OPTION.dragRef,
+  boundary = DEFAULT_OPTION.boundary,
+  constraintSize = DEFAULT_OPTION.constraintSize,
+  defaultParams = DEFAULT_OPTION.defaultParams,
 } = {}) => {
   const [params, setParams] = useState(defaultParams);
 

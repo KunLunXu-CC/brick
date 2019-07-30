@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import classNames from 'classnames';
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 
 import { Icon } from '..';
 
@@ -9,10 +9,10 @@ import useResize from './useResize';
 const useStateHook = (props) => {
   // modal 弹窗最外层元素  ref
   const modalRef = useRef(null);
-  // 用于存储最小化状态， 值为当前最小化时 params 值或者 null, 根据值可判断当前是否处于最小化状态
-  const [min, setMin] = useState(props.isMin ? props.minParams : null);
-  // 用于存储最大化状态， 值为当前最大化时 params 值或者 null, 根据值可判断当前是否处于最大化状态
-  const [max, setMax] = useState(props.isMax ? props.maxParams : null);
+  // 监听当前 modal 是否为最小化状态
+  const [isMin, setIsMin] = useState(false);
+  // 监听当前 modal 是否为最大化状态
+  const [isMax, setIsMax] = useState(false);
 
   // 改变 modal 大小计算返回的 params
   const resizeParams = useResize(modalRef, {
@@ -22,32 +22,26 @@ const useStateHook = (props) => {
     constraintSize: props.constraintSize,
   });
 
-  // 判断当前 modal 状态是否为最小化
-  const isMin = useMemo(() => ( 
-    _.has(props, 'isMin') ? props.isMin : !!min
-  ), [props.isMin, min]);
-
-  // 判断当前 modal 状态是否为最大化
-  const isMax = useMemo(() => (
-    _.has(props, 'isMax') ? props.isMax : !!max
-  ), [props.isMax, max]);
-  
-  // 计算最小化 params 值
-  const minParams = useMemo(() => (
-    isMin ? props.minParams || min : null
-  ), [isMin, props.minParams, min]);
-
-  // 计算最大化 params 值
-  const maxParams = useMemo(() => (
-    isMax ? props.maxParams || max : null
-  ), [isMax, props.maxParams, max]);
+  useEffect(() => {setIsMin(!!props.isMin);}, [props.isMin]);
+  useEffect(() => {setIsMax(!!props.isMax);}, [props.isMax]);
 
   // 合并计算当前 modal params
   const params = useMemo(() => {
+    const minParams = isMin ? props.minParams || props.defaultParams : null;
+    let maxParams = null;
+    if (modalRef.current && isMax){
+      const parentNodeRect = modalRef.current.parentNode.getBoundingClientRect();
+      maxParams = props.maxParams || {
+        offsetX: 0,
+        offsetY: 0,
+        width: parentNodeRect.width,
+        height: parentNodeRect.height,
+      };
+    }
     const _params = { ...resizeParams, ...maxParams, ...minParams };
     props.onResize && props.onResize({ ..._params });
     return _params;
-  }, [resizeParams, minParams, maxParams]);
+  }, [resizeParams, isMax, isMin]);
 
   // 关闭事件
   const onClose = (e) => {
@@ -56,21 +50,16 @@ const useStateHook = (props) => {
 
   // 最小化事件
   const onMin = (e) => {
-    setMin(min ? null : { ...props.defaultParams });
-    props.onMin && props.onMin(e);
+    const reset = !isMin;
+    _.has(props, 'isMin') ? null : setIsMin(reset);
+    props.onMin && props.onMin(e, reset);
   };
 
   // 最大化事件
   const onMax = (e) => {
-    const parentNodeRect = modalRef.current.parentNode.getBoundingClientRect();
-    const reset = !!max ? null : props.maxParams || {
-      offsetX: 0,
-      offsetY: 0,
-      width: parentNodeRect.width,
-      height: parentNodeRect.height,
-    };
-    setMax(reset);
-    props.onMax && props.onMax(e, !!max);
+    const reset = !isMax;
+    _.has(props, 'isMax') ? null : setIsMax(reset);
+    props.onMax && props.onMax(e, reset);
   };
 
   return { ...params, modalRef, onClose, onMin, onMax, isMax, isMin };
