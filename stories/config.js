@@ -1,7 +1,8 @@
-import ModalDemo from '@pages//container/modal';
+import ModalDemo from '@pages//container/Modal';
 import Introduce from '@pages/base/Introduce';
 import IconDemo from '@pages/currency/Icon';
 import scrollbar from '@pages/container/Scrollbar';
+import Image from '@pages/container/Image';
 
 export default [
   /***** 基本 *****/  
@@ -26,5 +27,10 @@ export default [
     title: '弹窗',
     module: '容器',
     component: ModalDemo
+  },
+  {
+    title: '图片',
+    module: '容器',
+    component: Image
   }
 ];

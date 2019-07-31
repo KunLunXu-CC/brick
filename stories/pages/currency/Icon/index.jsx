@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Icon } from '@components';
-import '@components/Icon/style';
+import '@components/icon/style';
 
 import '../../../assets/iconfont/iconfont.js';
 

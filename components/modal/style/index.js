@@ -2,4 +2,4 @@
 import './index.scss';
 
 // Icon 组件样式
-import '../../Icon/style';
+import '../../icon/style';
