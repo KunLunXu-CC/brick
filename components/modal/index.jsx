@@ -1,10 +1,31 @@
 import _ from 'lodash';
+import omit from 'omit.js';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 
 import { Icon } from '..';
 import useResize from './useResize';
+
+// omit 需要过滤 props key 列表
+const filterPropKeys = [
+  'isMin',
+  'style',
+  'isMax',
+  'onMin',
+  'onMax',
+  'onClose',
+  'onResize',
+  'minParams',
+  'className',
+  'toolStyle',
+  'maxParams',
+  'threshold',
+  'dragHeight',
+  'toolClassName',
+  'defaultParams',
+  'constraintSize',
+];
 
 // props 默认值
 const defaultProps = {
@@ -33,7 +54,6 @@ const propTypes = {
   toolClassName: PropTypes.string,
   isMin: PropTypes.bool,
   isMax: PropTypes.bool,
-  onClick: PropTypes.func,
   onClose: PropTypes.func,
   onMin: PropTypes.func,
   onMax: PropTypes.func,
@@ -77,11 +97,6 @@ const useStateHook = (props) => {
     return _params;
   }, [resizeParams, isMax, isMin]);
 
-  // 点击事件
-  const onClick = (e) => {
-    _.isFunction(props.onClick) && props.onClick(e);
-  }
-
   // 关闭事件
   const onClose = (e) => {
     _.isFunction(props.onClose) && props.onClose(e);
@@ -101,7 +116,7 @@ const useStateHook = (props) => {
     _.isFunction(props.onMax) && props.onMax(e, reset);
   };
 
-  return { ...params, modalRef, onClick, onClose, onMin, onMax, isMax, isMin };
+  return { ...params, modalRef, onClose, onMin, onMax, isMax, isMin };
 };
 
 const Modal = (props) => {
@@ -109,7 +124,6 @@ const Modal = (props) => {
   return (
     <div
       ref={state.modalRef}
-      onClick={state.onClick}
       style={{
         width: state.width,
         height: state.height,
@@ -120,7 +134,8 @@ const Modal = (props) => {
         'qyrc-modal', 
         props.className, 
         { 'qyrc-modal-min': state.isMin, 'qyrc-modal-max': state.isMax }
-      )}>
+      )}
+      {...omit(props, filterPropKeys)}>
       <div className="qyrc-modal-body">
         <span
           className={classNames('qyrc-modal-tool', props.toolClassName)}

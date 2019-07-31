@@ -40,6 +40,7 @@
   "homepage": "https://github.com/qianyin925/qyrc#readme",
   "dependencies": {
     "classnames": "^2.2.6",
+    "omit.js": "^1.0.2",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {

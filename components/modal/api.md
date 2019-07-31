@@ -16,7 +16,6 @@
 | isMax          | 当前 modal 是否为最大化                  | Boolean                                                   | --- |
 | maxParams      | modal 最大化时 params 值                | Object                                                    | --- |
 | minParams      | modal 最小化时 params 值                | Object                                                    | --- |
-| onClick        | 点击 modal 事件                         | Function<br/>(e) => {}                                   | --- |
 | onClose        | 点击关闭时触发事件                        | Function<br/>(e) => {}                                   | --- |
 | onMin          | 点击最小化时触发事件                      | Function<br/>(e, isMin) => {}                             | --- |
 | onMax          | 点击最大化时触发事件                      | Function<br/>(e, isMax) => {}                             | --- |
