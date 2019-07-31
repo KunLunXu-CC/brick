@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/qianyin925/qyrc/compare/v1.1.0...v1.1.2) (2019-07-31)
+
+
+### Bug Fixes
+
+* modal 拖拽区域限制方式修改、同时注释遮罩 ([f4d34d3](https://github.com/qianyin925/qyrc/commit/f4d34d3))
+
+
+### Build System
+
+* 修改 readme ([d18f65e](https://github.com/qianyin925/qyrc/commit/d18f65e))
+
+
+
 ## 1.1.0 (2019-07-30)
 
 
