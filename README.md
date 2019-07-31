@@ -135,7 +135,7 @@ npm run release -- --release-as 1.1.0
 - push commit 和 tag 到远程
 
 ```shell
-git push --follow-tags origin master
+git push --follow-tags
 ```
 
 - 创建 github releases: 直接讲 changelog 当前版本信息拷贝过去

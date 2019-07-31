@@ -33,6 +33,7 @@ const propTypes = {
   toolClassName: PropTypes.string,
   isMin: PropTypes.bool,
   isMax: PropTypes.bool,
+  onClick: PropTypes.func,
   onClose: PropTypes.func,
   onMin: PropTypes.func,
   onMax: PropTypes.func,
@@ -76,6 +77,11 @@ const useStateHook = (props) => {
     return _params;
   }, [resizeParams, isMax, isMin]);
 
+  // 点击事件
+  const onClick = (e) => {
+    _.isFunction(props.onClick) && props.onClick(e);
+  }
+
   // 关闭事件
   const onClose = (e) => {
     _.isFunction(props.onClose) && props.onClose(e);
@@ -95,7 +101,7 @@ const useStateHook = (props) => {
     _.isFunction(props.onMax) && props.onMax(e, reset);
   };
 
-  return { ...params, modalRef, onClose, onMin, onMax, isMax, isMin };
+  return { ...params, modalRef, onClick, onClose, onMin, onMax, isMax, isMin };
 };
 
 const Modal = (props) => {
@@ -103,6 +109,7 @@ const Modal = (props) => {
   return (
     <div
       ref={state.modalRef}
+      onClick={state.onClick}
       style={{
         width: state.width,
         height: state.height,
