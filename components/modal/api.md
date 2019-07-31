@@ -7,7 +7,7 @@
 | threshold      | 边界，modal 在指定边界距离才允许进行操作   | Number                                                   | 5  |
 | constraintSize | 限制大小，modal 最小宽高                | Number                                                   | 200  |
 | defaultParams  | 默认参数，modal 默认初始参数             | Object                                                   | { width: 500, height: 500, offsetX: 0, offsetY: 0 }  |
-| dragRef        | 可拖拽区域 ref，指定控制 modal 拖拽的区域  | ReactRef                                                 | ---  |
+| dragHeight     | 顶部可拖拽区域高度，限制 modal 拖拽的区域  | Number                                                    | 0  |
 | style          | 为 modal 添加 style 样式                | Object                                                   | --- |
 | className      | 为 modal 添加 className                | String                                                    | --- |
 | toolStyle      | 为 tool 操作块 添加 style               | Object                                                    | --- |

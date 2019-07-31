@@ -3,8 +3,8 @@ import { useState, useMemo, useEffect } from 'react';
 // 改 hook 默认参数
 const DEFAULT_OPTION = {
   threshold: 5,
-  dragRef: null,
   boundary: null,
+  dragHeight: 0,
   constraintSize: 200,
   defaultParams: { width: 500, height: 500, offsetX: 0, offsetY: 0 },
 };
@@ -124,16 +124,16 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
 /**
  * 弹窗 hook
  * @param {Object} modakRef          弹窗 ref
- * @param {Object} dragRef           可拖拽元素 ref
  * @param {NUmber} threshold         容错率
+ * @param {NUmber} dragHeight        顶部允许拖拽区域高度
  * @param {Object} boundary          边界限制， 默认为弹窗父原始 rect
  * @param {Number} constraintSize    宽高限制大小(最小宽、高)
  * @param {Object} defaultParams     默认 params 参数
  */
 export default (modakRef, {
-  threshold = DEFAULT_OPTION.threshold,
-  dragRef = DEFAULT_OPTION.dragRef,
   boundary = DEFAULT_OPTION.boundary,
+  threshold = DEFAULT_OPTION.threshold,
+  dragHeight = DEFAULT_OPTION.dragHeight,
   constraintSize = DEFAULT_OPTION.constraintSize,
   defaultParams = DEFAULT_OPTION.defaultParams,
 } = {}) => {
@@ -149,7 +149,7 @@ export default (modakRef, {
     let operationType = null;
     let previousParams = { ...params };
     let originClient = { x: null, y: null };
-    let cover = createCover();
+    // let cover = createCover();
 
     // 处理计算 operationType 值, 并设置样式
     const handeOperationType = (event) => {
@@ -162,6 +162,7 @@ export default (modakRef, {
       const inLeft = event.clientX - targetRect.left < threshold;
       const inRight = targetRect.right - event.clientX < threshold;
       const inBottom = targetRect.bottom - event.clientY < threshold;
+      const inDrag = event.clientY - targetRect.top < threshold + dragHeight;
 
       const possibilities = [
         { conds: inLeft && inTop, value: 'leftTop' },
@@ -177,18 +178,14 @@ export default (modakRef, {
       _operationType = possibilities.find(v => v.conds).value;
 
       // 2. 拖拽处理
-      const conds = [
-        !_operationType,
-        event.type === 'mousedown',
-        !!dragRef && event.target === dragRef.current,
-      ];
+      const conds = [ event.type === 'mousedown', !_operationType, inDrag ];
       conds.every(v => v) && ( _operationType = 'drag');
 
       // 3. 业务处理
       if (_operationType === operationType){return false;}
       operationType = _operationType;
       target.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
-      cover.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
+      // cover.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
     };
 
     // 改变大小处理中事件： mouseMove
@@ -207,7 +204,7 @@ export default (modakRef, {
     const onStop = (e) => {
       previousParams = { ...previousParams, ...tem };
       lock = false;
-      cover.remove();
+      // cover.remove();
       window.removeEventListener('mouseup', onStop);
       window.removeEventListener('mousemove', onHanding);
     }
@@ -219,7 +216,7 @@ export default (modakRef, {
       _boundary = getBoundary({ boundary, target, operationType, constraintSize });
 
       lock = true;
-      !!operationType && document.body.appendChild(cover);
+      // !!operationType && document.body.appendChild(cover);
       window.addEventListener('mouseup', onStop);
       window.addEventListener('mousemove', onHanding);
     }
@@ -232,7 +229,7 @@ export default (modakRef, {
     target.addEventListener('mousedown', onStart);
     target.addEventListener('mousemove', onHover);
     return () => {
-      cover.remove();
+      // cover.remove();
       target.removeEventListener('mousedown', onStart);
       target.removeEventListener('mousemove', onHover);
       window.removeEventListener('mousemove', onHanding);

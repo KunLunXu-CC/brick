@@ -26,7 +26,7 @@ const propTypes = {
   defaultParams: paramsType,
   minParams: paramsType,
   maxParams: paramsType,
-  dragRef: PropTypes.object,
+  dragHeight: PropTypes.number,
   style: PropTypes.object,
   className: PropTypes.string,
   toolStyle: PropTypes.object,
@@ -49,8 +49,8 @@ const useStateHook = (props) => {
 
   // 改变 modal 大小计算返回的 params
   const resizeParams = useResize(modalRef, {
-    dragRef: props.dragRef,
     threshold: props.threshold,
+    dragHeight: props.dragHeight,
     defaultParams: props.defaultParams,
     constraintSize: props.constraintSize,
   });
