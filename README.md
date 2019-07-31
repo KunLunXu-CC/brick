@@ -91,8 +91,6 @@ npm run build:publish
 - 拉取远程仓库数据
 
 ```shell
-git checkout master
-git pull origin master
 # 拉取远程数据包括 tag 信息
 git fetch origin --prune
 ```
