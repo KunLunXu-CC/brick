@@ -7,6 +7,6 @@ import '@components/image/style';
 export default () => {
 
   return (
-    <Image src={IMG}/>
+    <Image src={IMG} style={{ width: '90%', height: '300px' }}/>
   )
 }
