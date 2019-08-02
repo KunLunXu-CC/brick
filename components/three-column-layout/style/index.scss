@@ -1,0 +1,42 @@
+.qyrc-tcl {
+  display: flex;
+  flex-direction: column;
+
+  height: 400px;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.qyrc-tcl-header {
+  flex: none;
+
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.qyrc-tcl-body {
+  flex: 1;
+  display: flex;
+
+  &-left {
+    flex: none;
+
+    background: rgba(0, 0, 255, 0.1);
+  }
+  &-center{
+    flex: none;
+
+    background: rgba(0, 0, 255, 0.2);
+  }
+  &-right {
+    flex: 1;
+
+    background: rgba(0, 0, 255, 0.5);
+  }
+
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.qyrc-tcl-footer {
+  flex: none;
+
+  background: rgba(255, 0, 0, 0.2);
+}
