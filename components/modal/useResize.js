@@ -185,7 +185,6 @@ export default (modakRef, {
       if (_operationType === operationType){return false;}
       operationType = _operationType;
       target.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
-      // cover.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
     };
 
     // 改变大小处理中事件： mouseMove
@@ -204,19 +203,20 @@ export default (modakRef, {
     const onStop = (e) => {
       previousParams = { ...previousParams, ...tem };
       lock = false;
-      // cover.remove();
+      document.body.style.cursor = 'auto';
       window.removeEventListener('mouseup', onStop);
       window.removeEventListener('mousemove', onHanding);
     }
 
     // 操作开始事件: mouseDown
     const onStart = (e) => {
+      e.preventDefault();
       handeOperationType(e);
       originClient = getOriginClient({ e, target, operationType });
       _boundary = getBoundary({ boundary, target, operationType, constraintSize });
+      document.body.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
 
       lock = true;
-      // !!operationType && document.body.appendChild(cover);
       window.addEventListener('mouseup', onStop);
       window.addEventListener('mousemove', onHanding);
     }
@@ -229,7 +229,7 @@ export default (modakRef, {
     target.addEventListener('mousedown', onStart);
     target.addEventListener('mousemove', onHover);
     return () => {
-      // cover.remove();
+      document.body.style.cursor = 'auto';
       target.removeEventListener('mousedown', onStart);
       target.removeEventListener('mousemove', onHover);
       window.removeEventListener('mousemove', onHanding);

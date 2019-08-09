@@ -1,44 +1,36 @@
-.qyrc-tcl {
+.qyrc-tcl,
+.qyrc-tcl-body,
+.qyrc-tcl-right {
   display: flex;
-  flex-direction: column;
-
-  height: 400px;
-  background: rgba(255, 0, 0, 0.1);
 }
 
-.qyrc-tcl-header {
-  flex: none;
-
-  background: rgba(255, 0, 0, 0.2);
-}
-
-.qyrc-tcl-body {
-  flex: 1;
-  display: flex;
-
-  &-left {
-    flex: none;
-
-    width: 100px;
-    background: #48362a;
-  }
-  &-center{
-    flex: none;
-
-    width: 300px;
-    background: #f6ebe7;
-  }
-  &-right {
-    flex: 1;
-
-    background: #fbfbfb;
-  }
-
-  background: rgba(255, 0, 0, 0.5);
-}
-
+.qyrc-tcl-header, 
+.qyrc-tcl-left,
+.qyrc-tcl-menu,
 .qyrc-tcl-footer {
   flex: none;
+}
 
-  background: rgba(255, 0, 0, 0.2);
+.qyrc-tcl-content,
+.qyrc-tcl-right,
+.qyrc-tcl-body {
+  flex: 1;
+}
+
+.qyrc-tcl {
+  flex-direction: column;
+  div {
+    overflow: hidden;
+  }
+}
+
+.qyrc-tcl-menu {
+  position: relative;
+  &-drag {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 5px;
+  }
 }
