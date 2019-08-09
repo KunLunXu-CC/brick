@@ -132,6 +132,13 @@ git fetch origin --prune
 npm run release -- --release-as 1.1.0
 ```
 
+```shell
+# 如遇如下问题请删除 v1.1.5 分支
+✔ bumping version in package.json from 1.1.6 to 1.1.6
+Error in git-raw-commits: warning: refname 'v1.1.5' is ambiguous.
+
+```
+
 - push commit 和 tag 到远程
 
 ```shell
