@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.7](https://github.com/qianyin925/qyrc/compare/v1.1.5...v1.1.7) (2019-08-10)
+
+
+### Bug Fixes
+
+* 设置 model 工具栏 z-index ([4e0ceba](https://github.com/qianyin925/qyrc/commit/4e0ceba))
+
+
+### Features
+
+* [three-column-layout]组件编写 ([14ea956](https://github.com/qianyin925/qyrc/commit/14ea956))
+* [ThreeColumnLayout]组件开发 ([c9c937a](https://github.com/qianyin925/qyrc/commit/c9c937a))
+
+
+
 ### [1.1.6](https://github.com/qianyin925/qyrc/compare/v1.1.5...v1.1.6) (2019-08-09)
 
 
