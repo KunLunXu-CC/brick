@@ -212,8 +212,9 @@ export default (modakRef, {
     const onStart = (e) => {
       // 判断是否操作 model 之外区域
       if (e.target !== target && !target.contains(e.target)){return false;}
-      e.preventDefault();
       handeOperationType(e);
+      if (!operationType){return false;}
+      e.preventDefault();
       originClient = getOriginClient({ e, target, operationType });
       _boundary = getBoundary({ boundary, target, operationType, constraintSize });
       document.body.style.cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
