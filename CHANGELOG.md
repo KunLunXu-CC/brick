@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.9](https://github.com/qianyin925/qyrc/compare/v1.1.8...v1.1.9) (2019-08-10)
+
+
+### Bug Fixes
+
+* [modal]开始操作前进行一次操作类型判断不乱更新 params ([c23e7fd](https://github.com/qianyin925/qyrc/commit/c23e7fd))
+
+
+
 ### [1.1.8](https://github.com/qianyin925/qyrc/compare/v1.1.7...v1.1.8) (2019-08-10)
 
 
