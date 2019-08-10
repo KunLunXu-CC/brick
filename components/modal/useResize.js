@@ -155,7 +155,7 @@ export default (modakRef, {
     const handeOperationType = (event) => {
       let _operationType = operationType;
       if (lock){return false;}
-      
+
       // 1. resize 相关处理
       const targetRect = target.getBoundingClientRect();
       const inTop = event.clientY - targetRect.top < threshold;
@@ -210,6 +210,8 @@ export default (modakRef, {
 
     // 操作开始事件: mouseDown
     const onStart = (e) => {
+      // 判断是否操作 model 之外区域
+      if (e.target !== target && !target.contains(e.target)){return false;}
       e.preventDefault();
       handeOperationType(e);
       originClient = getOriginClient({ e, target, operationType });
@@ -222,16 +224,18 @@ export default (modakRef, {
     }
 
     // 鼠标悬停事件: mouseMove
-    function onHover(e){
+    const onHover = (e) => {
+      // 判断是否操作 model 之外区域
+      if (e.target !== target && !target.contains(e.target)){return false;}
       handeOperationType(e);
     }
 
-    target.addEventListener('mousedown', onStart);
-    target.addEventListener('mousemove', onHover);
+    window.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onHover);
     return () => {
       document.body.style.cursor = 'auto';
-      target.removeEventListener('mousedown', onStart);
-      target.removeEventListener('mousemove', onHover);
+      window.removeEventListener('mousedown', onStart);
+      window.removeEventListener('mousemove', onHover);
       window.removeEventListener('mousemove', onHanding);
       window.removeEventListener('mouseup', onStop);
     };
