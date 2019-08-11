@@ -29,6 +29,47 @@ const OPERATION_TYPE_MAP_CURSOR = {
 };
 
 /**
+ * 解析 params: 因为支持百分比所以需要将值转为数值
+ * @param {Object} target  目标对象 
+ */
+const parseParams = ({ target }) => {
+  const { width, height } = target.getBoundingClientRect();
+  const style = window.getComputedStyle(target, null).getPropertyValue("transform");
+  const values = style.split('(')[1].split(')')[0].split(',');
+  const offsetX = _.toNumber(values[values.length - 2]);
+  const offsetY = _.toNumber(values[values.length - 1]);
+  return { width, height, offsetX, offsetY };
+};
+
+/**
+ * 解析 constraintSize: 因为支持百分比所以需要将值转为数值
+ * @param {Object} target           目标对象 
+ * @param {Object} constraintSize   传入 constraintSize 
+ */
+const parseConstraintSize = ({ target, constraintSize }) => {
+  let { width, height } = { ...DEFAULT_OPTION.constraintSize, ...constraintSize };
+  const parentRect = target.parentNode.getBoundingClientRect();
+  width = (/%$/.test(width) ? parentRect.width / 100 : 1) * parseFloat(width, 10);
+  height = (/%$/.test(height) ? parentRect.height / 100 : 1) * parseFloat(height, 10);
+  return { width, height };
+};
+
+/**
+ * 解析 margin: 因为支持百分比所以需要将值转为数值
+ * @param {Object} target   目标对象 
+ * @param {Object} margin   传入 margin
+ */
+const parseMargin = ({ target, margin }) => {
+  let { left, right, top, bottom } = { ...DEFAULT_OPTION.margin, ...margin };
+  const parentRect = target.parentNode.getBoundingClientRect();
+  left = (/%$/.test(left) ? parentRect.width / 100 : 1) * parseFloat(left, 10);
+  right = (/%$/.test(right) ? parentRect.width / 100 : 1) * parseFloat(right, 10);
+  top = (/%$/.test(top) ? parentRect.height / 100 : 1) * parseFloat(top, 10);
+  bottom = (/%$/.test(bottom) ? parentRect.height / 100 : 1) * parseFloat(bottom, 10);
+  return { left, right, top, bottom };
+};
+
+/**
  * 获取操作类型
  * @param {Object} target          操作目标
  * @param {String} operationType   操作类型
@@ -100,20 +141,20 @@ const getOriginClient = ({ e, target, operationType }) => {
  * @param {Object} margin          目标对象距离父节点的 margin
  * @param {Object} target          目标对象
  * @param {String} operationType   操作类型
- * @param {Object} constraintSize  modal 限制大小
+ * @param {Object} constraintSize  容器限制大小
  * @returns {Object}               限制边界， client 限制范围
  */
 const getBoundary = ({ margin, target, operationType, constraintSize }) => {
   const parentRect = target.parentNode.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
-  const _margin = { ...DEFAULT_OPTION.margin, ...margin};
+  const _margin = parseMargin({ target, margin });
   const boundary = {
     top: parentRect.top + _margin.top,
     left: parentRect.left + _margin.left,
     right: parentRect.right - _margin.right,
     bottom: parentRect.bottom - _margin.bottom,
   };
-  const _constraintSize = { ...DEFAULT_OPTION.constraintSize, ...constraintSize };
+  const _constraintSize = parseConstraintSize({ target, constraintSize });
   /left/i.test(operationType) && (boundary.right = targetRect.right - _constraintSize.width);
   /right/i.test(operationType) && (boundary.left = targetRect.left + _constraintSize.width);
   /top/i.test(operationType) && (boundary.bottom = targetRect.bottom - _constraintSize.height);
@@ -195,7 +236,7 @@ export default (ref, {
     let boundary = null;
     let operationType = null;
     let originClient = { x: 0, y: 0 };
-    let previousParams = { ...params };
+    let previousParams = { ...parseParams({ target }) };
 
     // 鼠标悬停(mousemove): 处理操作类型、cursor
     const onHover = (e) => {
@@ -242,5 +283,6 @@ export default (ref, {
       window.removeEventListener('mousemove', onHover);
     };
   }, []);
+
   return params;
 };

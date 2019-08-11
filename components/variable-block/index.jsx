@@ -73,7 +73,9 @@ const VariableBlock = (props) => {
         ...props.style,
         width: state.width,
         height: state.height,
-        transform: `translate(${state.offsetX}px, ${state.offsetY}px)`,
+        transform: `translate(
+          ${state.offsetX}${_.isNumber(state.offsetX) ? 'px' : ''}, 
+          ${state.offsetY}${_.isNumber(state.offsetY) ? 'px' : ''})`,
         background: 'pink',
       }}
       ref={state.targetRef}

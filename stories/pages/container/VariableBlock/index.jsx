@@ -5,7 +5,7 @@ import '@components/variable-block/style';
 
 export default () => {
   return (
-    <div style={{ background: 'rgba(255, 0, 0, 0.1)', width: '800px', height: '500px' }}>
+    <div style={{ background: 'rgba(255, 0, 0, 0.1)', width: '800px', height: '500px', margin: '20px'}}>
       <VariableBlock
         onResize={ (params) => {console.log('--->>>>>> onresize', params)}}
       />
