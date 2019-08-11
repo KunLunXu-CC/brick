@@ -21,10 +21,10 @@ const filterPropKeys = [
 
 // props 参数校验
 const paramsType =  PropTypes.shape({
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  offsetX: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  offsetY: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  offsetX: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  offsetY: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 });
 const propTypes = {
   threshold: PropTypes.number,
@@ -69,11 +69,11 @@ const VariableBlock = (props) => {
 
   return (
     <div
-      style={{ 
+      style={{
+        ...props.style,
         width: state.width,
         height: state.height,
         transform: `translate(${state.offsetX}px, ${state.offsetY}px)`,
-        ...props.style,
         background: 'pink',
       }}
       ref={state.targetRef}

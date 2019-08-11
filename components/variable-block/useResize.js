@@ -100,22 +100,24 @@ const getOriginClient = ({ e, target, operationType }) => {
  * @param {Object} margin          目标对象距离父节点的 margin
  * @param {Object} target          目标对象
  * @param {String} operationType   操作类型
- * @param {Number} constraintSize  modal 限制大小
+ * @param {Object} constraintSize  modal 限制大小
  * @returns {Object}               限制边界， client 限制范围
  */
 const getBoundary = ({ margin, target, operationType, constraintSize }) => {
   const parentRect = target.parentNode.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
+  const _margin = { ...DEFAULT_OPTION.margin, ...margin};
   const boundary = {
-    top: parentRect.top + margin.top,
-    left: parentRect.left -+ margin.left,
-    right: parentRect.right - margin.right,
-    bottom: parentRect.bottom - margin.bottom,
+    top: parentRect.top + _margin.top,
+    left: parentRect.left + _margin.left,
+    right: parentRect.right - _margin.right,
+    bottom: parentRect.bottom - _margin.bottom,
   };
-  /left/i.test(operationType) && (boundary.right = targetRect.right - constraintSize.width);
-  /right/i.test(operationType) && (boundary.left = targetRect.left + constraintSize.width);
-  /top/i.test(operationType) && (boundary.bottom = targetRect.bottom - constraintSize.height);
-  /bottom/i.test(operationType) && (boundary.top = targetRect.top + constraintSize.height);
+  const _constraintSize = { ...DEFAULT_OPTION.constraintSize, ...constraintSize };
+  /left/i.test(operationType) && (boundary.right = targetRect.right - _constraintSize.width);
+  /right/i.test(operationType) && (boundary.left = targetRect.left + _constraintSize.width);
+  /top/i.test(operationType) && (boundary.bottom = targetRect.bottom - _constraintSize.height);
+  /bottom/i.test(operationType) && (boundary.top = targetRect.top + _constraintSize.height);
   return boundary;
 };
 
@@ -169,7 +171,7 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {NUmber} threshold         容错率， 距离目标对象边界多少触发操作
  * @param {NUmber} dragHeight        顶部允许拖拽区域高度
  * @param {Object} margin            操作对象距离父节点的最小 margin 限制
- * @param {Number} constraintSize    宽高限制大小(最小宽、高)
+ * @param {Object} constraintSize    宽高限制大小(最小宽、高)
  * @param {Object} defaultParams     默认 params 参数
  * @param {String[]} operationList   允许的操作类型
  */
@@ -182,7 +184,7 @@ export default (ref, {
   operationList = DEFAULT_OPTION.operationList,
   
 } = {}) => {
-  const [params, setParams] = useState(defaultParams);
+  const [params, setParams] = useState({ ...DEFAULT_OPTION.defaultParams, ...defaultParams });
 
   useEffect(() => {
     if (!ref || !ref.current){return;}
