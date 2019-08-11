@@ -1,4 +1,5 @@
 import ThreeColumnLayout from '@pages/container/ThreeColumnLayout';
+import VariableBlock from '@pages/container/VariableBlock';
 import scrollbar from '@pages/container/Scrollbar';
 import ModalDemo from '@pages/container/Modal';
 import Introduce from '@pages/base/Introduce';
@@ -19,6 +20,11 @@ export default [
     component: IconDemo
   },
   /***** 容器 *****/
+  {
+    title: '可变块',
+    module: '容器',
+    component: VariableBlock
+  },
   {
     title: '滚动条',
     module: '容器',
