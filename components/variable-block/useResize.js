@@ -217,15 +217,21 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {String[]} operationList   允许的操作类型
  */
 export default (ref, {
+  bindParams = null,
   margin = DEFAULT_OPTION.margin,
   threshold = DEFAULT_OPTION.threshold,
   dragHeight = DEFAULT_OPTION.dragHeight,
   constraintSize = DEFAULT_OPTION.constraintSize,
   defaultParams = DEFAULT_OPTION.defaultParams,
   operationList = DEFAULT_OPTION.operationList,
-  
 } = {}) => {
   const [params, setParams] = useState({ ...DEFAULT_OPTION.defaultParams, ...defaultParams });
+
+  useEffect(() => {
+    bindParams && 
+    !_.isEqual(bindParams, params) && 
+    setParams({ ...params, ...bindParams });
+  }, [bindParams]);
 
   useEffect(() => {
     if (!ref || !ref.current){return;}
@@ -235,9 +241,9 @@ export default (ref, {
     let lock = false;
     let boundary = null;
     let operationType = null;
+    let previousParams = null;
     let originClient = { x: 0, y: 0 };
-    let previousParams = { ...parseParams({ target }) };
-
+ 
     // 鼠标悬停(mousemove): 处理操作类型、cursor
     const onHover = (e) => {
       if (lock){return false;}
@@ -266,8 +272,8 @@ export default (ref, {
     const onStart = (e) => {
       onHover(e);
       if (!operationType){return false;}
-      
       lock = true;
+      previousParams = { ...parseParams({ target }) };
       originClient = getOriginClient({ e, target, operationType });
       boundary = getBoundary({ margin, target, operationType, constraintSize });
       window.addEventListener('mouseup', onStop);

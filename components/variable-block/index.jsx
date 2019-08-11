@@ -50,6 +50,7 @@ const useStateHook = (props) => {
   const targetRef = useRef(null);
   const params = useResize(targetRef, {
     margin: props.margin,
+    bindParams: props.params,
     threshold: props.threshold,
     dragHeight: props.dragHeight,
     defaultParams: props.defaultParams,
