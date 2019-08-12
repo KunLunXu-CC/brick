@@ -63,27 +63,38 @@ const useStateHook = (props) => {
   const history = useMemo(() => ([]), []);
   const modalRef = useRef(null);
 
+  // 过滤工具栏位置属性
+  const toolPosition = useMemo(() => {
+    const { left, right, top, bottom } = props.toolPosition;
+    return { left, right, top, bottom };
+  }, [props.toolPosition]);
+
+  // 点击关闭触发
   const onClose = (e) => {
     _.isFunction(props.onClose) && props.onClose(e);
   };
 
+  // 最小化切换触发
   const onMin = (e) => {
     const reset = !isMin;
     _.has(props, 'isMin') ? null : setIsMin(reset);
-    _.isFunction(props.onMin) && props.onMin(e, reset);
+    _.isFunction(props.onMin) && props.onMin(reset, e);
   };
 
+  // 最大化切换触发
   const onMax = (e) => {
     const reset = !isMax;
     _.has(props, 'isMax') ? null : setIsMax(reset);
-    _.isFunction(props.onMax) && props.onMax(e, reset);
+    _.isFunction(props.onMax) && props.onMax(reset, e);
   };
 
+  // params 变更时触发
   const onResize = (p) => {
     setParams({ ...p });
     _.isFunction(props.onResize) && props.onResize(p);
   };
 
+  // 处理 props.isMax props.isMin
   useEffect(() => {setIsMin(!!props.isMin);}, [props.isMin]);
   useEffect(() => {setIsMax(!!props.isMax);}, [props.isMax]);
 
@@ -114,7 +125,7 @@ const useStateHook = (props) => {
     }
   }, [isMin]);
 
-  return { modalRef, onClose, onMin, onMax, onResize, params };
+  return { modalRef, onClose, onMin, onMax, onResize, params, toolPosition };
 };
 
 const Modal = (props) => {
@@ -131,7 +142,7 @@ const Modal = (props) => {
     >
       <div className={classNames('qyrc-modal-body')}>
         <span
-          style={{ ...props.toolPosition, ...props.toolStyle }}
+          style={{ ...state.toolPosition, ...props.toolStyle }}
           className={classNames('qyrc-modal-tool', props.toolClassName)}>
           <Icon
             type="icon-guanbi6-copy"

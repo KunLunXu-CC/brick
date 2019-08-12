@@ -8,10 +8,7 @@ export default (props) => {
   return (
     <div className="modal-demo">
       <Modal>
-        <div style={{ width: '100%', height: '100%', background: '#04071b' }}>
-          {/* <div style={{ height: 80, background: 'rgba(255, 0, 0, 0.1)'}}>
-          </div> */}
-        </div>
+        <div className="modal-demo-body"></div>
       </Modal>
     </div>
   );

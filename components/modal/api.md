@@ -47,7 +47,7 @@
 ### 1.8 onMax
 
 - 描述: 切换最大化函数
-- 类型: Function (isMax)=>{}
+- 类型: Function (isMax, e)=>{}
 - 默认值: ---
 
 ### 1.9 isMax
@@ -65,7 +65,7 @@
 ### 1.11 onMin
 
 - 描述: 切换最小化函数
-- 类型: Function (isMin)=>{}
+- 类型: Function (isMin, e)=>{}
 - 默认值: ---
 
 ### 1.12 isMin
@@ -100,7 +100,7 @@
 
 ### 1.17 toolPosition
 
-- 描述: 工具块距离顶部、左部的距离
+- 描述: 工具块使用 position absolute, 通过改参数设置工具块的位置, 当然其实该功能的实现完全能够通过 toolStyle 实现, 只是这样更加语义化些
 - 类型:  Object
 - 默认值: { top: 10, left: 5 }
 
