@@ -60,8 +60,12 @@ const useStateHook = (props) => {
   const [isMin, setIsMin] = useState(!!props.isMin);
   const [isMax, setIsMax] = useState(!!props.isMax);
   const [params, setParams] = useState(null);
-  const history = useMemo(() => ([]), []);
   const modalRef = useRef(null);
+  const statics = useMemo(() => ({ 
+    maxHandled: false,
+    minHandled: false,
+    history: [],
+  }), []);
 
   // 过滤工具栏位置属性
   const toolPosition = useMemo(() => {
@@ -101,7 +105,7 @@ const useStateHook = (props) => {
   // 最大化处理
   useEffect(() => {
     if (!!isMax){
-      history.push({ ...params });
+      statics.history.push({ ...params });
       const parentNodeRect = modalRef.current.parentNode.getBoundingClientRect();
       setParams({
         offsetX: 0,
@@ -110,19 +114,23 @@ const useStateHook = (props) => {
         height: parentNodeRect.height,
         ...props.maxParams,
       });
-    } else {
-      setParams({ ...params, ...history.pop() })
+    } else if (statics.maxHandled){
+      setParams({ ...params, ...statics.history.pop() })
     }
+    // 标记是否处理过
+    statics.maxHandled = true;
   }, [isMax]);
 
   // 最小化处理
   useEffect(() => {
     if (!!isMin){
-      history.push({ ...params });
+      statics.history.push({ ...params });
       setParams(props.minParams);
-    } else {
-      setParams({ ...params, ...history.pop() })
+    } else if (statics.minHandled){
+      setParams({ ...params, ...statics.history.pop() })
     }
+    // 标记是否处理过
+    statics.minHandled = true;
   }, [isMin]);
 
   return { modalRef, onClose, onMin, onMax, onResize, params, toolPosition };
