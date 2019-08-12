@@ -21,7 +21,7 @@
   this.scale               组件（包裹层）高度/内容块高度
  */
 import React from 'react';
-import { getClassName } from '../utils';
+import classNames from 'classnames';
 class Scroll extends React.Component{
   constructor(props){
     super(props);
@@ -49,8 +49,8 @@ class Scroll extends React.Component{
     this.color =  this.props.color || 'rgb(153, 153, 153)';
     this.scrollbarWidth =  this.props.scrollbarWidth || '8px';
     this.background =  this.props.background || 'rgb(71, 71, 71)';
-    this.scrollClass = getClassName('qyrc-scroll-axis', this.props.scrollClass);
-    this.scrollBlockClass = getClassName('qyrc-scroll-axis-block', this.props.scrollBlockClass);
+    this.scrollClass = classNames('qyrc-scroll-axis', this.props.scrollClass);
+    this.scrollBlockClass = classNames('qyrc-scroll-axis-block', this.props.scrollBlockClass);
   }
 
   /**

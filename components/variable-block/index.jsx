@@ -72,12 +72,12 @@ const VariableBlock = (props) => {
   return (
     <div
       style={{
-        ...props.style,
         width: state.width,
         height: state.height,
         transform: `translate(
           ${state.offsetX}${_.isNumber(state.offsetX) ? 'px' : ''}, 
           ${state.offsetY}${_.isNumber(state.offsetY) ? 'px' : ''})`,
+        ...props.style,
       }}
       ref={state.targetRef}
       className={classNames('qyrc-variable-block', props.className)}

@@ -1,4 +1,3 @@
-import ThreeColumnLayout from '@pages/container/ThreeColumnLayout';
 import VariableBlock from '@pages/container/VariableBlock';
 import scrollbar from '@pages/container/Scrollbar';
 import ModalDemo from '@pages/container/Modal';
@@ -34,11 +33,6 @@ export default [
     title: '弹窗',
     module: '容器',
     component: ModalDemo
-  },
-  {
-    title: '三栏布局',
-    module: '容器',
-    component: ThreeColumnLayout
   },
   {
     title: '图片',
