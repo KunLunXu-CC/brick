@@ -75,13 +75,8 @@ const parseMargin = ({ target, margin }) => {
  * @param {String} operationType   操作类型
  */
 const setCursor = ({ target, operationType }) => {
-  const cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
-  // 添加 setCursor.cursor 只有自己设置上的值才允许清除 不是自己设置的值不允许随意修改
-  if (cursor === 'auto' && setCursor.cursor){
-    setCursor.cursor = false;
-    target.style.cursor = cursor;
-    document.body.style.cursor = cursor;
-  } else if (cursor !== target.style.cursor){
+  const cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'inherit';
+  if (cursor !== target.style.cursor){
     setCursor.cursor = true;
     target.style.cursor = cursor;
     document.body.style.cursor = cursor;
