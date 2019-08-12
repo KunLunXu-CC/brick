@@ -24,8 +24,6 @@ const filterPropKeys = [
 
 // props 默认值
 const defaultProps = {
-  isMin: false,
-  isMax: false,
   toolPosition: { top: 10, left: 5 },
   minParams: { width: 100, height: 100, offsetX: 50, offsetY: 50 },
 };
@@ -37,7 +35,6 @@ const paramsType =  PropTypes.shape({
   offsetX: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   offsetY: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 });
-
 const propTypes = {
   minParams: paramsType,
   maxParams: paramsType,
