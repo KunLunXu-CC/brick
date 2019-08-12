@@ -39,6 +39,7 @@ const propTypes = {
     right: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }),
   operationList: PropTypes.arrayOf(PropTypes.string),
+  params: paramsType,
   defaultParams: paramsType,
   dragHeight: PropTypes.number,
   style: PropTypes.object,
@@ -77,12 +78,13 @@ const VariableBlock = (props) => {
         transform: `translate(
           ${state.offsetX}${_.isNumber(state.offsetX) ? 'px' : ''}, 
           ${state.offsetY}${_.isNumber(state.offsetY) ? 'px' : ''})`,
-        background: 'pink',
       }}
       ref={state.targetRef}
-      className={classNames(props.className)}
+      className={classNames('qyrc-variable-block', props.className)}
       {...omit(props, filterPropKeys)}
-    />
+    >
+      {props.children}
+    </div>
   );
 }
 VariableBlock.propTypes = propTypes;
