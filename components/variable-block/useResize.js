@@ -76,7 +76,13 @@ const parseMargin = ({ target, margin }) => {
  */
 const setCursor = ({ target, operationType }) => {
   const cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'auto';
-  if (cursor !== target.style.cursor){
+  // 添加 setCursor.cursor 只有自己设置上的值才允许清除 不是自己设置的值不允许随意修改
+  if (cursor === 'auto' && setCursor.cursor){
+    setCursor.cursor = false;
+    target.style.cursor = cursor;
+    document.body.style.cursor = cursor;
+  } else if (cursor !== target.style.cursor){
+    setCursor.cursor = true;
     target.style.cursor = cursor;
     document.body.style.cursor = cursor;
   }
@@ -253,6 +259,7 @@ export default (ref, {
 
     // 操作处理中(mousemove): 计算设置 params
     const onHanding = (e) => {
+      e.preventDefault();
       const _params = getParams({ e, boundary, originClient,  operationType, previousParams });
       if (!_.isEqual(_params, tem)){
         tem = _params;
