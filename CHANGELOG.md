@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.12](https://github.com/qianyin925/qyrc/compare/v1.1.11...v1.1.12) (2019-08-12)
+
+
+### Bug Fixes
+
+* 可变容器添加 cursor 设置限制、取消移动默认行为防止触发拖拽事件 ([bd22bc6](https://github.com/qianyin925/qyrc/commit/bd22bc6))
+
+
+
 ### [1.1.11](https://github.com/qianyin925/qyrc/compare/v1.1.10...v1.1.11) (2019-08-12)
 
 
