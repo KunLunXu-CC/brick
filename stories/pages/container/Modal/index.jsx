@@ -7,16 +7,10 @@ export default (props) => {
 
   return (
     <div className="modal-demo">
-      <Modal
-        dragHeight={80}
-        minParams={{ width: 100, height: 100, offsetX: 0, offsetY: 0 }}
-        onMin={(e, isMin) => {
-          console.log('最小化', e, isMin);
-        }}
-      >
+      <Modal>
         <div style={{ width: '100%', height: '100%', background: '#04071b' }}>
-          <div style={{ height: 80, background: 'rgba(255, 0, 0, 0.1)'}}>
-          </div>
+          {/* <div style={{ height: 80, background: 'rgba(255, 0, 0, 0.1)'}}>
+          </div> */}
         </div>
       </Modal>
     </div>

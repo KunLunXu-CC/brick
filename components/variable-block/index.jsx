@@ -47,8 +47,8 @@ const propTypes = {
   onResize: PropTypes.func,
 };
 
-const useStateHook = (props) => {
-  const targetRef = useRef(null);
+const useStateHook = (props, ref) => {
+  const targetRef = ref || useRef(null);
   const params = useResize(targetRef, {
     margin: props.margin,
     bindParams: props.params,
@@ -66,9 +66,8 @@ const useStateHook = (props) => {
   return { ...params, targetRef };
 };
 
-const VariableBlock = (props) => {
-  const state = useStateHook(props);
-
+const VariableBlock =  React.forwardRef((props, ref) => {
+  const state = useStateHook(props, ref);
   return (
     <div
       style={{
@@ -79,13 +78,13 @@ const VariableBlock = (props) => {
           ${state.offsetY}${_.isNumber(state.offsetY) ? 'px' : ''})`,
         ...props.style,
       }}
-      ref={state.targetRef}
+      ref={ref || state.targetRef}
       className={classNames('qyrc-variable-block', props.className)}
       {...omit(props, filterPropKeys)}
     >
       {props.children}
     </div>
   );
-}
+});
 VariableBlock.propTypes = propTypes;
 export default VariableBlock;
