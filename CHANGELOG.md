@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.11](https://github.com/qianyin925/qyrc/compare/v1.1.10...v1.1.11) (2019-08-12)
+
+
+### Bug Fixes
+
+* 移除三栏布局组件、并修复BUG ([f26a5d9](https://github.com/qianyin925/qyrc/commit/f26a5d9))
+
+
+
 ### [1.1.10](https://github.com/qianyin925/qyrc/compare/v1.1.9...v1.1.10) (2019-08-12)
 
 
