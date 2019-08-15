@@ -1,5 +1,6 @@
 import VariableBlock from '@pages/container/VariableBlock';
 import scrollbar from '@pages/container/Scrollbar';
+import Markdown from '@pages/currency/Markdown';
 import ModalDemo from '@pages/container/Modal';
 import Introduce from '@pages/base/Introduce';
 import IconDemo from '@pages/currency/Icon';
@@ -17,6 +18,11 @@ export default [
     title: '图标',
     module: '通用',
     component: IconDemo
+  },
+  {
+    title: 'markdown',
+    module: '通用',
+    component: Markdown
   },
   /***** 容器 *****/
   {

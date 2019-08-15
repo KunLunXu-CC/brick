@@ -40,6 +40,8 @@
   "homepage": "https://github.com/qianyin925/qyrc#readme",
   "dependencies": {
     "classnames": "^2.2.6",
+    "highlight.js": "^9.15.9",
+    "markdown-to-jsx": "^6.10.3",
     "omit.js": "^1.0.2",
     "prop-types": "^15.7.2"
   },

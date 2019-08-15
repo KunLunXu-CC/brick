@@ -38,10 +38,7 @@ module.exports = {
             limit: 10 * 1000,
           }
         }]
-      }, { // 文本文件加载(后期可能需要引入 markdown 文件)
-        test: /\.(txt|md)$/,
-        use: 'raw-loader',
-      },
+      }
     ]
   },
 
