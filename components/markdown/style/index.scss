@@ -1,0 +1,106 @@
+%title {
+  padding: 12px 0;
+  border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+.qyrc-md {
+  font-family: "Microsoft Yahei", Helvetica, arial, sans-serif ;
+  font-size: 16px;
+  line-height: 2;
+  padding: 0 24px;
+
+  // 标题设置
+  h1 {
+    margin: 20px 0;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  h2 {
+    @extend %title;
+  }
+
+  h3 {
+    @extend %title;
+  }
+
+  h4 {
+    @extend %title;
+  }
+
+  h5 {
+    @extend %title;
+  }
+
+  h6 {
+    @extend %title;
+  }
+}
+
+// 代码块部分
+.qyrc-md .qyrc-md-code {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #272822;
+  flex-direction: column;
+
+  &-header {
+    flex: none;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: {left: 15px;};
+    background: #21252b;
+
+    %dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+
+    &-red {
+      @extend %dot;
+      background: #fc625d;
+    }
+    &-yellow {
+      @extend %dot;
+      background: #fdbc40;
+    }
+    &-green {
+      @extend %dot;
+      background: #35cd4b;
+    }
+    &-lang {
+      color: rgba($color: #fff, $alpha: 0.8);
+      font-size: 18px;
+      font-weight: 600;
+      padding: {left: 25px};
+    }
+  };
+
+  &-body {
+    flex: 1;
+    display: flex;
+    padding: 10px 0;
+    line-height: 30px;
+  };
+  
+  &-line {
+    flex: none;
+    margin: 0;
+    padding: 0 10px;
+    list-style-type: none;
+    color: #666;
+    text-align: right;
+    font-size: 14px;
+  }
+
+  &-content {
+    flex: 1;
+  };
+}
