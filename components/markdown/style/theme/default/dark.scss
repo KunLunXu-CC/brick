@@ -1,6 +1,6 @@
 // 1. 整体设置
 .qyrc-md-dark {
-  color: #fff;
+  color: rgba($color: #fff, $alpha: 0.7);
   line-height: 2;
   font-size: 16px;
   padding: 10px 20px;
@@ -10,6 +10,7 @@
 // 2. 标题设置
 .qyrc-md-dark {
   h1 {
+    color: #999;
     margin: 20px 0;
     font-size: 30px;
     font-weight: 700;
@@ -17,9 +18,9 @@
   }
 
   h2, h3, h4, h5, h6 {
+    color: #999;
     padding: 5px 0;
-    color: #666;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #666;
     margin: 40px 0;
     &::before {
       content: '#';
@@ -31,10 +32,9 @@
 
 // 3. code `` 提示内容
 .qyrc-md-dark code{
-  color: #ff502c;
+  color: #D5A947;
   font-size: .87em;
   padding: .065em .4em;
-  background-color: #fff5f5;
 }
 
 // 4. 表格
@@ -63,6 +63,7 @@
 
 // 5. 快引用
 .qyrc-md-dark blockquote {
+  color: #666;
   padding: 10px 20px;
   background: #f6f6f6;
   margin: { top: 10px; left: 0 };
@@ -73,24 +74,25 @@
 .qyrc-md-dark input[type=checkbox] {
   width: 1em;
   height: 1em;
-  margin: 0 4px;
+  margin: 0 0.2em;
   position: relative;
   &::after{
     content: '';
     display: block;
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
+    top: -0.1em;
+    left: -0.1em;
+    right: -0.1em;
+    bottom: -0.1em;
     background: #fff;
     border-radius: 2px;
-    border:2px solid #999;
+    border:2px solid #ddd;
   }
   &[checked]::after{
     content: '√';
     color: #fff;
     font-size: 1em;
+    line-height: 1;
     text-align: center;
     background: #43a047;
     border-color: #43a047;
@@ -99,6 +101,7 @@
 
 // 7. 折叠面板
 .qyrc-md-dark details {
+  color: #666;
   margin: 10px 0;
   padding: 10px 20px;
   background: #f6f6f6;
@@ -115,8 +118,8 @@
   max-width: 100%;
 }
 
-// 8. 代码块部分
-.qyrc-md-dark .qyrc-md-code {
+// 9. 代码块部分
+.qyrc-md-dark .qyrc-md-dark-code {
   padding: 0;
   display: flex;
   margin: 20px 0;

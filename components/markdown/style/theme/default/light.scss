@@ -73,24 +73,25 @@
 .qyrc-md-light input[type=checkbox] {
   width: 1em;
   height: 1em;
-  margin: 0 4px;
+  margin: 0 0.2em;
   position: relative;
   &::after{
     content: '';
     display: block;
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
+    top: -0.1em;
+    left: -0.1em;
+    right: -0.1em;
+    bottom: -0.1em;
     background: #fff;
     border-radius: 2px;
-    border:2px solid #999;
+    border:2px solid #ddd;
   }
   &[checked]::after{
     content: '√';
     color: #fff;
     font-size: 1em;
+    line-height: 1;
     text-align: center;
     background: #43a047;
     border-color: #43a047;

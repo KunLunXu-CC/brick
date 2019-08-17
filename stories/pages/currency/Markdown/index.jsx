@@ -14,10 +14,15 @@ const Img = (props) => {
 export default () => {
 // theme="dark"
   return (
-    <div style={{ overflow: 'auto'}}>
-      <Markdown options={{ overrides: { img: Img } }}>
-        {testMd}
-      </Markdown>
-    </div>
+    // <div style={{ overflow: 'auto', background: 'rgb(41, 41, 41)'}}>
+    //   <Markdown theme="dark" options={{ overrides: { img: Img } }}>
+    //     {testMd}
+    //   </Markdown>
+    // </div>
+    <div style={{ overflow: 'auto' }}>
+    <Markdown options={{ overrides: { img: Img } }}>
+      {testMd}
+    </Markdown>
+  </div>
   );
 };
