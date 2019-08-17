@@ -9,7 +9,9 @@ export default (props) => {
   return (
     <div className="modal-demo">
       <Modal defaultParams={{ width: '50%', height: '50%' }}>
-        <div className="modal-demo-body"></div>
+        <div className="modal-demo-body">
+
+        </div>
       </Modal>
     </div>
   );

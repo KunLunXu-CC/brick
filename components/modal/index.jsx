@@ -61,7 +61,7 @@ const useStateHook = (props) => {
   const [isMax, setIsMax] = useState(!!props.isMax);
   const [params, setParams] = useState(null);
   const modalRef = useRef(null);
-  const statics = useMemo(() => ({ 
+  const statics = useMemo(() => ({
     maxHandled: false,
     minHandled: false,
     history: [],
@@ -146,7 +146,7 @@ const Modal = (props) => {
       onResize={state.onResize}
       style={{ ...props.style }}
       className={classNames('qyrc-modal', props.className)}
-      {...omit(props, filterPropKeys)}  
+      {...omit(props, filterPropKeys)}
     >
       <div className={classNames('qyrc-modal-body')}>
         <span
@@ -168,7 +168,7 @@ const Modal = (props) => {
             type={state.isMax ? 'icon-suoxiao2' : 'icon-fangda1'}
           />
         </span>
-        {props.children}
+        <div className={classNames('qyrc-modal-content')}>{props.children}</div>
       </div>
     </VariableBlock>
   );

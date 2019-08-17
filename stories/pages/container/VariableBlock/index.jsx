@@ -16,21 +16,21 @@ const Container = () => {
   return (
     <div>
       <div style={{textAlign: 'center'}} onClick={() => {setParams({ width: 400 })}}>最大</div>
-      <div 
-        style={{ 
-          margin: 50, 
-          width: '800px', 
-          height: '500px', 
+      <div
+        style={{
+          margin: 50,
+          width: '800px',
+          height: '500px',
           overflow: 'hidden',
-          background: 'rgba(255, 0, 0, 0.1)', 
+          background: 'rgba(255, 0, 0, 0.1)',
         }}
       >
-        <VariableBlock 
-          params={params} 
+        <VariableBlock
+          params={params}
           onResize={onResize}
-          operationList={operationList} 
+          operationList={operationList}
         >
-          <div style={{ background: 'pink', width: '100%', height: '100%' }}>
+          <div style={{ background: 'pink', width: 900, height: 900 }}>
             内容
           </div>
         </VariableBlock>
@@ -43,7 +43,7 @@ const Container = () => {
 const Layout = () => {
   return (
     <div style={{ display: 'flex', width: 800, height: 400, background: '#eee' }}>
-      <VariableBlock 
+      <VariableBlock
         operationList={['right']}
         margin={{ right: '20%' }}
         style={{ height: '100%', transform: 'translate(0px, 0px)' }}
@@ -54,7 +54,7 @@ const Layout = () => {
         <div style={{ flex: 1, background: '#1a1a1a' }}>
           顶部
         </div>
-        <VariableBlock 
+        <VariableBlock
           margin={{ top: 50 }}
           operationList={['top']}
           defaultParams={{ height: 100 }}
