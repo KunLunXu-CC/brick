@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.15](https://github.com/qianyin925/qyrc/compare/v1.1.14...v1.1.15) (2019-08-17)
+
+
+### Bug Fixes
+
+* 【qyrc】所有容器组件, 验证 overflow 的情况 ([f3c654b](https://github.com/qianyin925/qyrc/commit/f3c654b))
+* markdown bug 修复 ([b7daf05](https://github.com/qianyin925/qyrc/commit/b7daf05))
+
+
+
 ### [1.1.14](https://github.com/qianyin925/qyrc/compare/v1.1.13...v1.1.14) (2019-08-17)
 
 
