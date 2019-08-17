@@ -1,8 +1,31 @@
+import _ from 'lodash';
+import omit from 'omit.js';
 import hljs from 'highlight.js';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Icon } from '..';
-import React, { useEffect, useRef } from 'react';
 import MarkdownToJsx from 'markdown-to-jsx';
+import React, { useEffect, useRef, useMemo } from 'react';
+
+import { Icon } from '..';
+
+// omit 需要过滤 props key 列表
+const filterPropKeys = [
+  'style',
+  'options',
+  'children',
+  'className',
+];
+
+// props 默认值
+const defaultProps = {};
+
+// props 参数校验
+const propTypes = {
+  options: PropTypes.object,
+
+  style: PropTypes.object,
+  className: PropTypes.string,
+};
 
 // 代码块
 const CodeBlock = (props) => {
@@ -23,9 +46,9 @@ const CodeBlock = (props) => {
         </div>
         <Icon
           title="复制代码"
-          type="icon-copy" 
+          type="icon-copy"
           onClick={onClick}
-          className="qyrc-md-code-header-copy" 
+          className="qyrc-md-code-header-copy"
         />
       </div>
       <div className="qyrc-md-code-body">
@@ -40,32 +63,43 @@ const CodeBlock = (props) => {
           </code></pre>
         </div>
       </div>
-      <textarea className="qyrc-md-code-select" ref={selectRef}>{children}</textarea>
+      <textarea defaultValue={children} className="qyrc-md-code-select" ref={selectRef} />
     </div>
   );
 };
 
-const useStateHook = () => {
+const useStateHook = (props) => {
   useEffect(() => {
     document.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightBlock(block);
     });
   });
+
+  // 合并计算 options
+  const options = useMemo(() => {
+    const baseOptions = {
+      overrides: {
+        pre: CodeBlock,
+      },
+    };
+    return _.merge(baseOptions, props.options);
+  }, [props.options]);
+  return { options };
 };
 
-const markdownOptions = {
-  overrides: {
-    pre: CodeBlock,
-  },
-};
-
-export default (props) => {
+const Markdown = (props) => {
   const state = useStateHook(props);
   return (
     <MarkdownToJsx
-      options={markdownOptions}
-      className="qyrc-md"
+      style={props.style}
+      options={state.options}
       children={props.children}
+      className={classNames('qyrc-md', props.className)}
+      {...omit(props, filterPropKeys)}
     />
   );
 };
+
+Markdown.defaultProps = defaultProps;
+Markdown.propTypes = propTypes;
+export default Markdown;

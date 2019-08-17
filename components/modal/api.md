@@ -1,6 +1,6 @@
 # 文档
 
-## API 文档
+## 一、 API 文档
 
 ### 1.1 threshold (VariableBlock)
 
@@ -115,7 +115,3 @@
 - 描述: 为工具块追加 className
 - 类型:  String
 - 默认值: ---
-
-## 一、 API 文档
-
-## 二、 TODO
