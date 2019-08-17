@@ -1,0 +1,202 @@
+// 1. 整体设置
+.qyrc-md-dark {
+  color: #fff;
+  line-height: 2;
+  font-size: 16px;
+  padding: 10px 20px;
+  font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+// 2. 标题设置
+.qyrc-md-dark {
+  h1 {
+    margin: 20px 0;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  h2, h3, h4, h5, h6 {
+    padding: 5px 0;
+    color: #666;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+    &::before {
+      content: '#';
+      color: #ff6d6d;
+      padding: {right: 10px};
+    }
+  }
+}
+
+// 3. code `` 提示内容
+.qyrc-md-dark code{
+  color: #ff502c;
+  font-size: .87em;
+  padding: .065em .4em;
+  background-color: #fff5f5;
+}
+
+// 4. 表格
+.qyrc-md-dark table {
+  $color-border: #dfdfdf;
+
+  width: 100%;
+  margin: 40px 0;
+  border-collapse:collapse;
+  border: 1px solid $color-border;
+
+  th {
+    color: #666;
+    padding: 0 10px;
+    text-align: left;
+    font-weight: bold;
+    background-color: #f7f7f7;
+    border: 1px solid $color-border;
+  }
+
+  td {
+    padding: 0 10px;
+    border: 1px solid $color-border;
+  }
+}
+
+// 5. 快引用
+.qyrc-md-dark blockquote {
+  padding: 10px 20px;
+  background: #f6f6f6;
+  margin: { top: 10px; left: 0 };
+  border-left: 5px solid #657b83;
+}
+
+// 6. checkbox 样式
+.qyrc-md-dark input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  margin: 0 4px;
+  position: relative;
+  &::after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: #fff;
+    border-radius: 2px;
+    border:2px solid #999;
+  }
+  &[checked]::after{
+    content: '√';
+    color: #fff;
+    font-size: 1em;
+    text-align: center;
+    background: #43a047;
+    border-color: #43a047;
+  }
+}
+
+// 7. 折叠面板
+.qyrc-md-dark details {
+  margin: 10px 0;
+  padding: 10px 20px;
+  background: #f6f6f6;
+  border-left: 5px solid #657b83;
+  summary {
+    outline: none;
+    cursor: pointer;
+    color: #666;
+  }
+}
+
+// 8. 图片设置
+.qyrc-md-dark img {
+  max-width: 100%;
+}
+
+// 8. 代码块部分
+.qyrc-md-dark .qyrc-md-code {
+  padding: 0;
+  display: flex;
+  margin: 20px 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #272822;
+  flex-direction: column;
+
+  &-header {
+    flex: none;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: {left: 15px;};
+    background: #21252b;
+    &-lang {
+      flex: 1;
+      font-size: 18px;
+      font-weight: 600;
+      padding: {left: 25px};
+      color: rgba($color: #fff, $alpha: 0.8);
+    }
+    &-copy {
+      margin: 0 10px;
+      cursor: pointer;
+      color: rgba($color: #fff, $alpha: 0.8);
+      &:hover{
+        color: rgba($color: #fff, $alpha: 0.5);
+      }
+    }
+    %dot {
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      border-radius: 50%;
+    }
+    &-red {
+      @extend %dot;
+      background: #fc625d;
+    }
+    &-yellow {
+      @extend %dot;
+      background: #fdbc40;
+    }
+    &-green {
+      @extend %dot;
+      background: #35cd4b;
+    }
+  };
+
+  &-body {
+    flex: 1;
+    display: flex;
+    padding: 10px 0;
+    line-height: 25px;
+  };
+
+  &-line {
+    margin: 0;
+    flex: none;
+    color: #666;
+    padding: 0 10px;
+    font-size: 14px;
+    text-align: right;
+    list-style-type: none;
+  }
+
+  &-content {
+    flex: 1;
+    pre, code {
+      margin: 0;
+      padding: 0;
+      color: #999;
+      background: transparent;
+    }
+  };
+
+  &-select {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+}

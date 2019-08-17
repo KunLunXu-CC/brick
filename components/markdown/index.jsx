@@ -17,10 +17,13 @@ const filterPropKeys = [
 ];
 
 // props 默认值
-const defaultProps = {};
+const defaultProps = {
+  theme: 'light'
+};
 
 // props 参数校验
 const propTypes = {
+  theme: PropTypes.string,
   options: PropTypes.object,
 
   style: PropTypes.object,
@@ -30,40 +33,46 @@ const propTypes = {
 // 代码块
 const CodeBlock = (props) => {
   const { children, className = '' } = props.children.props;
+  const classNamePrefix = props.classNamePrefix;
   const selectRef = useRef(null);
   const onClick = (e) => {
     selectRef.current.select();
     document.execCommand("Copy");
   };
+
   return (
-    <div className="qyrc-md-code">
-      <div className="qyrc-md-code-header">
-        <div className="qyrc-md-code-header-red" />
-        <div className="qyrc-md-code-header-yellow" />
-        <div className="qyrc-md-code-header-green" />
-        <div className="qyrc-md-code-header-lang">
+    <div className={`${classNamePrefix}-code`}>
+      <div className={`${classNamePrefix}-code-header`}>
+        <div className={`${classNamePrefix}-code-header-red`} />
+        <div className={`${classNamePrefix}-code-header-yellow`} />
+        <div className={`${classNamePrefix}-code-header-green`} />
+        <div className={`${classNamePrefix}-code-header-lang`}>
           {className.replace('lang-', '')}
         </div>
         <Icon
           title="复制代码"
           type="icon-copy"
           onClick={onClick}
-          className="qyrc-md-code-header-copy"
+          className={`${classNamePrefix}-code-header-copy`}
         />
       </div>
-      <div className="qyrc-md-code-body">
-        <ul className="qyrc-md-code-line">
+      <div className={`${classNamePrefix}-code-body`}>
+        <ul className={`${classNamePrefix}-code-line`}>
           {new Array(children.split('\n').length).fill(0).map((v, index) => (
             <li key={index}>{index + 1}</li>
           ))}
         </ul>
-        <div className="qyrc-md-code-content">
-          <pre><code className={classNames(className, 'qyrc-md-code-block')}>
+        <div className={`${classNamePrefix}-code-content`}>
+          <pre><code className={classNames(className, `${classNamePrefix}-code-block`)}>
             {children}
           </code></pre>
         </div>
       </div>
-      <textarea defaultValue={children} className="qyrc-md-code-select" ref={selectRef} />
+      <textarea
+        ref={selectRef}
+        defaultValue={children}
+        className={`${classNamePrefix}-code-select`}
+      />
     </div>
   );
 };
@@ -79,7 +88,12 @@ const useStateHook = (props) => {
   const options = useMemo(() => {
     const baseOptions = {
       overrides: {
-        pre: CodeBlock,
+        pre: {
+          component: CodeBlock,
+          props: {
+            classNamePrefix: `qyrc-md-${props.theme}`,
+          },
+        },
       },
     };
     return _.merge(baseOptions, props.options);
@@ -94,7 +108,7 @@ const Markdown = (props) => {
       style={props.style}
       options={state.options}
       children={props.children}
-      className={classNames('qyrc-md', props.className)}
+      className={classNames(`qyrc-md-${props.theme}`, props.className)}
       {...omit(props, filterPropKeys)}
     />
   );

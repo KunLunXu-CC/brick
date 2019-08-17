@@ -1,13 +1,14 @@
 // 1. 整体设置
-.qyrc-md {
+.qyrc-md-light {
+  color: #333;
   line-height: 2;
   font-size: 16px;
-  padding: 0 24px;
+  padding: 10px 20px;
   font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 // 2. 标题设置
-.qyrc-md {
+.qyrc-md-light {
   h1 {
     margin: 20px 0;
     font-size: 30px;
@@ -29,7 +30,7 @@
 }
 
 // 3. code `` 提示内容
-.qyrc-md code{
+.qyrc-md-light code{
   color: #ff502c;
   font-size: .87em;
   padding: .065em .4em;
@@ -37,7 +38,7 @@
 }
 
 // 4. 表格
-.qyrc-md table {
+.qyrc-md-light table {
   $color-border: #dfdfdf;
 
   width: 100%;
@@ -61,7 +62,7 @@
 }
 
 // 5. 快引用
-.qyrc-md blockquote {
+.qyrc-md-light blockquote {
   padding: 10px 20px;
   background: #f6f6f6;
   margin: { top: 10px; left: 0 };
@@ -69,7 +70,7 @@
 }
 
 // 6. checkbox 样式
-.qyrc-md input[type=checkbox] {
+.qyrc-md-light input[type=checkbox] {
   width: 1em;
   height: 1em;
   margin: 0 4px;
@@ -97,7 +98,7 @@
 }
 
 // 7. 折叠面板
-.qyrc-md details {
+.qyrc-md-light details {
   margin: 10px 0;
   padding: 10px 20px;
   background: #f6f6f6;
@@ -109,8 +110,13 @@
   }
 }
 
+// 8. 图片设置
+.qyrc-md-light img {
+  max-width: 100%;
+}
+
 // 8. 代码块部分
-.qyrc-md .qyrc-md-code {
+.qyrc-md-light .qyrc-md-light-code {
   padding: 0;
   display: flex;
   margin: 20px 0;
@@ -167,7 +173,7 @@
     padding: 10px 0;
     line-height: 25px;
   };
-  
+
   &-line {
     margin: 0;
     flex: none;
