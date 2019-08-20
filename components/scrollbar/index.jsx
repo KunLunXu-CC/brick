@@ -6,6 +6,9 @@ const useStateHook = () => {
   const [scale, setScale] =  useState(1);
   const contetnRef = useRef(null);
   const sliderRef = useRef(null);
+  const immutable = useMemo(() => ({ 
+    dragIn: null, // 拖拽目标: contetn slider
+  }), []);
 
   const sliderHeight = useMemo(() => {
     if (!sliderRef.current){return void 0;}
@@ -24,19 +27,42 @@ const useStateHook = () => {
   };
 
   // 重置 scrollHeight sign: 标记(-1 1)
-  const resetScrollHeight = (sign) => {
+  const resetScrollHeight = (value) => {
     const contetnRect = contetnRef.current.getBoundingClientRect();
     const parentRect = contetnRef.current.parentNode.getBoundingClientRect();
     const dift = contetnRect.height - parentRect.height;
-    const value = scrollHeight + 20 * sign;
     const max = dift > 0 ? dift : 0;
     const min = 0;
     const reset = value > max ? max : value < min ? min : value;
     reset !== scrollHeight && setScrollHeight(reset);
   };
 
+  // 鼠标滚动事件
   const onWheel = (e) => {
-    resetScrollHeight(Math.sign(e.deltaY));
+    resetScrollHeight(scrollHeight + 50 * Math.sign(e.deltaY));
+  };
+
+  // 鼠标按下事件
+  const onMouseDown = (e) => {
+    sliderRef.current.contains(e.target) && (immutable.dragIn = 'slider');
+    contetnRef.current.contains(e.target) && (immutable.dragIn = 'contetn');
+    immutable.scrollHeight = scrollHeight;
+    immutable.clientY = e.clientY;
+  };
+
+  // 鼠标弹起事件
+  const onMouseUp = (e) => {
+    immutable.dragIn = null;
+  };
+
+  // 鼠标移动事件
+  const onMove = (e) => {
+    if (!immutable.dragIn){return false;}
+    e.preventDefault();
+    const diff = (e.clientY - immutable.clientY) / scale;
+    const sign = immutable.dragIn === 'slider' ? 1 : -1;
+    const value = immutable.scrollHeight + diff * sign;
+    resetScrollHeight(value);
   };
 
   useEffect(() => {
@@ -48,14 +74,30 @@ const useStateHook = () => {
     console.log('===>>> scale:', scale);
   }, [scrollHeight, scale]);
 
-  return { contetnRef, sliderRef, onWheel, sliderHeight, sliderMarginTop, contetnMarginTop };
+  useEffect(() => {
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('mousemove', onMove);
+    return () => {
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('mousemove', onMove);
+    }
+  });
+
+  return { 
+    onMouseDown, 
+    contetnRef, 
+    sliderRef, 
+    onWheel, 
+    sliderHeight, 
+    sliderMarginTop, 
+    contetnMarginTop 
+  };
 };
 
 // 滚动条高度计算： 滚动容器高度 / 滑块高度 === 内容容器高度 / 内容容器高度
 //  滑块高度 = （内容容器高 / 内容高）  * 滑块容器
 const Sroll = (props) => {
   const state = useStateHook(props);
-
   return (
     <div
       onWheel={state.onWheel}
@@ -65,6 +107,7 @@ const Sroll = (props) => {
           style={{
             marginTop: state.contetnMarginTop,
           }}
+          onMouseDown={state.onMouseDown}
           ref={state.contetnRef} className="qyrc-sroll-body-contetn">
           11111111111<br/><br/><br/><br/><br/><br/>
           22222222222<br/><br/><br/><br/><br/><br/>
@@ -80,6 +123,7 @@ const Sroll = (props) => {
       <div className="qyrc-sroll-bar">
         <div 
           ref={state.sliderRef} 
+          onMouseDown={state.onMouseDown}
           className="qyrc-sroll-bar-slider" 
           style={{
             height: state.sliderHeight,
