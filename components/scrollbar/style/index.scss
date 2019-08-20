@@ -1,27 +1,38 @@
 .qyrc-sroll {
   display: flex;
-  width: 800px; 
-  height: 400px; 
-}
-
-.qyrc-sroll-body {
-  flex: 1;
-  overflow: hidden;
-
-  background: #ddd; 
-}
-
-.qyrc-sroll-body-contetn {
   background: pink; 
 }
 
+.qyrc-sroll-body {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+}
+
+.qyrc-sroll-body-contetn {
+  position: relative;
+  padding: 1px;
+}
+
 .qyrc-sroll-bar{
+  box-sizing: border-box;
   flex: none;
   height: 100%;
-  background: blue;
 }
 
 .qyrc-sroll-bar-slider{
-  width: 20px;
+  width: 8px;
+  margin: 5px;
   background: red;
+}
+
+.qyrc-scroll-iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  top: 0px;
 }

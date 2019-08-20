@@ -1,13 +1,18 @@
+import _ from 'lodash';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 
-const useStateHook = () => {
+const useStateHook = (props) => {
   const [scrollHeight, setScrollHeight] = useState(0);
   const [scale, setScale] =  useState(1);
+  const contentIframeRef = useRef(null);
+  const bodyIframeRef = useRef(null);
   const contetnRef = useRef(null);
   const sliderRef = useRef(null);
   const immutable = useMemo(() => ({ 
-    dragIn: null, // 拖拽目标: contetn slider
+    dragIn: null,         // 拖拽目标: contetn slider
+    scrollHeight: null,   // 记录最初(鼠标按下时)卷起高度
+    clientY: null,        // 记录最初(鼠标按下时) clientY
   }), []);
 
   const sliderHeight = useMemo(() => {
@@ -64,60 +69,70 @@ const useStateHook = () => {
     const value = immutable.scrollHeight + diff * sign;
     resetScrollHeight(value);
   };
+  
+  // scroll body 大小改变事件
+  const onBodyResize = () => {
+    resetScale();
+    _.isFunction(props.onResize) && props.onResize();
+  };
+
+  // scroll content 大小改变事件
+  const onContentResize = () => {
+    resetScale();
+    _.isFunction(props.onContentResize) && props.onContentResize();
+  };
+
+  useEffect(() => {
+    _.isFunction(props.onScroll) && props.onScroll(scrollHeight);
+  }, [scrollHeight]);
 
   useEffect(() => {
     resetScale();
   }, []);
 
   useEffect(() => {
-    console.log('===>>> scrollHeight:', scrollHeight);
-    console.log('===>>> scale:', scale);
-  }, [scrollHeight, scale]);
-
-  useEffect(() => {
     window.addEventListener('mouseup', onMouseUp);
     window.addEventListener('mousemove', onMove);
+    bodyIframeRef.current.contentWindow.addEventListener('resize', onBodyResize);
+    contentIframeRef.current.contentWindow.addEventListener('resize', onContentResize);
     return () => {
       window.removeEventListener('mouseup', onMouseUp);
       window.removeEventListener('mousemove', onMove);
+      bodyIframeRef.current.contentWindow.removeEventListener('resize', onBodyResize);
+      contentIframeRef.current.contentWindow.removeEventListener('resize', onContentResize);
     }
   });
 
-  return { 
-    onMouseDown, 
-    contetnRef, 
-    sliderRef, 
+  return {
     onWheel, 
+    sliderRef,
+    contetnRef, 
+    onMouseDown, 
     sliderHeight, 
+    bodyIframeRef,
     sliderMarginTop, 
-    contetnMarginTop 
+    contetnMarginTop,
+    contentIframeRef,
   };
 };
 
-// 滚动条高度计算： 滚动容器高度 / 滑块高度 === 内容容器高度 / 内容容器高度
-//  滑块高度 = （内容容器高 / 内容高）  * 滑块容器
 const Sroll = (props) => {
   const state = useStateHook(props);
   return (
     <div
       onWheel={state.onWheel}
+      style={{ ...props.style }}
       className={classNames('qyrc-sroll')}>
       <div className="qyrc-sroll-body">
+        <iframe frameBorder="0" ref={state.bodyIframeRef} className="qyrc-scroll-iframe"/>
         <div
           style={{
             marginTop: state.contetnMarginTop,
           }}
           onMouseDown={state.onMouseDown}
           ref={state.contetnRef} className="qyrc-sroll-body-contetn">
-          11111111111<br/><br/><br/><br/><br/><br/>
-          22222222222<br/><br/><br/><br/><br/><br/>
-          33333333333<br/><br/><br/><br/><br/><br/>
-          44444444444<br/><br/><br/><br/><br/><br/>
-          55555555555<br/><br/><br/><br/><br/><br/>
-          66666666666<br/><br/><br/><br/><br/><br/>
-          77777777777<br/><br/><br/><br/><br/><br/>
-          88888888888<br/><br/><br/><br/><br/><br/>
-          99999999999<br/><br/><br/><br/><br/><br/>
+          <iframe frameBorder="0" ref={state.contentIframeRef} className="qyrc-scroll-iframe"/>
+          {props.children}
         </div>
       </div>
       <div className="qyrc-sroll-bar">
@@ -130,12 +145,10 @@ const Sroll = (props) => {
             marginTop: state.sliderMarginTop,
           }}
         >
-
         </div>
       </div>
     </div>
   );
 } 
-
 
 export default Sroll;
