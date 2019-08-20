@@ -10,6 +10,6 @@
 
 ### 1.3 onResize
 
-### 1.4 onContentResize
+### 1.4 onBodyResize
 
 ### 1.5 onScroll
