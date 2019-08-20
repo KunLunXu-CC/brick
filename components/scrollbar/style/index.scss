@@ -1,28 +1,23 @@
 .qyrc-sroll {
-  display: flex;
-  background: pink; 
-}
-
-.qyrc-sroll-body {
   position: relative;
   overflow: hidden;
-  flex: 1;
-}
 
-.qyrc-sroll-body-contetn {
+  background: pink;
+}
+.qyrc-sroll-body {
   position: relative;
-  padding: 1px;
 }
 
-.qyrc-sroll-bar{
-  box-sizing: border-box;
-  flex: none;
-  height: 100%;
+.qyrc-sroll-bar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: blue;
 }
 
-.qyrc-sroll-bar-slider{
-  width: 8px;
-  margin: 5px;
+.qyrc-sroll-bar-slider {
+  width: 20px;
   background: red;
 }
 
