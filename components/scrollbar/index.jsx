@@ -2,9 +2,16 @@ import _ from 'lodash';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 
+/**
+ * 计算公式:
+ * 1. 内容块总高度 / 内容块容器高度 = 滚动条总高度 / 滑块高度
+ * 2. 内容块滚动(卷起)高度 / 内容块总高度 = 滑块距离顶部高度 / 滚动条总高度
+ * 3. 当前内容块卷起的增量 / 当前鼠标偏移量 = 内容块总高度 / 内容块容器高度
+ * 4. 当前内容块卷起的增量 / 内容块总高度 = 当前鼠标偏移量 / 滚动条总高度
+ */
 const useStateHook = (props) => {
   const [scrollHeight, setScrollHeight] = useState(0);
-  const [scale, setScale] =  useState(1);
+  const [sliderHeight, setSliderHeight] =  useState(0);
   const scrollIframeRef = useRef(null);
   const bodyIframeRef = useRef(null);
   const sliderRef = useRef(null);
@@ -15,14 +22,7 @@ const useStateHook = (props) => {
     clientY: null,        // 记录最初(鼠标按下时) clientY
   }), []);
 
-  // 计算滑块高度
-  const sliderHeight = useMemo(() => {
-    if (!sliderRef.current){return void 0;}
-    const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
-    return sliderBarRect.height * scale;
-  }, [scale]);
-
-  // 计算滑块距离顶部的距离
+  // 计算滑块距离顶部的距离： 根据计算公式二进行计算
   const sliderMarginTop = useMemo(() => {
     if (!sliderRef.current || !bodyRef.current){return void 0;}
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
@@ -30,18 +30,19 @@ const useStateHook = (props) => {
     return scrollHeight / bodyRect.height * sliderBarRect.height;
   }, [scrollHeight]);
 
-  // 计算 body 距离顶部的距离
+  // 计算内容块距离顶部的距离
   const bodyMarginTop = useMemo(() => (-scrollHeight), [scrollHeight]); 
 
-  // 重置 scale
-  const resetScale = () => {
+  // 重置滑块高度：根据计算公式一进行计算
+  const resetSliderHeight = () => {
     if (!bodyRef.current){return void 0;}
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
-    setScale(parentRect.height / bodyRect.height);
+    const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
+    setSliderHeight(parentRect.height / bodyRect.height * sliderBarRect.height);
   };
 
-  // 重置 scrollHeight sign: 标记(-1 1)
+  // 重置滚动高度: 限制最大最小值
   const resetScrollHeight = (value) => {
     if (!bodyRef.current){return void 0;}
     const bodyRect = bodyRef.current.getBoundingClientRect();
@@ -71,35 +72,38 @@ const useStateHook = (props) => {
     immutable.dragIn = null;
   };
 
-  // 鼠标移动事件
+  // 鼠标移动事件: 根据计算公式三、四进行计算
   const onMove = (e) => {
     if (!immutable.dragIn){return false;}
     e.preventDefault();
-    const diff = (e.clientY - immutable.clientY) / scale;
-    const sign = immutable.dragIn === 'slider' ? 1 : -1;
-    const value = immutable.scrollHeight + diff * sign;
-    resetScrollHeight(value);
+    const bodyRect = bodyRef.current.getBoundingClientRect();
+    const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
+    const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
+    const diff = immutable.dragIn === 'slider' 
+      ? (e.clientY - immutable.clientY) / sliderBarRect.height * bodyRect.height
+      : - (bodyRect.height / parentRect.height * (e.clientY - immutable.clientY));
+    resetScrollHeight(immutable.scrollHeight + diff);
   };
-  
+
   // scroll body 大小改变事件
   const onBodyResize = () => {
-    resetScale();
+    resetSliderHeight();
     _.isFunction(props.onBodyResize) && props.onBodyResize();
   };
 
   // scroll 大小改变事件
   const onResize = () => {
-    resetScale();
+    resetSliderHeight();
     _.isFunction(props.onResize) && props.onResize();
   };
 
   useEffect(() => {
-    _.isFunction(props.onScroll) && props.onScroll(scrollHeight);
-  }, [scrollHeight]);
+    resetSliderHeight();
+  }, []);
 
   useEffect(() => {
-    resetScale();
-  }, []);
+    _.isFunction(props.onScroll) && props.onScroll(scrollHeight);
+  }, [scrollHeight]);
 
   useEffect(() => {
     window.addEventListener('mouseup', onMouseUp);
@@ -121,9 +125,9 @@ const useStateHook = (props) => {
     onMouseDown, 
     sliderHeight, 
     bodyIframeRef,
-    sliderMarginTop, 
     bodyMarginTop,
     scrollIframeRef,
+    sliderMarginTop, 
   };
 };
 
