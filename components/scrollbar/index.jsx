@@ -80,7 +80,8 @@ const useStateHook = (props) => {
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
-    setSliderHeight(parentRect.height / bodyRect.height * sliderBarRect.height);
+    let scale = Math.min(parentRect.height / bodyRect.height, 1);
+    setSliderHeight(scale * sliderBarRect.height);
   };
 
   // 处理边界情况: 触底、触顶部 
@@ -95,7 +96,7 @@ const useStateHook = (props) => {
 
   // 重置滚动高度: 限制最大最小值
   const resetScrollHeight = (value) => {
-    if (!bodyRef.current || !value){return void 0;}
+    if (!bodyRef.current || !_.isNumber(value)){return void 0;}
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const dift = bodyRect.height - parentRect.height;

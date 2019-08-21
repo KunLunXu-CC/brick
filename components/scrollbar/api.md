@@ -29,7 +29,7 @@
 ### 1.3 onResize
 
 - 描述: 组件大小改变时触发
-- 类型: Function ==> (scrollRef) => {}
+- 类型: Function ==> (scrollDom) => {}
 - 默认值: ---
 
 ### 1.4 onBodyResize
@@ -41,7 +41,7 @@
 ### 1.6 onReachBottom
 
 - 描述: 触底(滚动至底部)事件
-- 类型: Function ==> (scrollDom) => {}
+- 类型: Function ==> (scrollHeight) => {}
 - 默认值: ---
 
 ### 1.7 touchBottomDistance

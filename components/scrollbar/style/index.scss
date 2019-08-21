@@ -1,14 +1,12 @@
 $width: 8px;
 $margin: 2px;
 $radius: 4px;
-$bg: #ddd;
 $bg-bar: #989898;
 
 // 组件整体样式控制
 .qyrc-sroll {
   overflow: hidden;
   position: relative;
-  background: $bg;
   &:hover {
     .qyrc-sroll-bar-slider {
       background: rgba($color: $bg-bar, $alpha: 0.3);
