@@ -1,6 +1,47 @@
 import _ from 'lodash';
+import omit from 'omit.js';
+import PropTypes from 'prop-types';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
+
+// omit 需要过滤 props key 列表
+const filterPropKeys = [
+  'style',
+  'className',
+
+  'shifting',
+  'onScroll',
+  'onResize',
+  'onReachTop',
+  'scrollHeight',
+  'onBodyResize',
+  'onReachBottom',
+  'touchTopDistance',
+  'touchBottomDistance',
+];
+
+// props 默认值
+const defaultProps = {
+  touchTopDistance: 20, 
+  touchBottomDistance: 20,
+  shifting: 50,
+};
+
+// props 参数校验
+const propTypes = {
+  style: PropTypes.object,
+  className: PropTypes.string,
+
+  onResize: PropTypes.func,
+  onScroll: PropTypes.func,
+  onReachTop: PropTypes.func,
+  shifting: PropTypes.number,
+  onBodyResize: PropTypes.func,
+  onReachBottom: PropTypes.func,
+  scrollHeight: PropTypes.number,
+  touchTopDistance: PropTypes.number,
+  touchBottomDistance: PropTypes.number,
+};
 
 /**
  * 计算公式:
@@ -17,9 +58,9 @@ const useStateHook = (props) => {
   const sliderRef = useRef(null);
   const bodyRef = useRef(null);
   const immutable = useMemo(() => ({ 
-    dragIn: null,         // 拖拽目标: contetn slider
     scrollHeight: null,   // 记录最初(鼠标按下时)卷起高度
     clientY: null,        // 记录最初(鼠标按下时) clientY
+    dragIn: null,         // 拖拽目标: contetn slider
   }), []);
 
   // 计算滑块距离顶部的距离： 根据计算公式二进行计算
@@ -42,9 +83,19 @@ const useStateHook = (props) => {
     setSliderHeight(parentRect.height / bodyRect.height * sliderBarRect.height);
   };
 
+  // 处理边界情况: 触底、触顶部 
+  const handleBoundary = (min, max, value) => {
+    if ( _.isFunction(props.onReachTop) && value - props.touchTopDistance < min){
+      props.onReachTop(value);
+    }
+    if (_.isFunction(props.onReachBottom) && value + props.touchBottomDistance > max){
+      _.isFunction(props.onReachBottom) && props.onReachBottom(value);
+    }
+  }
+
   // 重置滚动高度: 限制最大最小值
   const resetScrollHeight = (value) => {
-    if (!bodyRef.current){return void 0;}
+    if (!bodyRef.current || !value){return void 0;}
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const dift = bodyRect.height - parentRect.height;
@@ -52,11 +103,12 @@ const useStateHook = (props) => {
     const min = 0;
     const reset = value > max ? max : value < min ? min : value;
     reset !== scrollHeight && setScrollHeight(reset);
+    handleBoundary(min, max, value);
   };
 
   // 鼠标滚动事件
   const onWheel = (e) => {
-    resetScrollHeight(scrollHeight + 50 * Math.sign(e.deltaY));
+    resetScrollHeight(scrollHeight + props.shifting * Math.sign(e.deltaY));
   };
 
   // 鼠标按下事件
@@ -85,21 +137,25 @@ const useStateHook = (props) => {
     resetScrollHeight(immutable.scrollHeight + diff);
   };
 
-  // scroll body 大小改变事件
+  // 内容块大小改变事件
   const onBodyResize = () => {
     resetSliderHeight();
-    _.isFunction(props.onBodyResize) && props.onBodyResize();
+    _.isFunction(props.onBodyResize) && props.onBodyResize(bodyRef.current);
   };
 
-  // scroll 大小改变事件
+  // 组件大小改变事件
   const onResize = () => {
     resetSliderHeight();
-    _.isFunction(props.onResize) && props.onResize();
+    _.isFunction(props.onResize) && props.onResize(bodyRef.current.parentNode);
   };
 
   useEffect(() => {
     resetSliderHeight();
   }, []);
+
+  useEffect(() => {
+    resetScrollHeight(props.scrollHeight);
+  }, [props.scrollHeight]);
 
   useEffect(() => {
     _.isFunction(props.onScroll) && props.onScroll(scrollHeight);
@@ -137,30 +193,29 @@ const Sroll = (props) => {
     <div
       onWheel={state.onWheel}
       style={{ ...props.style }}
-      className={classNames('qyrc-sroll')}>
+      className={classNames('qyrc-sroll', props.className)}
+      {...omit(props, filterPropKeys)}>
       <iframe frameBorder="0" ref={state.scrollIframeRef} className="qyrc-scroll-iframe"/>
       <div
-        style={{
-          marginTop: state.bodyMarginTop,
-        }}
-        onMouseDown={state.onMouseDown}
         ref={state.bodyRef}
-        className={classNames('qyrc-sroll-body')}>
+        onMouseDown={state.onMouseDown}
+        className={classNames('qyrc-sroll-body')}
+        style={{ marginTop: state.bodyMarginTop }}>
         <iframe frameBorder="0" ref={state.bodyIframeRef} className="qyrc-scroll-iframe"/>
         {props.children}
       </div>
       <div className={classNames('qyrc-sroll-bar')}>
         <div
-          style={{
-            height: state.sliderHeight,
-            marginTop: state.sliderMarginTop,
-          }}
-          onMouseDown={state.onMouseDown}
           ref={state.sliderRef}
-          className={classNames('qyrc-sroll-bar-slider')} />
+          onMouseDown={state.onMouseDown}
+          className={classNames('qyrc-sroll-bar-slider')} 
+          style={{ height: state.sliderHeight, marginTop: state.sliderMarginTop }}
+        />
       </div>
     </div>
   );
 } 
 
+Sroll.defaultProps = defaultProps;
+Sroll.propTypes = propTypes;
 export default Sroll;

@@ -1,26 +1,27 @@
-.qyrc-sroll {
-  position: relative;
-  overflow: hidden;
+$width: 8px;
+$margin: 2px;
+$radius: 4px;
+$bg: #ddd;
+$bg-bar: #989898;
 
-  background: pink;
+// 组件整体样式控制
+.qyrc-sroll {
+  overflow: hidden;
+  position: relative;
+  background: $bg;
+  &:hover {
+    .qyrc-sroll-bar-slider {
+      background: rgba($color: $bg-bar, $alpha: 0.3);
+    }
+  }
 }
+
+// 组件内容块样式
 .qyrc-sroll-body {
   position: relative;
 }
 
-.qyrc-sroll-bar {
-  position: absolute;
-  right: 0;
-  top: 100px;
-  bottom: 100px;
-  background: blue;
-}
-
-.qyrc-sroll-bar-slider {
-  width: 20px;
-  background: red;
-}
-
+// 组件 iframe 样式控制
 .qyrc-scroll-iframe {
   position: absolute;
   width: 100%;
@@ -30,4 +31,25 @@
   right: 0px;
   left: 0px;
   top: 0px;
+}
+
+// 滚动条样式
+.qyrc-sroll-bar {
+  position: absolute;
+  bottom: $margin;
+  right: $margin;
+  top: $margin;
+  border-radius: $radius;
+  &:hover{
+    background: rgba($color: $bg-bar, $alpha: 0.3);
+    .qyrc-sroll-bar-slider {
+      background: rgba($color: $bg-bar, $alpha: 0.5);
+    }
+  }
+}
+
+// 滑块样式
+.qyrc-sroll-bar-slider {
+  width: $width;
+  border-radius: $radius;
 }
