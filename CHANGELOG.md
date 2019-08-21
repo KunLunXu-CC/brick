@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.16](https://github.com/qianyin925/qyrc/compare/v1.1.15...v1.1.16) (2019-08-21)
+
+
+### Features
+
+* sroll 组件重写 ([0d628fc](https://github.com/qianyin925/qyrc/commit/0d628fc))
+
+
+
 ### [1.1.15](https://github.com/qianyin925/qyrc/compare/v1.1.14...v1.1.15) (2019-08-17)
 
 
