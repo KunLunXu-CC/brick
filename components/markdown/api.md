@@ -7,6 +7,7 @@
 描述: 设置主题
 类似: String
 默认值: light
+可选值: light、 dark
 
 ### 1.2 children
 
