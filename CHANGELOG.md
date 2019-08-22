@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.18](https://github.com/qianyin925/qyrc/compare/v1.1.17...v1.1.18) (2019-08-22)
+
+
+### Bug Fixes
+
+* scroll 受控属性实现 ([9666d50](https://github.com/qianyin925/qyrc/commit/9666d50))
+* variable-block 受控组件问题 ([0376564](https://github.com/qianyin925/qyrc/commit/0376564))
+
+
+
 ### [1.1.17](https://github.com/qianyin925/qyrc/compare/v1.1.16...v1.1.17) (2019-08-22)
 
 
