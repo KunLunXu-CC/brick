@@ -22,7 +22,6 @@ export default () => {
   }
 
   const onScroll = (scrollHeight) => {
-    // console.log('===>>>', scrollHeight);
     setScrollHeight(scrollHeight);
   }
 
@@ -34,8 +33,8 @@ export default () => {
         <div onClick={onReturn}>回到顶部</div>
       </div>
       <Scroll
+        onScroll={onScroll}
         scrollHeight={scrollHeight}
-        // onScroll={onScroll}
         style={{ height, width: 800, background: 'pink' }} 
       >
         { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
@@ -46,9 +45,9 @@ export default () => {
       <br/>
       <br/>
       <br/>
-      <Scroll className="scroll-box">
+      {/* <Scroll className="scroll-box">
         { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
-      </Scroll>
+      </Scroll> */}
     </div>
   );
 };

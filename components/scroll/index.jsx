@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
-import React, { useState, useRef, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -18,13 +18,15 @@ const filterPropKeys = [
   'onReachBottom',
   'touchTopDistance',
   'touchBottomDistance',
+  'defaultScrollHeight',
 ];
 
 // props 默认值
 const defaultProps = {
-  touchTopDistance: 20, 
-  touchBottomDistance: 20,
   shifting: 50,
+  touchTopDistance: 20, 
+  defaultScrollHeight: 0,
+  touchBottomDistance: 20,
 };
 
 // props 参数校验
@@ -40,6 +42,7 @@ const propTypes = {
   onReachBottom: PropTypes.func,
   scrollHeight: PropTypes.number,
   touchTopDistance: PropTypes.number,
+  defaultScrollHeight: PropTypes.number,
   touchBottomDistance: PropTypes.number,
 };
 
@@ -51,7 +54,9 @@ const propTypes = {
  * 4. 当前内容块卷起的增量 / 内容块总高度 = 当前鼠标偏移量 / 滚动条总高度
  */
 const useStateHook = (props) => {
-  const [scrollHeight, setScrollHeight] = useState(0);
+  const [scrollHeight, setScrollHeight] = useState(
+    props.scrollHeight || props.defaultScrollHeight
+  );
   const [sliderHeight, setSliderHeight] =  useState(0);
   const scrollIframeRef = useRef(null);
   const bodyIframeRef = useRef(null);
@@ -63,16 +68,21 @@ const useStateHook = (props) => {
     dragIn: null,         // 拖拽目标: contetn slider
   }), []);
 
+  // 计算高度
+  const _scrollHeight = useMemo(() => (
+    _.isNumber(props.scrollHeight) ? props.scrollHeight : scrollHeight
+  ), [props.scrollHeight, scrollHeight]);
+
   // 计算滑块距离顶部的距离： 根据计算公式二进行计算
   const sliderMarginTop = useMemo(() => {
     if (!sliderRef.current || !bodyRef.current){return void 0;}
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
     const bodyRect = bodyRef.current.getBoundingClientRect();
-    return scrollHeight / bodyRect.height * sliderBarRect.height;
-  }, [scrollHeight]);
+    return _scrollHeight / bodyRect.height * sliderBarRect.height;
+  }, [_scrollHeight, sliderRef.current, bodyRef.current]);
 
   // 计算内容块距离顶部的距离
-  const bodyMarginTop = useMemo(() => (-scrollHeight), [scrollHeight]); 
+  const bodyMarginTop = useMemo(() => (-_scrollHeight), [_scrollHeight]); 
 
   // 重置滑块高度：根据计算公式一进行计算
   const resetSliderHeight = () => {
@@ -103,7 +113,7 @@ const useStateHook = (props) => {
     const max = dift > 0 ? dift : 0;
     const min = 0;
     const reset = value > max ? max : value < min ? min : value;
-    reset !== scrollHeight && setScrollHeight(reset);
+    reset !== _scrollHeight && setScrollHeight(reset);
     handleBoundary(min, max, value);
   };
 
@@ -111,14 +121,14 @@ const useStateHook = (props) => {
   const onWheel = (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    resetScrollHeight(scrollHeight + props.shifting * Math.sign(e.deltaY));
+    resetScrollHeight(_scrollHeight + props.shifting * Math.sign(e.deltaY));
   };
 
   // 鼠标按下事件
   const onMouseDown = (e) => {
     sliderRef.current.contains(e.target) && (immutable.dragIn = 'slider');
     bodyRef.current.contains(e.target) && (immutable.dragIn = 'contetn');
-    immutable.scrollHeight = scrollHeight;
+    immutable.scrollHeight = _scrollHeight;
     immutable.clientY = e.clientY;
   };
 
@@ -155,10 +165,6 @@ const useStateHook = (props) => {
   useEffect(() => {
     resetSliderHeight();
   }, []);
-
-  useEffect(() => {
-    resetScrollHeight(props.scrollHeight);
-  }, [props.scrollHeight]);
 
   useEffect(() => {
     _.isFunction(props.onScroll) && props.onScroll(scrollHeight);
