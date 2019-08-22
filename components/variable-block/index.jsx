@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import omit from 'omit.js';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, { useRef, useEffect } from 'react';
+import classNames from 'classnames';
+import React, { useRef, useEffect, useMemo } from 'react';
 
 import useResize from './useResize';
 
@@ -49,6 +49,8 @@ const propTypes = {
 
 const useStateHook = (props, ref) => {
   const targetRef = ref || useRef(null);
+
+  // 内部状态
   const params = useResize(targetRef, {
     margin: props.margin,
     threshold: props.threshold,
@@ -58,11 +60,18 @@ const useStateHook = (props, ref) => {
     defaultParams: props.params || props.defaultParams,
   });
 
+  // 合并计算后的状态, 也是用于组件渲染的状态(受控组件受外部属性的控制不直接用内部状态来渲染组件)
+  const _params = useMemo(() => ({
+    ...params, 
+    ...props.params, 
+  }), [params, props.params]);
+
+  // 监听内部状态的变更, 触发 onChange 事件
   useEffect(() => {
     _.isFunction(props.onResize) && props.onResize(params);
   }, [params]);
 
-  return { ...{...params, ...props.params }, targetRef };
+  return { ..._params, targetRef };
 };
 
 const VariableBlock =  React.forwardRef((props, ref) => {
