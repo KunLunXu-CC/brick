@@ -109,6 +109,8 @@ const useStateHook = (props) => {
 
   // 鼠标滚动事件
   const onWheel = (e) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
     resetScrollHeight(scrollHeight + props.shifting * Math.sign(e.deltaY));
   };
 

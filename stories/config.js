@@ -1,8 +1,8 @@
 import VariableBlock from '@pages/container/VariableBlock';
-import scrollbar from '@pages/container/Scrollbar';
 import Markdown from '@pages/currency/Markdown';
 import ModalDemo from '@pages/container/Modal';
 import Introduce from '@pages/base/Introduce';
+import Scroll from '@pages/container/Scroll';
 import IconDemo from '@pages/currency/Icon';
 import Image from '@pages/container/Image';
 
@@ -33,7 +33,7 @@ export default [
   {
     title: '滚动条',
     module: '容器',
-    component: scrollbar
+    component: Scroll
   },
   {
     title: '弹窗',

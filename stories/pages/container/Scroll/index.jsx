@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Scrollbar } from '@components';
-import '@components/scrollbar/style';
+import { Scroll } from '@components';
+import '@components/scroll/style';
+import './index.scss';
 
 export default () => {
   const [height, setHeight] = useState(400);
@@ -32,13 +33,22 @@ export default () => {
         <div onClick={onAddHeight}>增加高度</div>
         <div onClick={onReturn}>回到顶部</div>
       </div>
-      <Scrollbar
+      <Scroll
         scrollHeight={scrollHeight}
         // onScroll={onScroll}
         style={{ height, width: 800, background: 'pink' }} 
       >
         { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
-      </Scrollbar>
+      </Scroll>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <Scroll className="scroll-box">
+        { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
+      </Scroll>
     </div>
   );
 };
