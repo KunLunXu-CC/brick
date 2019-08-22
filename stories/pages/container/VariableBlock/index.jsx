@@ -5,7 +5,7 @@ import '@components/variable-block/style';
 
 // 1. 在容器内使用
 const Container = () => {
-  const [params, setParams] = useState(null);
+  const [params, setParams] = useState({ width: 400 });
 
   const onResize = (params) => {
     setParams(params);

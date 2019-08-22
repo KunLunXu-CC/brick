@@ -218,7 +218,6 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {String[]} operationList   允许的操作类型
  */
 export default (ref, {
-  bindParams = null,
   margin = DEFAULT_OPTION.margin,
   threshold = DEFAULT_OPTION.threshold,
   dragHeight = DEFAULT_OPTION.dragHeight,
@@ -227,13 +226,6 @@ export default (ref, {
   operationList = DEFAULT_OPTION.operationList,
 } = {}) => {
   const [params, setParams] = useState({ ...DEFAULT_OPTION.defaultParams, ...defaultParams });
-
-  useEffect(() => {
-    bindParams && 
-    !_.isEqual(bindParams, params) && 
-    setParams({ ...params, ...bindParams });
-  }, [bindParams]);
-
   useEffect(() => {
     if (!ref || !ref.current){return;}
     const target = ref.current;

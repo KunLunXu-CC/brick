@@ -51,19 +51,18 @@ const useStateHook = (props, ref) => {
   const targetRef = ref || useRef(null);
   const params = useResize(targetRef, {
     margin: props.margin,
-    bindParams: props.params,
     threshold: props.threshold,
     dragHeight: props.dragHeight,
-    defaultParams: props.defaultParams,
     operationList: props.operationList,
     constraintSize: props.constraintSize,
+    defaultParams: props.params || props.defaultParams,
   });
 
   useEffect(() => {
     _.isFunction(props.onResize) && props.onResize(params);
   }, [params]);
 
-  return { ...params, targetRef };
+  return { ...{...params, ...props.params }, targetRef };
 };
 
 const VariableBlock =  React.forwardRef((props, ref) => {
