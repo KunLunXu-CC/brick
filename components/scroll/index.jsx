@@ -17,6 +17,7 @@ const filterPropKeys = [
   'scrollHeight',
   'onBodyResize',
   'onReachBottom',
+  'sliderMinHeight',
   'touchTopDistance',
   'touchBottomDistance',
   'defaultScrollHeight',
@@ -25,6 +26,7 @@ const filterPropKeys = [
 // props 默认值
 const defaultProps = {
   shifting: 50,
+  sliderMinHeight: 40,
   touchTopDistance: 20, 
   defaultScrollHeight: 0,
   touchBottomDistance: 20,
@@ -38,10 +40,12 @@ const propTypes = {
   onResize: PropTypes.func,
   onScroll: PropTypes.func,
   onReachTop: PropTypes.func,
+  showScroll: PropTypes.bool,
   shifting: PropTypes.number,
   onBodyResize: PropTypes.func,
   onReachBottom: PropTypes.func,
   scrollHeight: PropTypes.number,
+  sliderMinHeight: PropTypes.number,
   touchTopDistance: PropTypes.number,
   defaultScrollHeight: PropTypes.number,
   touchBottomDistance: PropTypes.number,
@@ -49,10 +53,8 @@ const propTypes = {
 
 /**
  * 计算公式:
- * 1. 内容块总高度 / 内容块容器高度 = 滚动条总高度 / 滑块高度
- * 2. 内容块滚动(卷起)高度 / 内容块总高度 = 滑块距离顶部高度 / 滚动条总高度
- * 3. 当前内容块卷起的增量 / 当前鼠标偏移量 = 内容块总高度 / 内容块容器高度
- * 4. 当前内容块卷起的增量 / 内容块总高度 = 当前鼠标偏移量 / 滚动条总高度
+ * 1. 正常情况下(滑块自动响应)： 内容块总高度 / 内容块容器高度 = 滚动条总高度 / 滑块高度
+ * 2. 内容卷起高度 / 滑块距离顶部距离 = 内容块偏移量 / 滑块偏移量 = (内容块高度 - 内容块视口) / (滚动条高度 - 滑块高度)
  */
 const useStateHook = (props) => {
   const [scrollHeight, setScrollHeight] = useState(
@@ -69,18 +71,28 @@ const useStateHook = (props) => {
     dragIn: null,         // 拖拽目标: contetn slider
   }), []);
 
+  const _sliderHeight = useMemo(() => (
+    Math.max(sliderHeight, props.sliderMinHeight)
+  ), [sliderHeight]);
+
+  // 偏移比例： 内容块偏移量 / 滑块偏移量
+  const offSetRatio = useMemo(() => {
+    if (!sliderRef.current || !bodyRef.current){return void 0;}
+    const bodyRect = bodyRef.current.getBoundingClientRect();
+    const clientRect = bodyRef.current.parentNode.getBoundingClientRect();
+    const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
+    return (bodyRect.height - clientRect.height) / (sliderBarRect.height - _sliderHeight);
+  }, [sliderHeight, bodyRef, sliderRef]);
+
   // 计算高度
   const _scrollHeight = useMemo(() => (
     _.isNumber(props.scrollHeight) ? props.scrollHeight : scrollHeight
   ), [props.scrollHeight, scrollHeight]);
 
-  // 计算滑块距离顶部的距离： 根据计算公式二进行计算
-  const sliderMarginTop = useMemo(() => {
-    if (!sliderRef.current || !bodyRef.current){return void 0;}
-    const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
-    const bodyRect = bodyRef.current.getBoundingClientRect();
-    return bodyRect.height === 0 ? 0 : _scrollHeight / bodyRect.height * sliderBarRect.height;
-  }, [_scrollHeight, sliderRef.current, bodyRef.current]);
+  // 计算滑块距离顶部的距离: 根据计算公式二进行计算,
+  const sliderMarginTop = useMemo(() => (
+    !!offSetRatio && !_.isNaN(offSetRatio) ? _scrollHeight / offSetRatio : 0
+  ), [_scrollHeight, offSetRatio]);
 
   // 计算内容块距离顶部的距离
   const bodyMarginTop = useMemo(() => (-_scrollHeight), [_scrollHeight]); 
@@ -90,10 +102,10 @@ const useStateHook = (props) => {
     if (_.has(props, 'showScroll')){return props.showScroll;}
     if (!sliderRef.current){return true;}
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
-    return sliderBarRect.height !== sliderHeight;
-  }, [props.showScroll, sliderRef, sliderHeight]);
+    return sliderBarRect.height !== _sliderHeight;
+  }, [props.showScroll, sliderRef, _sliderHeight]);
 
-  // 重置滑块高度：根据计算公式一进行计算
+  // 重置滑块高度：根据计算公式一进行计算, 添加最小高度限制
   const resetSliderHeight = () => {
     if (!bodyRef.current){return void 0;}
     const bodyRect = bodyRef.current.getBoundingClientRect();
@@ -133,7 +145,7 @@ const useStateHook = (props) => {
     resetScrollHeight(_scrollHeight + props.shifting * Math.sign(e.deltaY));
   };
 
-  // 鼠标按下事件
+  // 鼠标按下事件: 设置操作目标: slider contetn
   const onMouseDown = (e) => {
     sliderRef.current.contains(e.target) && (immutable.dragIn = 'slider');
     bodyRef.current.contains(e.target) && (immutable.dragIn = 'contetn');
@@ -141,12 +153,12 @@ const useStateHook = (props) => {
     immutable.clientY = e.clientY;
   };
 
-  // 鼠标弹起事件
+  // 鼠标弹起事件: 清除操作目标
   const onMouseUp = (e) => {
     immutable.dragIn = null;
   };
 
-  // 鼠标移动事件: 根据计算公式三、四进行计算
+  // 鼠标移动事件: 根据计算公式二
   const onMove = (e) => {
     if (!immutable.dragIn){return false;}
     e.preventDefault();
@@ -154,8 +166,8 @@ const useStateHook = (props) => {
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
     const diff = immutable.dragIn === 'slider' 
-      ? (e.clientY - immutable.clientY) / sliderBarRect.height * bodyRect.height
-      : - (bodyRect.height / parentRect.height * (e.clientY - immutable.clientY));
+      ? offSetRatio * (e.clientY - immutable.clientY)
+      : immutable.scrollHeight - (e.clientY - immutable.clientY)
     resetScrollHeight(immutable.scrollHeight + diff);
   };
 
@@ -198,7 +210,7 @@ const useStateHook = (props) => {
     sliderRef,
     showScroll,
     onMouseDown, 
-    sliderHeight, 
+    _sliderHeight, 
     bodyIframeRef,
     bodyMarginTop,
     scrollIframeRef,
@@ -232,7 +244,7 @@ const Sroll = (props) => {
           ref={state.sliderRef}
           onMouseDown={state.onMouseDown}
           className={classNames('qyrc-sroll-bar-slider')} 
-          style={{ height: state.sliderHeight, marginTop: state.sliderMarginTop }}
+          style={{ height: state._sliderHeight, marginTop: state.sliderMarginTop }}
         />
       </div>  
 
