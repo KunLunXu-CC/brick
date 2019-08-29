@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.19](https://github.com/qianyin925/qyrc/compare/v1.1.18...v1.1.19) (2019-08-29)
+
+
+### Bug Fixes
+
+* [scroll] 但未给内容时body高度为0 将会报错 ([17de2c4](https://github.com/qianyin925/qyrc/commit/17de2c4))
+
+
+### Features
+
+* 【qyrc】【scroll】滑块应该具有最小高度 ([bce936e](https://github.com/qianyin925/qyrc/commit/bce936e))
+* 【qyrc】【scroll】自动判断是否需要滚动条 ([2300c4a](https://github.com/qianyin925/qyrc/commit/2300c4a))
+
+
+
 ### [1.1.18](https://github.com/qianyin925/qyrc/compare/v1.1.17...v1.1.18) (2019-08-22)
 
 
