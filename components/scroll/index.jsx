@@ -12,6 +12,7 @@ const filterPropKeys = [
   'shifting',
   'onScroll',
   'onResize',
+  'showScroll',
   'onReachTop',
   'scrollHeight',
   'onBodyResize',
@@ -83,6 +84,14 @@ const useStateHook = (props) => {
 
   // 计算内容块距离顶部的距离
   const bodyMarginTop = useMemo(() => (-_scrollHeight), [_scrollHeight]); 
+
+  // 是否显示滚动条
+  const showScroll = useMemo(() => {
+    if (_.has(props, 'showScroll')){return props.showScroll;}
+    if (!sliderRef.current){return true;}
+    const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
+    return sliderBarRect.height !== sliderHeight;
+  }, [props.showScroll, sliderRef, sliderHeight]);
 
   // 重置滑块高度：根据计算公式一进行计算
   const resetSliderHeight = () => {
@@ -187,6 +196,7 @@ const useStateHook = (props) => {
     onWheel, 
     bodyRef, 
     sliderRef,
+    showScroll,
     onMouseDown, 
     sliderHeight, 
     bodyIframeRef,
@@ -213,14 +223,19 @@ const Sroll = (props) => {
         <iframe frameBorder="0" ref={state.bodyIframeRef} className="qyrc-scroll-iframe"/>
         {props.children}
       </div>
-      <div className={classNames('qyrc-sroll-bar')}>
+
+      <div className={classNames(
+        'qyrc-sroll-bar', 
+        {'qyrc-sroll-bar-hidden': !state.showScroll}
+      )}>
         <div
           ref={state.sliderRef}
           onMouseDown={state.onMouseDown}
           className={classNames('qyrc-sroll-bar-slider')} 
           style={{ height: state.sliderHeight, marginTop: state.sliderMarginTop }}
         />
-      </div>
+      </div>  
+
     </div>
   );
 } 

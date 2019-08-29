@@ -20,61 +20,67 @@
 - 类型: Number
 - 默认值: 50
 
-### 1.4 onScroll
+### 1.4 showScroll
+
+- 描述: 是否显示滚动条, 默认自动计算是否需要(类似 overflow: auto), 设置 false 则不显示滚动, 但只是样式上不进行先依然可以滚动
+- 类型: boolean
+- 默认值: --
+
+### 1.5 onScroll
 
 - 描述: 滚动时触发事件
 - 类型: Function ==> (scrollHeight) => {}
 - 默认值: ---
 
-### 1.5 scrollHeight
+### 1.6 scrollHeight
 
 - 描述: 组件卷起高度(受控)
 - 类型: Number
 - 默认值: ---
 
-### 1.6 onResize
+### 1.7 onResize
 
 - 描述: 组件大小改变时触发
 - 类型: Function ==> (scrollDom) => {}
 - 默认值: ---
 
-### 1.7 onBodyResize
+### 1.8 onBodyResize
 
 - 描述: 内容块大小改变时触发
 - 类型: Function ==> (bodyDom) => {}
 - 默认值: ---
 
-### 1.8 onReachBottom
+### 1.9 onReachBottom
 
 - 描述: 触底(滚动至底部)事件
 - 类型: Function ==> (scrollHeight) => {}
 - 默认值: ---
 
-### 1.9 touchBottomDistance
+### 1.10 touchBottomDistance
 
 - 描述: 触底距离(距离底部多少内算触底)
 - 类型: Number
 - 默认值: 20
 
-### 1.10 onReachTop
+### 1.11 onReachTop
 
 - 描述: 触顶(滚动至顶部)事件
 - 类型: Function ==> (scrollHeight) => {}
 - 默认值: ---
 
-### 1.11 touchTopDistance
+### 1.12 touchTopDistance
 
 - 描述: 触顶距离(距离顶部多少内算触顶)
 - 类型: Number
 - 默认值: 20
 
-### 1.12 style
+### 1.13 style
 
 - 描述: 追加 style 样式
 - 类型: Object
 - 默认值: ---
 
-### 1.13 className
+### 1.14 className
 
 - 描述: 追加 className
 - 类型:  String

@@ -46,9 +46,6 @@ const BindHeight = () => {
       >
         { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
       </Scroll>
-      {/* <Scroll className="scroll-box">
-        { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
-      </Scroll> */}
     </div>
   );
 }
