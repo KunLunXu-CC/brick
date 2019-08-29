@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { Fragment ,useState } from 'react';
 import { Scroll } from '@components';
 import '@components/scroll/style';
 import './index.scss';
 
-export default () => {
+const Base = () => {
+  return (
+    <Scroll style={{ height: 300, width: 800, background: 'pink' }} >
+    </Scroll>
+  );
+}
+
+const BindHeight = () => {
   const [height, setHeight] = useState(400);
   const [scrollHeight, setScrollHeight] = useState(100);
   const [list, setList] = useState(new Array(20).fill(0));
@@ -39,15 +46,18 @@ export default () => {
       >
         { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
       </Scroll>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
       {/* <Scroll className="scroll-box">
         { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
       </Scroll> */}
     </div>
+  );
+}
+
+export default () => {
+  return (
+    <Fragment>
+      <Base /> <br/> 
+      <BindHeight />
+    </Fragment>
   );
 };

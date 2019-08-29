@@ -78,7 +78,7 @@ const useStateHook = (props) => {
     if (!sliderRef.current || !bodyRef.current){return void 0;}
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
     const bodyRect = bodyRef.current.getBoundingClientRect();
-    return _scrollHeight / bodyRect.height * sliderBarRect.height;
+    return bodyRect.height === 0 ? 0 : _scrollHeight / bodyRect.height * sliderBarRect.height;
   }, [_scrollHeight, sliderRef.current, bodyRef.current]);
 
   // 计算内容块距离顶部的距离
