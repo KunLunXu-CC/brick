@@ -26,7 +26,7 @@ const filterPropKeys = [
 // props 默认值
 const defaultProps = {
   shifting: 50,
-  sliderMinHeight: 40,
+  sliderMinHeight: 20,
   touchTopDistance: 20, 
   defaultScrollHeight: 0,
   touchBottomDistance: 20,
