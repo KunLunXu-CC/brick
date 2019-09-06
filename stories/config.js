@@ -4,6 +4,7 @@ import ModalDemo from '@pages/container/Modal';
 import Introduce from '@pages/base/Introduce';
 import Scroll from '@pages/container/Scroll';
 import IconDemo from '@pages/currency/Icon';
+import Resize from '@pages/container/Resize';
 import Image from '@pages/container/Image';
 
 export default [
@@ -44,5 +45,10 @@ export default [
     title: '图片',
     module: '容器',
     component: Image
-  }
+  },
+  {
+    title: '监听 resize',
+    module: '容器',
+    component: Resize
+  },
 ];
