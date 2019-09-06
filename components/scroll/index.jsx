@@ -3,6 +3,7 @@ import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { Resize } from '..';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -61,8 +62,6 @@ const useStateHook = (props) => {
     props.scrollHeight || props.defaultScrollHeight
   );
   const [sliderHeight, setSliderHeight] =  useState(0);
-  const scrollIframeRef = useRef(null);
-  const bodyIframeRef = useRef(null);
   const sliderRef = useRef(null);
   const bodyRef = useRef(null);
   const immutable = useMemo(() => ({ 
@@ -194,26 +193,22 @@ const useStateHook = (props) => {
   useEffect(() => {
     window.addEventListener('mouseup', onMouseUp);
     window.addEventListener('mousemove', onMove);
-    scrollIframeRef.current.contentWindow.addEventListener('resize', onResize);
-    bodyIframeRef.current.contentWindow.addEventListener('resize', onBodyResize);
     return () => {
       window.removeEventListener('mouseup', onMouseUp);
       window.removeEventListener('mousemove', onMove);
-      scrollIframeRef.current.contentWindow.removeEventListener('resize', onResize);
-      bodyIframeRef.current.contentWindow.removeEventListener('resize', onBodyResize);
     }
   });
 
   return {
     onWheel, 
     bodyRef, 
+    onResize,
     sliderRef,
     showScroll,
     onMouseDown, 
+    onBodyResize,
     _sliderHeight, 
-    bodyIframeRef,
     bodyMarginTop,
-    scrollIframeRef,
     sliderMarginTop, 
   };
 };
@@ -221,21 +216,20 @@ const useStateHook = (props) => {
 const Sroll = (props) => {
   const state = useStateHook(props);
   return (
-    <div
+    <Resize
       onWheel={state.onWheel}
       style={{ ...props.style }}
+      onResize={state.onResize}
       className={classNames('qyrc-sroll', props.className)}
       {...omit(props, filterPropKeys)}>
-      <iframe frameBorder="0" ref={state.scrollIframeRef} className="qyrc-scroll-iframe"/>
-      <div
+      <Resize
         ref={state.bodyRef}
+        onResize={state.onBodyResize}
         onMouseDown={state.onMouseDown}
         className={classNames('qyrc-sroll-body')}
         style={{ marginTop: state.bodyMarginTop }}>
-        <iframe frameBorder="0" ref={state.bodyIframeRef} className="qyrc-scroll-iframe"/>
         {props.children}
-      </div>
-
+      </Resize>
       <div className={classNames(
         'qyrc-sroll-bar', 
         {'qyrc-sroll-bar-hidden': !state.showScroll}
@@ -246,9 +240,8 @@ const Sroll = (props) => {
           className={classNames('qyrc-sroll-bar-slider')} 
           style={{ height: state._sliderHeight, marginTop: state.sliderMarginTop }}
         />
-      </div>  
-
-    </div>
+      </div>
+    </Resize>
   );
 } 
 
