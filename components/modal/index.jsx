@@ -20,6 +20,7 @@ const filterPropKeys = [
   'toolStyle',
   'maxParams',
   'toolPosition',
+  'toolClassName',
 ];
 
 // props 默认值
