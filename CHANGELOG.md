@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.21](https://github.com/qianyin925/qyrc/compare/v1.1.20...v1.1.21) (2019-10-08)
+
+
+### Bug Fixes
+
+* icon 如果绑定 onClick 因自带 cursor pointer 样式 ([6520ad3](https://github.com/qianyin925/qyrc/commit/6520ad3))
+* modal toolClassName 属性没有过滤 ([5554579](https://github.com/qianyin925/qyrc/commit/5554579))
+
+
+### Features
+
+* 【qyrc】image 支持传入 file 对象 ([42f537b](https://github.com/qianyin925/qyrc/commit/42f537b))
+
 ### [1.1.20](https://github.com/qianyin925/qyrc/compare/v1.1.19...v1.1.20) (2019-09-06)
 
 
