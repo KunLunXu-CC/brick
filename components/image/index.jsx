@@ -1,7 +1,8 @@
+import _ from 'lodash';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useState } from 'react';
 
 import useSize from './useSize';
 
@@ -43,10 +44,33 @@ const propTypes = {
 };
 
 const useStateHook = (props) => {
+  const [src, setSrc] = useState(null);
   const imgRef = useRef(null);
   const containerRef = useRef(null);
-  const size = useSize(imgRef, containerRef, props.src); 
-  return { imgRef, containerRef, size };
+  const size = useSize(imgRef, containerRef, src); 
+
+  // 读取 file
+  const readFile = (file = {}) => {
+    if (!/image/.test(file.type)){
+      setSrc(null);
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setSrc(reader.result);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (props.src && props.src.constructor === File){
+      readFile(props.src);
+    } else {
+      setSrc(props.src);
+    }
+  }, [props.src]);
+
+  return { imgRef, containerRef, size, src };
 };
 
 const Image =  (props) => {
@@ -57,7 +81,7 @@ const Image =  (props) => {
       ref={state.containerRef} 
       className={classNames('qyrc-image', props.className)} 
       style={{ width: props.width, height: props.height, ...props.style}}>
-      <img src={props.src} ref={state.imgRef} style={{ ...state.size }}/>
+      <img src={state.src} ref={state.imgRef} style={{ ...state.size }}/>
       <div 
         style={props.bodyStyle}
         className={classNames('qyrc-image-body', props.bodyClassName)} >
@@ -66,6 +90,7 @@ const Image =  (props) => {
     </div>
   );  
 };
+
 Image.defaultProps = defaultProps;
 Image.propTypes = propTypes;
 export default Image;
