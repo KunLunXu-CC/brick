@@ -25,7 +25,12 @@ const Icon = (props) => {
       aria-hidden="true"
       style={props.style}
       onClick={state.onClick}
-      className={classNames('qyrc-icon', props.className)}>
+      className={classNames(
+        'qyrc-icon', 
+        props.className,
+        {'qyrc-icon-btn': _.isFunction(props.onClick)}, 
+      )}
+    >
       <use xlinkHref={`#${props.type}`} ></use>
     </svg>
   );

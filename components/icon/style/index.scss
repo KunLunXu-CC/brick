@@ -1,7 +1,17 @@
 .qyrc-icon {
   width: 1em; 
   height: 1em;
-  vertical-align: -0.15em;
+  margin: 0 5px;
   fill: currentColor;
   overflow: hidden;
+  transition: color .2s;
+  vertical-align: -0.15em;
+}
+
+.qyrc-icon-btn {
+  cursor: pointer;
+
+  &:hover {
+    color: #1890ff; 
+  }
 }
