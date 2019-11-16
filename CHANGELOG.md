@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.22](https://github.com/qianyin925/qyrc/compare/v1.1.21...v1.1.22) (2019-11-16)
+
+
+### Bug Fixes
+
+* 滚动条：报错， children ==>  <div> </div> ([8dfcae6](https://github.com/qianyin925/qyrc/commit/8dfcae6))
+
+
+### Features
+
+* 允许设置加载中、加载异常时要显示的内容，修复BUG: 图片容器中图片加载比较慢，图片大小计算错误、 ([d5fe435](https://github.com/qianyin925/qyrc/commit/d5fe435))
+
 ### [1.1.21](https://github.com/qianyin925/qyrc/compare/v1.1.20...v1.1.21) (2019-10-08)
 
 
