@@ -44,7 +44,7 @@ const BindHeight = () => {
         scrollHeight={scrollHeight}
         onBodyResize={()=>{console.log('bodyResize')}}
         onResize={()=>{console.log('onResize')}}
-        style={{ height, width: 800, background: 'pink' }} 
+        style={{ height, width: 800, background: 'pink' }}
       >
         { list.map((v, index) => (<p style={{ width: 900 }} key={index}>滚动内容1<br/><br/><br/><br/></p>)) }
       </Scroll>
@@ -55,7 +55,7 @@ const BindHeight = () => {
 export default () => {
   return (
     <Fragment>
-      <Base /> <br/> 
+      <Base /> <br/>
       <BindHeight />
     </Fragment>
   );

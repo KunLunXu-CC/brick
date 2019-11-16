@@ -28,7 +28,7 @@ const filterPropKeys = [
 const defaultProps = {
   shifting: 50,
   sliderMinHeight: 20,
-  touchTopDistance: 20, 
+  touchTopDistance: 20,
   defaultScrollHeight: 0,
   touchBottomDistance: 20,
 };
@@ -64,14 +64,14 @@ const useStateHook = (props) => {
   const [sliderHeight, setSliderHeight] =  useState(0);
   const sliderRef = useRef(null);
   const bodyRef = useRef(null);
-  const immutable = useMemo(() => ({ 
+  const immutable = useMemo(() => ({
     scrollHeight: null,   // 记录最初(鼠标按下时)卷起高度
     clientY: null,        // 记录最初(鼠标按下时) clientY
     dragIn: null,         // 拖拽目标: contetn slider
   }), []);
 
   const _sliderHeight = useMemo(() => (
-    Math.max(sliderHeight, props.sliderMinHeight)
+    Math.max(0, sliderHeight, props.sliderMinHeight)
   ), [sliderHeight]);
 
   // 偏移比例： 内容块偏移量 / 滑块偏移量
@@ -94,7 +94,7 @@ const useStateHook = (props) => {
   ), [_scrollHeight, offSetRatio]);
 
   // 计算内容块距离顶部的距离
-  const bodyMarginTop = useMemo(() => (-_scrollHeight), [_scrollHeight]); 
+  const bodyMarginTop = useMemo(() => (-_scrollHeight), [_scrollHeight]);
 
   // 是否显示滚动条
   const showScroll = useMemo(() => {
@@ -111,10 +111,10 @@ const useStateHook = (props) => {
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
     let scale = Math.min(parentRect.height / bodyRect.height, 1);
-    setSliderHeight(scale * sliderBarRect.height);
+    setSliderHeight((_.isNaN(scale) ? 1 : scale) * sliderBarRect.height);
   };
 
-  // 处理边界情况: 触底、触顶部 
+  // 处理边界情况: 触底、触顶部
   const handleBoundary = (min, max, value) => {
     if ( _.isFunction(props.onReachTop) && value - props.touchTopDistance < min){
       props.onReachTop(value);
@@ -164,7 +164,7 @@ const useStateHook = (props) => {
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
-    const diff = immutable.dragIn === 'slider' 
+    const diff = immutable.dragIn === 'slider'
       ? offSetRatio * (e.clientY - immutable.clientY)
       : immutable.scrollHeight - (e.clientY - immutable.clientY)
     resetScrollHeight(immutable.scrollHeight + diff);
@@ -200,16 +200,16 @@ const useStateHook = (props) => {
   });
 
   return {
-    onWheel, 
-    bodyRef, 
+    onWheel,
+    bodyRef,
     onResize,
     sliderRef,
     showScroll,
-    onMouseDown, 
+    onMouseDown,
     onBodyResize,
-    _sliderHeight, 
+    _sliderHeight,
     bodyMarginTop,
-    sliderMarginTop, 
+    sliderMarginTop,
   };
 };
 
@@ -231,19 +231,19 @@ const Sroll = (props) => {
         {props.children}
       </Resize>
       <div className={classNames(
-        'qyrc-sroll-bar', 
+        'qyrc-sroll-bar',
         {'qyrc-sroll-bar-hidden': !state.showScroll}
       )}>
         <div
           ref={state.sliderRef}
           onMouseDown={state.onMouseDown}
-          className={classNames('qyrc-sroll-bar-slider')} 
+          className={classNames('qyrc-sroll-bar-slider')}
           style={{ height: state._sliderHeight, marginTop: state.sliderMarginTop }}
         />
       </div>
     </Resize>
   );
-} 
+}
 
 Sroll.defaultProps = defaultProps;
 Sroll.propTypes = propTypes;

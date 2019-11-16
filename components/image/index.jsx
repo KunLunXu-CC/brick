@@ -8,14 +8,14 @@ import { Resize } from '..';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
-  'className',
   'width',
-  'height',
-  'bodyClassName',
-  'bodyStyle',
   'style',
-  'loading',
+  'height',
   'error',
+  'loading',
+  'bodyStyle',
+  'className',
+  'bodyClassName',
 ]
 
 // 默认 props
