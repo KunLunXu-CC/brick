@@ -22,7 +22,8 @@ module.exports = {
     expect: true,
     jest: true,
     beforeAll: true,
-    afterEach: true
+    afterEach: true,
+    Image: true,
   },
   rules: {
     "object-shorthand": "error",
@@ -41,7 +42,7 @@ module.exports = {
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
     "no-extra-boolean-cast": "off",
-    "no-use-before-define": ["error", "nofunc"],
+    "no-use-before-define": [1, "nofunc"],
     "no-var": "error",
     "prefer-arrow-callback": "error",
     "prefer-spread": "error",

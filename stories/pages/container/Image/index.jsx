@@ -5,11 +5,18 @@ import IMG from '../../../assets/image/home_bg.jpg';
 import '@components/image/style';
 
 // 基本使用方法
-const Bast = () => (
-  <div style={{ padding: '20px 0' }}>
-    <Image src={IMG} style={{ width: '90%', height: '300px' }}/>
-  </div>
-);
+const Bast = () => {
+  return (
+    <div style={{ padding: '20px 0' }}>
+      <Image
+        loading="加载中"
+        error="加载失败"
+        src="http://qiniu.cdn.blog.qianyin925.com/MjAxOS0xMC0zMF8xMC0wOS5wbmcxNTczODcyNzQ0NzAx.png"
+        style={{ width: '90%', height: '300px', border: '2px solid red' }}
+      />
+    </div>
+  );
+};
 
 // file 对象
 const WithFile = () => {
