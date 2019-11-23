@@ -12,4 +12,14 @@
     bottom: 0;
     position: absolute;
   }
+
+  .qyrc-image-bg {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .qyrc-image-bg.qyrc-image-bg-show {
+    transition: opacity 10;
+    opacity: 1;
+  }
 }

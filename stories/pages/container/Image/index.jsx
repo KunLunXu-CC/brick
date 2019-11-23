@@ -9,9 +9,9 @@ const Bast = () => {
   return (
     <div style={{ padding: '20px 0' }}>
       <Image
-        loading="加载中"
+        loading={<div style={{ width: '100%', height: '100%', background: 'red' }}></div>}
         error="加载失败"
-        src="http://qiniu.cdn.blog.qianyin925.com/MjAxOS0xMC0zMF8xMC0wOS5wbmcxNTczODcyNzQ0NzAx.png"
+        src="http://qiniu.cdn.blog.qianyin925.com/dGltZy5qcGVnMTU3NDMwNzA3MTMxNw==.jpeg"
         style={{ width: '90%', height: '300px', border: '2px solid red' }}
       />
     </div>

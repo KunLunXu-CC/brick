@@ -8,6 +8,7 @@ import { Resize } from '..';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
+  'src',
   'width',
   'style',
   'height',
@@ -58,6 +59,7 @@ const useStateHook = (props) => {
 
   // 重置 size 值
   const resetSize = () => {
+    if (!imgRef.current) {return false;}
     // 1. 获取图片的原始尺寸
     const naturalWidth = imgRef.current.naturalWidth;
     const naturalHeight = imgRef.current.naturalHeight;
@@ -71,6 +73,13 @@ const useStateHook = (props) => {
     reset[changeKey] = '100%';
     !_.isEqual(reset, size) &&  setSize({ ...reset });
   };
+
+  const imgClass = useMemo(() => {
+    return classNames(
+        'qyrc-image-bg',
+        { 'qyrc-image-bg-show': !['loading', 'error'].includes(img) },
+      );
+  }, [img]);
 
   // 读取 src
   useEffect(() => {
@@ -91,18 +100,16 @@ const useStateHook = (props) => {
   }, [props.src]);
 
   useEffect(() => {
-    setImg('loading');
-    const image = new Image();
-    image.src = src;
-    image.onload = () => {
-      setImg(src);
-    }
-    image.onerror = () => {
-      setImg('error');
+    if (src) {
+      setImg('loading');
+      const image = new Image();
+      image.src = src;
+      image.onload = setImg.bind(null, src);
+      image.onerror = setImg.bind(null, 'error');
     }
   }, [src]);
 
-  return { imgRef, containerRef, size, img, resetSize };
+  return { imgRef, containerRef, size, img, resetSize, imgClass };
 };
 
 const ImageContainer =  (props) => {
@@ -116,10 +123,13 @@ const ImageContainer =  (props) => {
       style={{ width: props.width, height: props.height, ...props.style}}>
       {state.img === 'loading' ? props.loading : null}
       {state.img === 'error' ? props.error : null}
-      {!['loading', 'error'].includes(state.img)
-        ? <img onLoad={state.resetSize} src={state.img} ref={state.imgRef} style={{ ...state.size }}/>
-        : null
-      }
+      <img
+        src={state.img}
+        ref={state.imgRef}
+        onLoad={state.resetSize}
+        style={{ ...state.size }}
+        className={state.imgClass}
+      />
       <div
         style={props.bodyStyle}
         className={classNames('qyrc-image-body', props.bodyClassName)} >
