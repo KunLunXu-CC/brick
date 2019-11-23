@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.28](https://github.com/qianyin925/qyrc/compare/v1.1.27...v1.1.28) (2019-11-23)
+
+
+### Features
+
+* 【qyrc】modal 全屏应该移除圆角、工具栏 ([ff9718d](https://github.com/qianyin925/qyrc/commit/ff9718d))
+
 ### [1.1.27](https://github.com/qianyin925/qyrc/compare/v1.1.26...v1.1.27) (2019-11-23)
 
 
