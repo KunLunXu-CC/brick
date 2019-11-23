@@ -1,0 +1,13 @@
+.page-image-bast {
+  .qyrc-image-bg img {
+    transition: all 0.5s !important;
+    display: block;
+    transform: scale(1);
+  }
+
+  &:hover {
+    .qyrc-image-bg img{
+      transform: scale(1.2);
+    }
+  }
+}

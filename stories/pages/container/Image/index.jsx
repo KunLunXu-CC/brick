@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Image } from '@components';
 import IMG from '../../../assets/image/home_bg.jpg';
-
 import '@components/image/style';
+import './inde.scss';
 
 // 基本使用方法
 const Bast = () => {
   return (
-    <div style={{ padding: '20px 0' }}>
+    <div style={{ padding: '20px 0' }} className="page-image-bast">
       <Image
         loading={<div style={{ width: '100%', height: '100%', background: 'red' }}></div>}
         error="加载失败"

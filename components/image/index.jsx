@@ -128,13 +128,14 @@ const ImageContainer =  (props) => {
       style={{ width: props.width, height: props.height, ...props.style}}>
       {state.img === 'loading' ? props.loading : null}
       {state.img === 'error' ? props.error : null}
-      <img
-        src={state.img}
-        ref={state.imgRef}
-        onLoad={state.resetSize}
-        className={state.imgClass}
-        style={{ ...state.size, transition: `opacity ${props.fadeTime}s` }}
-      />
+      <div className={state.imgClass}>
+        <img
+          src={state.img}
+          ref={state.imgRef}
+          onLoad={state.resetSize}
+          style={{ ...state.size, transition: `opacity ${props.fadeTime}s` }}
+        />
+      </div>
       <div
         style={props.bodyStyle}
         className={classNames('qyrc-image-body', props.bodyClassName)} >
