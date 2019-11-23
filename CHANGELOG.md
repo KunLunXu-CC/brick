@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.25](https://github.com/qianyin925/qyrc/compare/v1.1.24...v1.1.25) (2019-11-23)
+
+
+### Bug Fixes
+
+* 语法报错 ([983e238](https://github.com/qianyin925/qyrc/commit/983e238))
+
+
+### Features
+
+* 修复报错 ([d6aea6f](https://github.com/qianyin925/qyrc/commit/d6aea6f))
+
 ### [1.1.24](https://github.com/qianyin925/qyrc/compare/v1.1.23...v1.1.24) (2019-11-23)
 
 
