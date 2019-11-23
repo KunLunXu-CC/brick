@@ -22,6 +22,7 @@ const filterPropKeys = [
 // 默认 props
 const defaultProps = {
   error: null,
+  fadeTime: 1,
   loading: null,
   width: '100%',
   height: '100%',
@@ -44,6 +45,7 @@ const propTypes = {
   error: PropTypes.node,
   style: PropTypes.object,
   loading: PropTypes.node,
+  fadeTime: PropTypes.number,
   bodyStyle: PropTypes.object,
   className: PropTypes.string,
   bodyClassName: PropTypes.string,
@@ -104,8 +106,8 @@ const useStateHook = (props) => {
       setImg('loading');
       const image = new Image();
       image.src = src;
-      image.onload = setImg.bind(null, src);
-      image.onerror = setImg.bind(null, 'error');
+      image.onload = () => setImg(src);
+      image.onerror = () => setImg('error');
     }
   }, [src]);
 
@@ -127,8 +129,8 @@ const ImageContainer =  (props) => {
         src={state.img}
         ref={state.imgRef}
         onLoad={state.resetSize}
-        style={{ ...state.size }}
         className={state.imgClass}
+        style={{ ...state.size, transition: `opacity ${fadeTime}s`; }}
       />
       <div
         style={props.bodyStyle}

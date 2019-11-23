@@ -15,11 +15,9 @@
 
   .qyrc-image-bg {
     opacity: 0;
-    transition: opacity 1s;
   }
 
   .qyrc-image-bg.qyrc-image-bg-show {
-    transition: opacity 10;
     opacity: 1;
   }
 }
