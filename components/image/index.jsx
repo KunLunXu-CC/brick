@@ -130,7 +130,7 @@ const ImageContainer =  (props) => {
         ref={state.imgRef}
         onLoad={state.resetSize}
         className={state.imgClass}
-        style={{ ...state.size, transition: `opacity ${fadeTime}s` }}
+        style={{ ...state.size, transition: `opacity ${props.fadeTime}s` }}
       />
       <div
         style={props.bodyStyle}
