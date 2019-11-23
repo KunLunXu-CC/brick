@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.23](https://github.com/qianyin925/qyrc/compare/v1.1.22...v1.1.23) (2019-11-23)
+
+
+### Features
+
+* imgage  淡入、image bug 修复: 加载错误 onresize 警告、有时图片出不来 ([a7f9e55](https://github.com/qianyin925/qyrc/commit/a7f9e55))
+
 ### [1.1.22](https://github.com/qianyin925/qyrc/compare/v1.1.21...v1.1.22) (2019-11-16)
 
 
