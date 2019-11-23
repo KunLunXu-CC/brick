@@ -110,7 +110,7 @@ const useStateHook = (props) => {
       image.onload = () => setImg(src);
       image.onerror = () => setImg('error');
     } else {
-      setImg('loading');
+      setImg('error');
     }
   }, [src]);
 
