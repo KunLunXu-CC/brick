@@ -14,6 +14,7 @@ const filterPropKeys = [
   'height',
   'error',
   'loading',
+  'fadeTime',
   'bodyStyle',
   'className',
   'bodyClassName',
@@ -108,6 +109,8 @@ const useStateHook = (props) => {
       image.src = src;
       image.onload = () => setImg(src);
       image.onerror = () => setImg('error');
+    } else {
+      setImg('loading');
     }
   }, [src]);
 
