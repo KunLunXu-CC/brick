@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.29](https://github.com/qianyin925/qyrc/compare/v1.1.28...v1.1.29) (2019-11-23)
+
+
+### Bug Fixes
+
+* bUG： 修复 无法对 images img 直接使用 transition ([3fbe54c](https://github.com/qianyin925/qyrc/commit/3fbe54c))
+
 ### [1.1.28](https://github.com/qianyin925/qyrc/compare/v1.1.27...v1.1.28) (2019-11-23)
 
 
