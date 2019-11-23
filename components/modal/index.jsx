@@ -99,6 +99,16 @@ const useStateHook = (props) => {
     _.isFunction(props.onResize) && props.onResize(p);
   };
 
+  // 弹窗最外层 class
+  const modalClass = useMemo(() => {
+    return classNames(
+      'qyrc-modal',
+      { 'qyrc-modal-max': isMax },
+      { 'qyrc-modal-min': isMin },
+      props.className,
+    )
+  }, [props.className, isMin, isMax]);
+
   // 处理 props.isMax props.isMin
   useEffect(() => {setIsMin(!!props.isMin);}, [props.isMin]);
   useEffect(() => {setIsMax(!!props.isMax);}, [props.isMax]);
@@ -134,7 +144,7 @@ const useStateHook = (props) => {
     statics.minHandled = true;
   }, [isMin]);
 
-  return { modalRef, onClose, onMin, onMax, onResize, params, toolPosition };
+  return { modalRef, onClose, onMin, onMax, onResize, params, toolPosition, modalClass };
 };
 
 const Modal = (props) => {
@@ -146,7 +156,7 @@ const Modal = (props) => {
       params={state.params}
       onResize={state.onResize}
       style={{ ...props.style }}
-      className={classNames('qyrc-modal', props.className)}
+      className={state.modalClass}
       {...omit(props, filterPropKeys)}
     >
       <div className={classNames('qyrc-modal-body')}>
