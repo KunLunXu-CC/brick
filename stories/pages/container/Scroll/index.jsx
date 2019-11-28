@@ -40,6 +40,7 @@ const BindHeight = () => {
         <div onClick={onReturn}>回到顶部</div>
       </div>
       <Scroll
+        dropBody={false}
         onScroll={onScroll}
         scrollHeight={scrollHeight}
         onBodyResize={()=>{console.log('bodyResize')}}

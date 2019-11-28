@@ -8,8 +8,8 @@ import { Resize } from '..';
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
   'style',
+  'dropBody',
   'className',
-
   'shifting',
   'onScroll',
   'onResize',
@@ -27,6 +27,7 @@ const filterPropKeys = [
 // props 默认值
 const defaultProps = {
   shifting: 50,
+  dropBody: false,
   sliderMinHeight: 20,
   touchTopDistance: 20,
   defaultScrollHeight: 0,
@@ -67,7 +68,7 @@ const useStateHook = (props) => {
   const immutable = useMemo(() => ({
     scrollHeight: null,   // 记录最初(鼠标按下时)卷起高度
     clientY: null,        // 记录最初(鼠标按下时) clientY
-    dragIn: null,         // 拖拽目标: contetn slider
+    dragIn: null,         // 拖拽目标: content slider
   }), []);
 
   const _sliderHeight = useMemo(() => (
@@ -132,7 +133,9 @@ const useStateHook = (props) => {
     const dift = bodyRect.height - parentRect.height;
     const max = dift > 0 ? dift : 0;
     const min = 0;
-    const reset = value > max ? max : value < min ? min : value;
+    const reset = value < max
+      ? (value < min ? min : value)
+      : max;
     reset !== _scrollHeight && setScrollHeight(reset);
     handleBoundary(min, max, value);
   };
@@ -144,10 +147,10 @@ const useStateHook = (props) => {
     resetScrollHeight(_scrollHeight + props.shifting * Math.sign(e.deltaY));
   };
 
-  // 鼠标按下事件: 设置操作目标: slider contetn
+  // 鼠标按下事件: 设置操作目标: slider content
   const onMouseDown = (e) => {
     sliderRef.current.contains(e.target) && (immutable.dragIn = 'slider');
-    bodyRef.current.contains(e.target) && (immutable.dragIn = 'contetn');
+    bodyRef.current.contains(e.target) && (immutable.dragIn = 'content');
     immutable.scrollHeight = _scrollHeight;
     immutable.clientY = e.clientY;
   };
@@ -159,14 +162,18 @@ const useStateHook = (props) => {
 
   // 鼠标移动事件: 根据计算公式二
   const onMove = (e) => {
-    if (!immutable.dragIn){return false;}
+    const execConds = [
+      immutable.dragIn === 'slider',
+      immutable.dragIn === 'content' && props.dropBody,
+    ];
+    if (!execConds.includes(true)) {return false;}
     e.preventDefault();
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
     const diff = immutable.dragIn === 'slider'
       ? offSetRatio * (e.clientY - immutable.clientY)
-      : immutable.scrollHeight - (e.clientY - immutable.clientY)
+      : immutable.clientY - e.clientY;
     resetScrollHeight(immutable.scrollHeight + diff);
   };
 
