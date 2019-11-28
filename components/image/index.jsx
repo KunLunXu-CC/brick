@@ -88,7 +88,7 @@ const useStateHook = (props) => {
   useEffect(() => {
     if (props.src && props.src.constructor === File){
       // 支持传入 file 对象
-      if (!/image/.test(props.src)){
+      if (!/image/.test(props.src.type)){
         setSrc(null);
       } else {
         const reader = new FileReader();

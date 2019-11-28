@@ -7,7 +7,7 @@ import './inde.scss';
 // 基本使用方法
 const Bast = () => {
   return (
-    <div style={{ padding: '20px 0' }} className="page-image-bast">
+    <div style={{ height: '400px', padding: '20px 0' }}>
       <Image
         loading={<div style={{ width: '100%', height: '100%', background: 'red' }}></div>}
         error="加载失败"
