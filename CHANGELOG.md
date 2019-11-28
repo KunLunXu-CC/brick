@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.30](https://github.com/qianyin925/qyrc/compare/v1.1.29...v1.1.30) (2019-11-28)
+
+
+### Bug Fixes
+
+* 【qyrc】【BUG】【images】现在 file 对象好像不支持了 ([39a60f8](https://github.com/qianyin925/qyrc/commit/39a60f8))
+* 【qyrc】【BUG】允许手动开启关闭拖动滚动效果 ([37a012d](https://github.com/qianyin925/qyrc/commit/37a012d))
+* 【qyrc】【GUB】滚动条拖动会错乱或者没有效果 ([3351d56](https://github.com/qianyin925/qyrc/commit/3351d56))
+
 ### [1.1.29](https://github.com/qianyin925/qyrc/compare/v1.1.28...v1.1.29) (2019-11-23)
 
 
