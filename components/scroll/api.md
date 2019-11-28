@@ -8,6 +8,12 @@
 - 类型: ReactNode
 - 默认值: ---
 
+## 1.2 dropBody
+
+- 描述: 是否允许拖拽主体内容进行滚动(true : 允许拖拽滚动、false 不允许拖拽滚动)
+- 类型: Boolean
+- 默认值: false
+
 ### 1.2 defaultScrollHeight
 
 - 描述: 组件默认卷起高度
