@@ -32,12 +32,8 @@ const useStateHook = (props) => {
   };
 
   useEffect(() => {
-    iframeRef.current && 
+    iframeRef.current &&
     iframeRef.current.contentWindow.addEventListener('resize', onResize);
-    return () => {
-      iframeRef.current && 
-      iframeRef.current.contentWindow.removeEventListener('resize', onResize);
-    }
   }, [iframeRef.current]);
 
   return { iframeRef };
@@ -52,7 +48,7 @@ const Resize = React.forwardRef((props, ref) => {
       {...omit(props, filterPropKeys)}
     >
       {props.children}
-      <iframe frameBorder="0" ref={state.iframeRef} className="qyrc-resize-iframe"/>      
+      <iframe frameBorder="0" ref={state.iframeRef} className="qyrc-resize-iframe"/>
     </div>
   );
 });
