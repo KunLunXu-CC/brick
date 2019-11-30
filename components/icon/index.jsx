@@ -21,18 +21,19 @@ const propTypes = {
 const Icon = (props) => {
   const state = useState(props);
   return (
-    <svg
-      aria-hidden="true"
+    <span
       style={props.style}
       onClick={state.onClick}
       className={classNames(
-        'qyrc-icon', 
+        'qyrc-icon',
         props.className,
-        {'qyrc-icon-btn': _.isFunction(props.onClick)}, 
+        {'qyrc-icon-btn': _.isFunction(props.onClick)},
       )}
     >
-      <use xlinkHref={`#${props.type}`} ></use>
-    </svg>
+      <svg className="qyrc-icon-svg" aria-hidden="true" >
+        <use xlinkHref={`#${props.type}`} ></use>
+      </svg>
+    </span>
   );
 };
 Icon.propTypes = propTypes;

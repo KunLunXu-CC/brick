@@ -1,5 +1,5 @@
-.qyrc-icon {
-  width: 1em; 
+.qyrc-icon-svg {
+  width: 1em;
   height: 1em;
   margin: 0 5px;
   fill: currentColor;
@@ -12,6 +12,6 @@
   cursor: pointer;
 
   &:hover {
-    color: #1890ff; 
+    color: #1890ff;
   }
 }
