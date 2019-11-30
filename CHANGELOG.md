@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.32](https://github.com/qianyin925/qyrc/compare/v1.1.31...v1.1.32) (2019-11-30)
+
+
+### Features
+
+* 【qyrc】【Icon】在最外层包裹一层 span 并将类、事件等挂载在span上 ([1461169](https://github.com/qianyin925/qyrc/commit/1461169))
+* 【qyrc】【文档整理】组件的开发、发布流程文档 ([94004ef](https://github.com/qianyin925/qyrc/commit/94004ef))
+
 ### [1.1.31](https://github.com/qianyin925/qyrc/compare/v1.1.30...v1.1.31) (2019-11-30)
 
 
