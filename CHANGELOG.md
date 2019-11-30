@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.31](https://github.com/qianyin925/qyrc/compare/v1.1.30...v1.1.31) (2019-11-30)
+
+
+### Features
+
+* 【qyrc】【Resize】在路由切换时抛出错误 ([f4c8fc3](https://github.com/qianyin925/qyrc/commit/f4c8fc3))
+
 ### [1.1.30](https://github.com/qianyin925/qyrc/compare/v1.1.29...v1.1.30) (2019-11-28)
 
 
