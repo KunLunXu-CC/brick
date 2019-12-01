@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.33](https://github.com/qianyin925/qyrc/compare/v1.1.32...v1.1.33) (2019-12-01)
+
+
+### Features
+
+* icon 回退 ([4644ed9](https://github.com/qianyin925/qyrc/commit/4644ed9))
+* 修改开发部署流程 ([bed19c0](https://github.com/qianyin925/qyrc/commit/bed19c0))
+
+
+
 ### [1.1.32](https://github.com/qianyin925/qyrc/compare/v1.1.31...v1.1.32) (2019-11-30)
 
 
