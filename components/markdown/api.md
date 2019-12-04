@@ -2,6 +2,10 @@
 
 ## 一、 API 文档
 
+showToc: false
+onBuildToc: null
+tocTypeList: ['h1', 'h2', 'h3']
+
 ### 1.1 theme
 
 描述: 设置主题
