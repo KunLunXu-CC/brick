@@ -5,10 +5,9 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import MarkdownToJsx from 'markdown-to-jsx';
 
-
-import { getId, buildToc } from './util';
 import CodeBlock from './CodeBlock';
 import Title from './Title';
+import Toc from './Toc';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -16,35 +15,26 @@ const filterPropKeys = [
   'children',
   'showToc',
   'className',
-  'onBuildToc',
-  'tocTypeList',
+  'onTocParsed',
+  'tocParseTypeList',
 ];
 
 // props 默认值
 const defaultProps = {
   theme: 'light',
   showToc: true,
-  tocTypeList: ['h2', 'h3', 'h4'],
+  tocParseTypeList: ['h2', 'h3'],
 };
 
 // props 参数校验
 const propTypes = {
   theme: PropTypes.string,
   options: PropTypes.object,
-
   style: PropTypes.object,
   className: PropTypes.string,
 };
 
 const useStateHook = (props) => {
-
-  // 渲染 Toc
-  const toc = useMemo(() => {
-    const { reactElements, tocData } = buildToc(props.children, props.tocTypeList);
-    _.isFunction(props.onBuildToc) && props.onBuildToc({ reactElements, tocData });
-    return props.showToc ? reactElements : null;
-  }, [props.children]);
-
   // 合并计算 options
   const options = useMemo(() => {
     const baseOptions = {
@@ -70,10 +60,11 @@ const useStateHook = (props) => {
   const wrapperClassName = useMemo(() => classNames(
     'qyrc-md',
     `qyrc-md-${props.theme}`,
-    props.className
+    {'qyrc-md-show-toc': props.showToc},
+    props.className,
   ), [])
 
-  return { options, toc, wrapperClassName };
+  return { options, wrapperClassName };
 };
 
 const Markdown = (props) => {
@@ -85,10 +76,9 @@ const Markdown = (props) => {
       <MarkdownToJsx
         options={state.options}
         children={props.children}
+        className="qyrc-md-body"
       />
-      <div className="qyrc-md-toc">
-        {state.toc}
-      </div>
+      <Toc {...props}/>
     </div>
   );
 };

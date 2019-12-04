@@ -3,7 +3,6 @@ import hljs from 'highlight.js';
 import classNames from 'classnames';
 
 import React, { useEffect, useRef, useMemo } from 'react';
-import { highlightBlock } from './util';
 import { Icon } from '..';
 
 const useStateHook = props => {
@@ -31,29 +30,29 @@ export default props => {
   const classNamePrefix = props.classNamePrefix;
 
   return (
-    <div ref={state.codeRef} className={`${classNamePrefix}-code`}>
-      <div className={`${classNamePrefix}-code-header`}>
-        <div className={`${classNamePrefix}-code-header-red`} />
-        <div className={`${classNamePrefix}-code-header-yellow`} />
-        <div className={`${classNamePrefix}-code-header-green`} />
-        <div className={`${classNamePrefix}-code-header-lang`}>
+    <div ref={state.codeRef} className="qyrc-md-code">
+      <div className="qyrc-md-code-header">
+        <div className="qyrc-md-code-header-red" />
+        <div className="qyrc-md-code-header-yellow" />
+        <div className="qyrc-md-code-header-green" />
+        <div className="qyrc-md-code-header-lang">
           {className.replace('lang-', '')}
         </div>
         <Icon
           title="复制代码"
           type="icon-copy"
           onClick={state.onCopy}
-          className={`${classNamePrefix}-code-header-copy`}
+          className="qyrc-md-code-header-copy"
         />
       </div>
-      <div className={`${classNamePrefix}-code-body`}>
-        <ul className={`${classNamePrefix}-code-line`}>
+      <div className="qyrc-md-code-body">
+        <ul className="qyrc-md-code-line">
           {new Array(children.split('\n').length).fill(0).map((v, index) => (
             <li key={index}>{index + 1}</li>
           ))}
         </ul>
-        <div className={`${classNamePrefix}-code-content`}>
-          <pre><code className={classNames(className, `${classNamePrefix}-code-block`)}>
+        <div className="qyrc-md-code-content"><pre>
+          <code className={classNames(className, `qyrc-md-code-block`)}>
             {children}
           </code></pre>
         </div>
@@ -61,7 +60,7 @@ export default props => {
       <textarea
         ref={state.selectRef}
         defaultValue={children}
-        className={`${classNamePrefix}-code-select`}
+        className="qyrc-md-code-select"
       />
     </div>
   );

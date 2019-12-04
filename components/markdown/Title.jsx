@@ -1,9 +1,8 @@
 import React from 'react';
-import { getId } from './util';
 
-export default ({ type, ...props }) => (
-  React.createElement(type, {
+export default ({ type, ...props }) => {
+  return React.createElement(type, {
     ...props,
-    id: getId(props.children, type),
+    id: encodeURIComponent(`${type}${props.children[0].trim()}`),
   }, props.children)
-);
+}

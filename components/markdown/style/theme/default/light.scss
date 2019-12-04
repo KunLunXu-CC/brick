@@ -117,7 +117,7 @@
 }
 
 // 8. 代码块部分
-.qyrc-md-light .qyrc-md-light-code {
+.qyrc-md-light .qyrc-md-code {
   padding: 0;
   display: flex;
   margin: 20px 0;
@@ -199,5 +199,70 @@
     width: 0;
     height: 0;
     opacity: 0;
+  }
+}
+
+// 9. toc 设置
+.qyrc-md-light.qyrc-md-show-toc {
+  $width: 200px;
+  $textIndent: 24px;
+
+  display: flex;
+
+  .qyrc-md-body {
+    flex: 1;
+  }
+
+  .qyrc-md-toc {
+    flex: none;
+    width: $width;
+    font-size: 14px;
+    position: relative;
+    align-self: flex-start;
+    padding-left: $textIndent;
+
+    > div {
+      display: flex;
+      cursor: pointer;
+      overflow: hidden;
+      align-items: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      &:hover { color: #eb5055; }
+    }
+
+    &:after {
+      top: 0;
+      left: $textIndent;
+      bottom: 0;
+      content: '';
+      display: block;
+      position: absolute;
+      border-left: 1px solid rgb(221, 221, 221);
+    }
+
+    .toc-h1 {
+      padding-left: 0 * $textIndent;
+    }
+
+    .toc-h2 {
+      padding-left: 1 * $textIndent;
+    }
+
+    .toc-h3 {
+      padding-left: 2 * $textIndent;
+    }
+
+    .toc-h4 {
+      padding-left: 3 * $textIndent;
+    }
+
+    .toc-h5 {
+      padding-left: 4 * $textIndent;
+    }
+
+    .toc-h6 {
+      padding-left: 5 * $textIndent;
+    }
   }
 }
