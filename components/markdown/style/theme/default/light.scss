@@ -205,64 +205,62 @@
 // 9. toc 设置
 .qyrc-md-light.qyrc-md-show-toc {
   $width: 200px;
-  $textIndent: 24px;
 
   display: flex;
+  position: relative;
 
   .qyrc-md-body {
     flex: 1;
   }
 
   .qyrc-md-toc {
-    flex: none;
+    top: 10px;
     width: $width;
     font-size: 14px;
     position: relative;
-    align-self: flex-start;
-    padding-left: $textIndent;
-
-    > div {
-      display: flex;
-      cursor: pointer;
-      overflow: hidden;
-      align-items: center;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      &:hover { color: #eb5055; }
-    }
+    padding-left: 38px;
 
     &:after {
       top: 0;
-      left: $textIndent;
       bottom: 0;
+      left: 20px;
       content: '';
       display: block;
       position: absolute;
       border-left: 1px solid rgb(221, 221, 221);
     }
 
-    .toc-h1 {
-      padding-left: 0 * $textIndent;
+    .level-0 {
+      display: flex;
+      position: relative;
+      align-items: center;
+
+      &:after {
+        width: 8px;
+        content: '';
+        height: 8px;
+        left: -22px;
+        z-index: 999;
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        background: #eb5055;
+      }
     }
 
-    .toc-h2 {
-      padding-left: 1 * $textIndent;
-    }
-
-    .toc-h3 {
-      padding-left: 2 * $textIndent;
-    }
-
-    .toc-h4 {
-      padding-left: 3 * $textIndent;
-    }
-
-    .toc-h5 {
-      padding-left: 4 * $textIndent;
-    }
-
-    .toc-h6 {
-      padding-left: 5 * $textIndent;
+    @for $i from 0 through 6 {
+      $textIndent: 12px;
+      .level-#{$i} {
+        padding-left: ($textIndent * $i);
+        color: rgba($color: #333, $alpha: 1 - (0.2 * $i));
+        > div {
+          cursor: pointer;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          &:hover { color: #eb5055; }
+        }
+      }
     }
   }
 }

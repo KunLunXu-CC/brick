@@ -43,7 +43,7 @@ export default props => {
           key={index}
           onClick={v.onClick}
           className={`toc-${v.type} level-${v.level}`}>
-          {v.children}
+          <div className="qyrc-md-toc-title">{v.children}</div>
         </div>
       ))}
     </div>
