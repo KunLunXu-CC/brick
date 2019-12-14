@@ -20,7 +20,7 @@ export default () => {
     //   </Markdown>
     // </div>
     <div style={{ overflow: 'auto' }}>
-    <Markdown options={{ overrides: { img: Img } }}>
+    <Markdown>
       {testMd}
     </Markdown>
   </div>

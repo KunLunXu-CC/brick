@@ -2,10 +2,6 @@
 
 ## 一、 API 文档
 
-showToc: false
-onTocParsed: null
-tocParseTypeList: ['h1', 'h2', 'h3']
-
 ### 1.1 theme
 
 描述: 设置主题
@@ -36,3 +32,21 @@ tocParseTypeList: ['h1', 'h2', 'h3']
 描述: 为组件追加 className
 类型: String
 默认值: ---
+
+### 1.6 showToc
+
+描述: 是否显示目录
+类型: Boolean
+默认值: false
+
+### 1.6 onTocParsed
+
+描述: 解析完目录后执行函数, 不管 showToc 是否设置为 true 都会触发
+类型: Function  ({ parseData, reactElement }) => {}
+默认值: null
+
+### 1.6 tocParseTypeList
+
+描述: 那些标签需要被解析为目录
+类型: String[]
+默认值: ['h2', 'h3']

@@ -205,12 +205,13 @@
 // 9. toc 设置
 .qyrc-md-light.qyrc-md-show-toc {
   $width: 200px;
+  $textIndent: 12px;
 
   display: flex;
-  position: relative;
 
   .qyrc-md-body {
     flex: 1;
+    padding-right: 1.5 * $textIndent;
   }
 
   .qyrc-md-toc {
@@ -218,38 +219,30 @@
     width: $width;
     font-size: 14px;
     position: relative;
-    padding-left: 38px;
-
-    &:after {
-      top: 0;
-      bottom: 0;
-      left: 20px;
-      content: '';
-      display: block;
-      position: absolute;
-      border-left: 1px solid rgb(221, 221, 221);
-    }
+    align-self: flex-start;
+    padding-left: $textIndent;
+    border-left: 1px solid rgb(221, 221, 221);
 
     .level-0 {
       display: flex;
       position: relative;
       align-items: center;
 
+      // 圆点
       &:after {
         width: 8px;
         content: '';
         height: 8px;
-        left: -22px;
         z-index: 999;
         display: block;
         border-radius: 50%;
         position: absolute;
         background: #eb5055;
+        left: -($textIndent + 4);
       }
     }
 
     @for $i from 0 through 6 {
-      $textIndent: 12px;
       .level-#{$i} {
         padding-left: ($textIndent * $i);
         color: rgba($color: #333, $alpha: 1 - (0.2 * $i));

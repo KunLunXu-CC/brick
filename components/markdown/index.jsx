@@ -22,16 +22,19 @@ const filterPropKeys = [
 // props 默认值
 const defaultProps = {
   theme: 'light',
-  showToc: true,
+  showToc: false,
   tocParseTypeList: ['h2', 'h3'],
 };
 
 // props 参数校验
 const propTypes = {
   theme: PropTypes.string,
-  options: PropTypes.object,
+  showToc: PropTypes.bool,
   style: PropTypes.object,
+  options: PropTypes.object,
+  onTocParsed: PropTypes.func,
   className: PropTypes.string,
+  tocParseTypeList: PropTypes.arrayOf(PropTypes.string),
 };
 
 const useStateHook = (props) => {
