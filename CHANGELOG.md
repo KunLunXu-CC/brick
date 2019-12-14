@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.34](https://github.com/qianyin925/qyrc/compare/v1.1.33...v1.1.34) (2019-12-14)
+
+
+### Features
+
+* 【qyrc】【markdown】添加目录 ([f1951f2](https://github.com/qianyin925/qyrc/commit/f1951f2))
+* 【qyrc】【markdown】重写 ([0847d79](https://github.com/qianyin925/qyrc/commit/0847d79))
+
 ### [1.1.33](https://github.com/qianyin925/qyrc/compare/v1.1.32...v1.1.33) (2019-12-01)
 
 
