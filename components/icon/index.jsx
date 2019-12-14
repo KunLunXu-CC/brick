@@ -21,7 +21,7 @@ const propTypes = {
 const Icon = (props) => {
   const state = useState(props);
   return (
-    <span
+    <svg
       style={props.style}
       onClick={state.onClick}
       className={classNames(
@@ -29,11 +29,9 @@ const Icon = (props) => {
         props.className,
         {'qyrc-icon-btn': _.isFunction(props.onClick)},
       )}
-    >
-      <svg className="qyrc-icon-svg" aria-hidden="true" >
-        <use xlinkHref={`#${props.type}`} ></use>
-      </svg>
-    </span>
+      aria-hidden="true" >
+      <use xlinkHref={`#${props.type}`} ></use>
+    </svg>
   );
 };
 Icon.propTypes = propTypes;
