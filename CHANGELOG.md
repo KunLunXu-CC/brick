@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.35](https://github.com/qianyin925/qyrc/compare/v1.1.34...v1.1.35) (2019-12-21)
+
+
+### Features
+
+* 【qyrc】【BUG】modal 全屏后当父容器大小改变时无法跟随着改变 ([b767ee8](https://github.com/qianyin925/qyrc/commit/b767ee8))
+
 ### [1.1.34](https://github.com/qianyin925/qyrc/compare/v1.1.33...v1.1.34) (2019-12-14)
 
 
