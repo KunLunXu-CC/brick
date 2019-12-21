@@ -61,7 +61,6 @@ const useStateHook = (props) => {
   const [isMin, setIsMin] = useState(!!props.isMin);
   const [isMax, setIsMax] = useState(!!props.isMax);
   const [params, setParams] = useState(null);
-  const modalRef = useRef(null);
   const statics = useMemo(() => ({
     maxHandled: false,
     minHandled: false,
@@ -117,12 +116,11 @@ const useStateHook = (props) => {
   useEffect(() => {
     if (!!isMax){
       statics.history.push({ ...params });
-      const parentNodeRect = modalRef.current.parentNode.getBoundingClientRect();
       setParams({
         offsetX: 0,
         offsetY: 0,
-        width: parentNodeRect.width,
-        height: parentNodeRect.height,
+        width: '100%',
+        height: '100%',
         ...props.maxParams,
       });
     } else if (statics.maxHandled){
@@ -144,7 +142,7 @@ const useStateHook = (props) => {
     statics.minHandled = true;
   }, [isMin]);
 
-  return { modalRef, onClose, onMin, onMax, onResize, params, toolPosition, modalClass };
+  return { onClose, onMin, onMax, onResize, params, toolPosition, modalClass };
 };
 
 const Modal = (props) => {
@@ -152,7 +150,6 @@ const Modal = (props) => {
 
   return (
     <VariableBlock
-      ref={state.modalRef}
       params={state.params}
       onResize={state.onResize}
       style={{ ...props.style }}

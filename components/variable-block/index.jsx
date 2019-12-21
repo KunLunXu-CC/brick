@@ -62,8 +62,8 @@ const useStateHook = (props, ref) => {
 
   // 合并计算后的状态, 也是用于组件渲染的状态(受控组件受外部属性的控制不直接用内部状态来渲染组件)
   const _params = useMemo(() => ({
-    ...params, 
-    ...props.params, 
+    ...params,
+    ...props.params,
   }), [params, props.params]);
 
   // 监听内部状态的变更, 触发 onChange 事件
@@ -82,7 +82,7 @@ const VariableBlock =  React.forwardRef((props, ref) => {
         width: state.width,
         height: state.height,
         transform: `translate(
-          ${state.offsetX}${_.isNumber(state.offsetX) ? 'px' : ''}, 
+          ${state.offsetX}${_.isNumber(state.offsetX) ? 'px' : ''},
           ${state.offsetY}${_.isNumber(state.offsetY) ? 'px' : ''})`,
         ...props.style,
       }}

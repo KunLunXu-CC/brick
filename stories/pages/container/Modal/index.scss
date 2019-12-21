@@ -1,16 +1,17 @@
 
 .modal-demo {
-  width: 1000px;
-  height: 600px;
-  background: rgba(0, 255, 0, 0.1);
-  margin: 20px;
+  width: 80%;
+  height: 400px;
   overflow: hidden;
   position: relative;
+  background: rgba(0, 255, 0, 0.1);
 }
 
 .modal-demo-body {
-  width: 999px;
-  height: 999px;
+  // width: 999px;
+  // height: 999px;
+  width: 100%;
+  height: 100%;
   background: #04071b;
 }
 
