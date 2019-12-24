@@ -1,14 +1,14 @@
 import VariableBlock from '@pages/container/VariableBlock';
 import Markdown from '@pages/currency/Markdown';
-import ModalDemo from '@pages/container/Modal';
 import Introduce from '@pages/base/Introduce';
+import Window from '@pages/container/Window';
 import Scroll from '@pages/container/Scroll';
 import IconDemo from '@pages/currency/Icon';
 import Resize from '@pages/container/Resize';
 import Image from '@pages/container/Image';
 
 export default [
-  /***** 基本 *****/  
+  /***** 基本 *****/
   {
     title: '介绍',
     module: '基本',
@@ -37,9 +37,9 @@ export default [
     component: Scroll
   },
   {
-    title: '弹窗',
+    title: '窗体',
     module: '容器',
-    component: ModalDemo
+    component: Window
   },
   {
     title: '图片',

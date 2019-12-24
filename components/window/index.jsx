@@ -98,12 +98,12 @@ const useStateHook = (props) => {
     _.isFunction(props.onResize) && props.onResize(p);
   };
 
-  // 弹窗最外层 class
-  const modalClass = useMemo(() => {
+  // 窗体最外层 class
+  const windowClass = useMemo(() => {
     return classNames(
-      'qyrc-modal',
-      { 'qyrc-modal-max': isMax },
-      { 'qyrc-modal-min': isMin },
+      'qyrc-window',
+      { 'qyrc-window-max': isMax },
+      { 'qyrc-window-min': isMin },
       props.className,
     )
   }, [props.className, isMin, isMax]);
@@ -142,10 +142,10 @@ const useStateHook = (props) => {
     statics.minHandled = true;
   }, [isMin]);
 
-  return { onClose, onMin, onMax, onResize, params, toolPosition, modalClass };
+  return { onClose, onMin, onMax, onResize, params, toolPosition, windowClass };
 };
 
-const Modal = (props) => {
+const Window = (props) => {
   const state = useStateHook(props);
 
   return (
@@ -153,34 +153,34 @@ const Modal = (props) => {
       params={state.params}
       onResize={state.onResize}
       style={{ ...props.style }}
-      className={state.modalClass}
+      className={state.windowClass}
       {...omit(props, filterPropKeys)}
     >
-      <div className={classNames('qyrc-modal-body')}>
+      <div className={classNames('qyrc-window-body')}>
         <span
           style={{ ...state.toolPosition, ...props.toolStyle }}
-          className={classNames('qyrc-modal-tool', props.toolClassName)}>
+          className={classNames('qyrc-window-tool', props.toolClassName)}>
           <Icon
             type="icon-guanbi6-copy"
             onClick={state.onClose}
-            className="qyrc-modal-tool-item qyrc-modal-tool-close"
+            className="qyrc-window-tool-item qyrc-window-tool-close"
           />
           <Icon
             type="icon-suoxiao"
             onClick={state.onMin}
-            className="qyrc-modal-tool-item qyrc-modal-tool-min"
+            className="qyrc-window-tool-item qyrc-window-tool-min"
           />
           <Icon
             onClick={state.onMax}
-            className="qyrc-modal-tool-item qyrc-modal-tool-max"
+            className="qyrc-window-tool-item qyrc-window-tool-max"
             type={state.isMax ? 'icon-suoxiao2' : 'icon-fangda1'}
           />
         </span>
-        <div className={classNames('qyrc-modal-content')}>{props.children}</div>
+        <div className={classNames('qyrc-window-content')}>{props.children}</div>
       </div>
     </VariableBlock>
   );
 };
 
-Modal.defaultProps = defaultProps;
-export default Modal;
+Window.defaultProps = defaultProps;
+export default Window;

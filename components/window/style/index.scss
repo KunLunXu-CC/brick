@@ -1,18 +1,18 @@
-.qyrc-modal {
+.qyrc-window {
   overflow: hidden;
   position: absolute;
   border-radius: 10px;
   box-shadow: 0px 0px 30px 0px rgba($color: #333, $alpha: 0.3);
 };
 
-.qyrc-modal-body {
+.qyrc-window-body {
   position: relative;
   width: 100%;
   height: 100%;
 };
 
 /* 内容 */
-.qyrc-modal-content {
+.qyrc-window-content {
   position: absolute;
   z-index: 0;
   top: 0;
@@ -23,7 +23,7 @@
 }
 
 /* 工具栏 */
-.qyrc-modal-tool {
+.qyrc-window-tool {
   position: absolute;
   z-index: 1;
   cursor: pointer;
@@ -57,6 +57,6 @@
 }
 
 // 最大化时设置
-.qyrc-modal.qyrc-modal-max {
+.qyrc-window.qyrc-window-max {
   border-radius: 0px;
 }

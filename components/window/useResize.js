@@ -58,7 +58,7 @@ const getOriginClient = ({ e, target, operationType }) => {
  * @param {Object} boundary        传入 boundary
  * @param {Object} target          目标对象
  * @param {String} operationType   操作类型
- * @param {Number} constraintSize  modal 限制大小
+ * @param {Number} constraintSize  window 限制大小
  * @returns {Object}               限制边界， client 限制范围
  */
 const getBoundary = ({ boundary, target, operationType, constraintSize }) => {
@@ -122,11 +122,11 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
 };
 
 /**
- * 弹窗 hook
- * @param {Object} modakRef          弹窗 ref
+ * 窗体 hook
+ * @param {Object} modakRef          窗体 ref
  * @param {NUmber} threshold         容错率
  * @param {NUmber} dragHeight        顶部允许拖拽区域高度
- * @param {Object} boundary          边界限制， 默认为弹窗父原始 rect
+ * @param {Object} boundary          边界限制， 默认为窗体父原始 rect
  * @param {Number} constraintSize    宽高限制大小(最小宽、高)
  * @param {Object} defaultParams     默认 params 参数
  */

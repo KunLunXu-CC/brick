@@ -22,7 +22,7 @@
 
 ### 1.4 dragHeight (VariableBlock)
 
-- 描述: 顶部可拖拽区域高度，限制 modal 拖拽的区域
+- 描述: 顶部可拖拽区域高度，限制 window 拖拽的区域
 - 类型: Number
 - 默认值: 20
 
