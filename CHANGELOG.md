@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.36](https://github.com/qianyin925/qyrc/compare/v1.1.35...v1.1.36) (2019-12-24)
+
+
+### Features
+
+* 【qyrc】【modal】组件名称修改为 Windoww ([8fccb04](https://github.com/qianyin925/qyrc/commit/8fccb04))
+
 ### [1.1.35](https://github.com/qianyin925/qyrc/compare/v1.1.34...v1.1.35) (2019-12-21)
 
 
