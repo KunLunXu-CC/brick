@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.37](https://github.com/qianyin925/qyrc/compare/v1.1.36...v1.1.37) (2020-01-14)
+
+
+### Bug Fixes
+
+* 【qyrc】【BUG】image 容器 图片无法布满容器 ([0614518](https://github.com/qianyin925/qyrc/commit/0614518))
+
 ### [1.1.36](https://github.com/qianyin925/qyrc/compare/v1.1.35...v1.1.36) (2019-12-24)
 
 
