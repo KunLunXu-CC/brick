@@ -14,6 +14,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const { version, name, description } = require("../package.json");
 
@@ -135,5 +136,7 @@ module.exports = {
       minimize: true
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+    new MonacoWebpackPlugin(),
   ]
 };
