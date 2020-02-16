@@ -9,27 +9,24 @@ import * as monaco from 'monaco-editor';
 import { Resize } from '..';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import customTheme from './theme/customTheme';
-
-monaco.editor.defineTheme('customTheme', customTheme);
+import registerTheme from './theme';
 
 // TODO: 主题配置架构
-// TODO: 过一遍代码
 
-/**
- * props.value 可切换
- * props.theme 可切换
- * props.language 可切换
- * props.className
- * props.options 不可切换
- *
- * onSave
- * onDrop 返回值将插入到当前光标
- * onPaste 返回值将插入到当前光标
- *
- * onKeyDown
- * onResize
- */
+// props 参数校验
+const propTypes = {
+  onResize: PropTypes.func,
+  onSave: PropTypes.func,
+  onDrop: PropTypes.func,
+  onPaste: PropTypes.func,
+  onKeyDown: PropTypes.func,
+
+  options: PropTypes.object,
+  value: PropTypes.string,
+  theme: PropTypes.string,
+  language: PropTypes.string,
+  className: PropTypes.string,
+};
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -47,7 +44,7 @@ const filterPropKeys = [
 
 // 默认 props
 const defaultProps = {
-  theme: 'customTheme',
+  theme: 'one-dark-pro',
   language: 'javascript',
   options: {
     cursorStyle: 'line',
@@ -149,8 +146,12 @@ const useStateHook = (props, ref) => {
     }
   }, [props.language]);
 
-  // 创建 editor
+  // 初始化
   useEffect(() => {
+    // 1. 注册主题
+    registerTheme();
+
+    // 2. 创建 editor
     immutable.editor = monaco.editor.create(
       editorBodyRef.current,
       {
@@ -182,4 +183,5 @@ const Editor = React.forwardRef((props, ref) => {
 });
 
 Editor.defaultProps = defaultProps;
+Editor.propTypes = propTypes;
 export default Editor;

@@ -28,9 +28,9 @@ export default (props) => {
 
   const onToggleTheme = () => {
     setTheme(
-      theme === 'customTheme'
+      theme === 'one-dark-pro'
       ? 'vs'
-      : 'customTheme'
+      : 'one-dark-pro'
     );
   }
 

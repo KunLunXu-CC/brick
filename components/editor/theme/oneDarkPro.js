@@ -1,4 +1,4 @@
-export default {
+const theme = {
   base: 'vs-dark',    // 基础, 基于哪个('vs' | 'vs-dark' | 'hc-black')内置主题
   inherit: false,     // 是否继承
   // 文档: https://code.visualstudio.com/docs/getstarted/themes
@@ -86,3 +86,5 @@ export default {
   },
   // encodedTokensColors 编码令牌颜色
 };
+
+export default { name: 'one-dark-pro', theme };
