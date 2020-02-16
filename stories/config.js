@@ -3,6 +3,7 @@ import Markdown from '@pages/currency/Markdown';
 import Introduce from '@pages/base/Introduce';
 import Window from '@pages/container/Window';
 import Scroll from '@pages/container/Scroll';
+import Editor from '@pages/currency/Editor';
 import IconDemo from '@pages/currency/Icon';
 import Resize from '@pages/container/Resize';
 import Image from '@pages/container/Image';
@@ -24,6 +25,11 @@ export default [
     title: 'markdown',
     module: '通用',
     component: Markdown
+  },
+  {
+    title: 'editor',
+    module: '通用',
+    component: Editor
   },
   /***** 容器 *****/
   {

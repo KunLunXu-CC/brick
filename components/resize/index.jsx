@@ -2,7 +2,7 @@ import _ from 'lodash';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
