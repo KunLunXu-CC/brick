@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/qianyin925/qyrc/compare/v1.1.37...v1.2.0) (2020-02-17)
+
+
+### Features
+
+* 【qyrc】开发环境版本升级 ([c28897c](https://github.com/qianyin925/qyrc/commit/c28897c5b4709ee50870b267f4184075291cf5af))
+* 【qyrc】编辑器组件基本功能实现 ([18f539b](https://github.com/qianyin925/qyrc/commit/18f539b9bc2f937723c6930031592ad4816ba041))
+
 ### [1.1.37](https://github.com/qianyin925/qyrc/compare/v1.1.36...v1.1.37) (2020-01-14)
 
 
