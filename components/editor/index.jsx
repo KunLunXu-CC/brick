@@ -47,7 +47,7 @@ const filterPropKeys = [
 // 默认 props
 const defaultProps = {
   themeConfig: [],
-  theme: 'one-dark-pro',
+  theme: 'vs',
   language: 'javascript',
   options: {
     cursorStyle: 'line',
@@ -86,6 +86,7 @@ const useStateHook = (props, ref) => {
     if (saveConds.every(v => v)){
       event.preventDefault();
       props.onSave({
+        event,
         editor: immutable.editor,
         value: immutable.editor.getValue(),
       });
@@ -111,6 +112,7 @@ const useStateHook = (props, ref) => {
   // 拖拽事件
   const onDrop = event => {
     if (!_.isFunction(props.onDrop)){return false;}
+    event.preventDefault();
     const text = props.onDrop({
       event,
       editor: immutable.editor,

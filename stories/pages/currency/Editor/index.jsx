@@ -1,10 +1,11 @@
 import React, {
   useRef,
+  useMemo,
   useState,
-  useEffect,
 } from 'react';
 import initValue from './value.md';
 import { Editor } from '@components';
+import personality from './personality';
 import '@components/editor/style';
 import './index.scss';
 
@@ -14,26 +15,33 @@ const options = {
   roundedSelection: false,
   selectOnLineNumbers: true,
   scrollBeyondLastLine: false,
+  fontFamily: "monospace, 'Droid Sans Mono', 'Droid Sans Fallback'"
 };
 
 export default (props) => {
+  const immutable = useMemo(() => ({
+    editor: null,
+  }), []);
   const editorRef = useRef(null);
   const [value, setValue] = useState(initValue);
   const [language, setLanguage] = useState('javascript');
   const [theme, setTheme] = useState('vs');
 
+  // 完成
   const onAppendValue = () => {
     setValue(`${value}\n${initValue}`);
   }
 
+  // 完成
   const onToggleTheme = () => {
     setTheme(
-      theme === 'one-dark-pro'
-      ? 'vs'
-      : 'one-dark-pro'
+      theme === 'vs'
+      ? 'personality'
+      : 'vs'
     );
   }
 
+  // 完成
   const onToggleLanguage = () => {
     setLanguage(
       language === 'javascript'
@@ -42,28 +50,47 @@ export default (props) => {
     );
   }
 
+  // 完成
   const onSave = args => {
     console.log('----> 保存 ctr+s', args);
   }
 
+  // 有点小问题
   const onDrop = args => {
     console.log('----> onDrop', args);
+    return '拖拽完成';
   }
 
+  // 完成
   const onPaste = args => {
     console.log('----> onPaste', args);
+    return '黏贴完成';
   }
 
+  // 完成
   const onResize = args => {
     console.log('----> onResize', args);
   }
 
   const onCreated = args => {
+    immutable.editor = args.editor;
     console.log('----> onCreated', args);
   }
 
+  // 完成
   const onKeyDown = args => {
     console.log('----> onKeyDown', args);
+  }
+
+  // 预览内容
+  const onView = () => {
+    const value = immutable.editor.getValue();
+    console.log('------------>> 预览', value);
+  }
+
+  // 预览内容
+  const onResetValue = () => {
+    immutable.editor.setValue(initValue);
   }
 
   return (
@@ -72,6 +99,8 @@ export default (props) => {
         <span onClick={onAppendValue}>追加内容</span>
         <span onClick={onToggleTheme}>切换主题</span>
         <span onClick={onToggleLanguage}>切换语言</span>
+        <span onClick={onView}>查看内容</span>
+        <span onClick={onResetValue}>重置内容</span>
       </div>
       <div className="demo-editor-body">
         <Editor
@@ -84,7 +113,7 @@ export default (props) => {
           language={language}
           options={options}
           theme={theme}
-          themeConfig={[]}
+          themeConfig={[personality]}
           value={value} />
       </div>
     </div>

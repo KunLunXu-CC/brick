@@ -1,6 +1,6 @@
 // 基于官方原本配置新增字段 name 作为主题名称
 export default {
-  name: 'one-dark-pro',  // 主题名称
+  name: 'personality',  // 主题名称
   base: 'vs-dark',    // 基础, 基于哪个('vs' | 'vs-dark' | 'hc-black')内置主题
   inherit: false,     // 是否继承
   // 文档: https://code.visualstudio.com/docs/getstarted/themes
@@ -61,7 +61,10 @@ export default {
     { token: 'predefined.sql', foreground: 'FF00FF' },
   ],
 
-  // 文档: https://code.visualstudio.com/api/references/theme-color
+  // 参考: monaco-editor/esm/vs/editor/common/view/editorColorRegistry.js
+  // 参考: monaco-editor/esm/vs/platform/theme/common/colorRegistry.js
+  // 文档: https://code.visualstudio.com/api/references/theme-colorside-bar
+
   colors: {
     'editor.background': '#282c34',                    // 编辑器背景色
     'editor.foreground': '#abb2bf',                    // 代码折叠: 前面的折叠箭头颜色
