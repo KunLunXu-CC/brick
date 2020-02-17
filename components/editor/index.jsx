@@ -11,8 +11,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import registerTheme from './theme';
 
-// TODO: 主题配置架构
-
 // props 参数校验
 const propTypes = {
   onResize: PropTypes.func,
@@ -20,11 +18,13 @@ const propTypes = {
   onDrop: PropTypes.func,
   onPaste: PropTypes.func,
   onKeyDown: PropTypes.func,
+  onCreated: PropTypes.func,
 
-  options: PropTypes.object,
   value: PropTypes.string,
   theme: PropTypes.string,
+  options: PropTypes.object,
   language: PropTypes.string,
+  themeConfig: PropTypes.array,
   className: PropTypes.string,
 };
 
@@ -38,12 +38,15 @@ const filterPropKeys = [
   'onPaste',
   'language',
   'onResize',
+  'onCreated',
   'onKeyDown',
   'className',
+  'themeConfig',
 ];
 
 // 默认 props
 const defaultProps = {
+  themeConfig: [],
   theme: 'one-dark-pro',
   language: 'javascript',
   options: {
@@ -80,10 +83,13 @@ const useStateHook = (props, ref) => {
       event.keyCode === 83,
       _.isFunction(props.onSave),
     ];
-    saveConds.every(v => v) &&  props.onSave({
-      editor: immutable.editor,
-      value: immutable.editor.getValue(),
-    });
+    if (saveConds.every(v => v)){
+      event.preventDefault();
+      props.onSave({
+        editor: immutable.editor,
+        value: immutable.editor.getValue(),
+      });
+    }
 
     // 2. 调用 props.onKeyDown
     _.isFunction(props.onKeyDown) && props.onKeyDown({
@@ -149,7 +155,7 @@ const useStateHook = (props, ref) => {
   // 初始化
   useEffect(() => {
     // 1. 注册主题
-    registerTheme();
+    registerTheme(props.themeConfig);
 
     // 2. 创建 editor
     immutable.editor = monaco.editor.create(
@@ -161,6 +167,11 @@ const useStateHook = (props, ref) => {
         ... props.options,
       }
     );
+
+    // 3. 调用回调函数
+    _.isFunction(props.onCreated) && props.onCreated({
+      editor: immutable.editor,
+    });
   }, []);
 
   return { editorBodyRef, onKeyDown, onPaste, onResize, onDrop };

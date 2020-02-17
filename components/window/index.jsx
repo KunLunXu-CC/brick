@@ -183,4 +183,5 @@ const Window = (props) => {
 };
 
 Window.defaultProps = defaultProps;
+Window.propTypes = propTypes;
 export default Window;

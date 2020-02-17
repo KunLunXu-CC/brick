@@ -9,4 +9,7 @@ import customTheme from './oneDarkPro';
 export default (thems = []) => ([
   customTheme,
   ... thems,
-].forEach(v => monaco.editor.defineTheme(v.name, v.theme)));
+].forEach(v => {
+  const { name, ... theme } = v;
+  monaco.editor.defineTheme(name, theme)
+}));

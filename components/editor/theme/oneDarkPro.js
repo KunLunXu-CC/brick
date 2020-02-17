@@ -1,4 +1,6 @@
-const theme = {
+// 基于官方原本配置新增字段 name 作为主题名称
+export default {
+  name: 'one-dark-pro',  // 主题名称
   base: 'vs-dark',    // 基础, 基于哪个('vs' | 'vs-dark' | 'hc-black')内置主题
   inherit: false,     // 是否继承
   // 文档: https://code.visualstudio.com/docs/getstarted/themes
@@ -86,5 +88,3 @@ const theme = {
   },
   // encodedTokensColors 编码令牌颜色
 };
-
-export default { name: 'one-dark-pro', theme };
