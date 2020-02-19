@@ -4,9 +4,9 @@ import React, {
   useState,
 } from 'react';
 import initValue from './value.md';
-import { Editor } from '@components';
+import { CodeEditor } from '@components';
 import personality from './personality';
-import '@components/editor/style';
+import '@components/code-editor/style';
 import './index.scss';
 
 const options = {
@@ -64,7 +64,15 @@ export default (props) => {
   // 完成
   const onPaste = args => {
     console.log('----> onPaste', args);
-    return '黏贴完成';
+  }
+
+  const onPasteImage = async args => {
+    console.log('----> onPasteImage', args);
+    return '黏贴图片';
+  }
+
+  const onChange = args => {
+    console.log('----> onChange', args);
   }
 
   // 完成
@@ -103,13 +111,15 @@ export default (props) => {
         <span onClick={onResetValue}>重置内容</span>
       </div>
       <div className="demo-editor-body">
-        <Editor
+        <CodeEditor
           onSave={onSave}
           onDrop={onDrop}
           onPaste={onPaste}
           onResize={onResize}
           onCreated={onCreated}
           onKeyDown={onKeyDown}
+          onPasteImage={onPasteImage}
+          onChange={onChange}
           language={language}
           options={options}
           theme={theme}

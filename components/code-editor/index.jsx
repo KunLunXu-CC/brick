@@ -2,6 +2,7 @@ import React, {
   useRef,
   useMemo,
   useEffect,
+  useCallback,
 } from 'react';
 import _ from 'lodash';
 import omit from 'omit.js';
@@ -13,12 +14,13 @@ import registerTheme from './theme';
 
 // props 参数校验
 const propTypes = {
-  onResize: PropTypes.func,
   onSave: PropTypes.func,
   onDrop: PropTypes.func,
-  onPaste: PropTypes.func,
+  onResize: PropTypes.func,
+  onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onCreated: PropTypes.func,
+  onPasteImage: PropTypes.func,
 
   value: PropTypes.string,
   theme: PropTypes.string,
@@ -36,12 +38,14 @@ const filterPropKeys = [
   'onSave',
   'onDrop',
   'onPaste',
+  'onChange',
   'language',
   'onResize',
   'onCreated',
   'onKeyDown',
   'className',
   'themeConfig',
+  'onPasteImage',
 ];
 
 // 默认 props
@@ -74,6 +78,16 @@ const useStateHook = (props, ref) => {
     immutable.editor.trigger('keyboard', 'type', { text });
   };
 
+  // 模块内容改变事件
+  const onChange = useCallback(event => {
+    if (!_.isFunction(props.onChange) || !immutable.editor) {return false;}
+    props.onChange({
+      event,
+      editor: immutable.editor,
+      value: immutable.editor.getValue(),
+    });
+  }, [])
+
   // 鼠标按下事件
   const onKeyDown = event => {
     // 1. 保存: saveConds 为调用 props.onSave 条件
@@ -100,13 +114,28 @@ const useStateHook = (props, ref) => {
   };
 
   // 黏贴事件
-  const onPaste = event => {
-    if (!_.isFunction(props.onPaste)){return false;}
-    const text = props.onPaste({
+  const onPaste = async event => {
+    // 1. 黏贴图片处理
+    if (
+      event.clipboardData &&
+      event.clipboardData.items &&
+      _.isFunction(props.onPasteImage)
+    ) {
+      const [item] = event.clipboardData.items;
+      const file = item.kind === 'file' ? item.getAsFile() : null;
+      const text = file && /^image\/.*/ig.test(file.type) ? await props.onPasteImage({
+        file,
+        event,
+        editor: immutable.editor,
+      }) : void 0;
+      insertText(text);
+    }
+
+    // 2. 处理普通黏贴事件
+    _.isFunction(props.onPaste) && props.onPaste({
       event,
       editor: immutable.editor,
     });
-    insertText(text);
   };
 
   // 拖拽事件
@@ -174,6 +203,9 @@ const useStateHook = (props, ref) => {
     _.isFunction(props.onCreated) && props.onCreated({
       editor: immutable.editor,
     });
+
+    // 4. 绑定 onChange 事件
+    immutable.editor.onDidChangeModelContent(onChange);
   }, []);
 
   return { editorBodyRef, onKeyDown, onPaste, onResize, onDrop };
