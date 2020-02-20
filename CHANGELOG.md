@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/qianyin925/qyrc/compare/v1.2.2...v1.2.3) (2020-02-20)
+
+
+### Bug Fixes
+
+* 【qyrc】code-editor onChange 事件无法更新 ([4848b5a](https://github.com/qianyin925/qyrc/commit/4848b5a0f85c25f75efdcffa8b5c21b85a3740d1))
+
 ### [1.2.2](https://github.com/qianyin925/qyrc/compare/v1.2.1...v1.2.2) (2020-02-19)
 
 
