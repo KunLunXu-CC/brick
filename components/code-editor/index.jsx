@@ -70,6 +70,7 @@ const useStateHook = (props, ref) => {
 
   const immutable = useMemo(() => ({
     editor: null,
+    onChange: props.onChange,
   }), []);
 
   // 插入内容
@@ -80,13 +81,13 @@ const useStateHook = (props, ref) => {
 
   // 模块内容改变事件
   const onChange = useCallback(event => {
-    if (!_.isFunction(props.onChange) || !immutable.editor) {return false;}
-    props.onChange({
+    if (!_.isFunction(immutable.onChange) || !immutable.editor) {return false;}
+    immutable.onChange({
       event,
       editor: immutable.editor,
       value: immutable.editor.getValue(),
     });
-  }, [])
+  }, []);
 
   // 鼠标按下事件
   const onKeyDown = event => {
@@ -157,6 +158,11 @@ const useStateHook = (props, ref) => {
       editor: immutable.editor,
     });
   };
+
+  // 监听 props.onChange 变更, 修改 immutable.onChange
+  useEffect(() => {
+    immutable.onChange = props.onChange;
+  }, [props.onChange]);
 
   // 监听 props.value 并设置 editor.value
   // 多个 useEffect 执行顺序和它们位置一致, 所以 useEffect 位置很重要

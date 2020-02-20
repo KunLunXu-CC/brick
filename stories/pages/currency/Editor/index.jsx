@@ -72,7 +72,7 @@ export default (props) => {
   }
 
   const onChange = args => {
-    console.log('----> onChange', args);
+    console.log('----> onChange', args, theme);
   }
 
   // 完成
