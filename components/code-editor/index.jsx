@@ -7,10 +7,10 @@ import React, {
 import _ from 'lodash';
 import omit from 'omit.js';
 import * as monaco from 'monaco-editor';
-import { Resize } from '..';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import registerTheme from './theme';
+import { Resize } from '..';
 
 // props 参数校验
 const propTypes = {
@@ -26,8 +26,8 @@ const propTypes = {
   theme: PropTypes.string,
   options: PropTypes.object,
   language: PropTypes.string,
-  themeConfig: PropTypes.array,
   className: PropTypes.string,
+  themeConfig: PropTypes.array,
 };
 
 // omit 需要过滤 props key 列表
@@ -167,7 +167,7 @@ const useStateHook = (props, ref) => {
   // 监听 props.value 并设置 editor.value
   // 多个 useEffect 执行顺序和它们位置一致, 所以 useEffect 位置很重要
   useEffect(() => {
-    if (immutable.editor) {
+    if (immutable.editor && props.value !== immutable.editor.getValue()) {
       immutable.editor.setValue(props.value);
     }
   }, [props.value]);
