@@ -10,12 +10,8 @@ import '@components/code-editor/style';
 import './index.scss';
 
 const options = {
-  cursorStyle: 'line',
   language: 'javascript',
-  roundedSelection: false,
-  selectOnLineNumbers: true,
-  scrollBeyondLastLine: false,
-  fontFamily: "monospace, 'Droid Sans Mono', 'Droid Sans Fallback'"
+  fontFamily: "monospace, 'Droid Sans Mono', 'Droid Sans Fallback'",
 };
 
 export default (props) => {

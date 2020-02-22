@@ -1,100 +1,76 @@
-const useStateHook = props => {
-  const dispatch = useDispatch();
+# 开发部署流程
 
-  const editorBodyRef = useRef(null);
+## 本地开发
 
-  const article = useSelector(state => {
-    const articles = _.get(state, 'editor.articles');
-    return articles.find(v => v.id === props.work.article);
-  });
+```js
+// 完成
+const onAppendValue = () => {
+  setValue(`${value}\n${initValue}`);
+}
+```
 
-  const immutable = useMemo(() => ({
-    codeMirror: null,
-  }), []);
+- 更新最新代码
 
-  // 保存
-  const onSave = async () => {
-    const content = immutable.codeMirror.getValue();
-    dispatch({
-      id: article.id,
-      body: { content },
-      type: 'editor/updateArticle',
-    });
-  };
+```shell
+git pull
+```
 
-  // 监听 ctrl + s
-  const onKeyDown = event => {
-    const downCtrrl = event.ctrlKey || event.metaKey;
-    if (event.keyCode !== 83 || !downCtrrl) {
-      return false;
-    }
-    event.preventDefault();
-    onSave();
-  };
+- 项目开发
 
-  // 上传图片
-  const uploadPhone = async ({ file }) => {
-    const data = await uploadPhotos({
-      files: [file],
-      payload: article.id,
-      spin: SPIN_CODE.APP_EDITOR,
-      type: PHOTO_TYPE.ARTICLE.VALUE,
-    });
-    const url = _.get(data, '[0].url', '');
-    url && immutable.codeMirror.replaceSelection(`![插入图片](${url})`);
-  };
+- 提交代码
 
-  // 上传： 统一处理上传操作
-  const onUpload = file => {
-    const handlers = [
-      { test: /^image\/.*/ig, fun: uploadPhone },
-    ];
-    const hande = handlers.find(v => (v.test.test(file.type)));
-    hande && hande.fun({ file });
-  };
+### github 版本发布
 
-  // 监听粘贴动作: 实现图片的粘贴上传
-  const onPaste = event => {
-    if (!event.clipboardData || !event.clipboardData.items) {
-      return false;
-    }
-    const [item] = event.clipboardData.items;
-    item.kind === 'file' && onUpload(item.getAsFile());
-  };
+- 拉取远程仓库数据
 
-  // 监听拖动事件(注意和 onDrap 区分开)：实现图片的粘贴拖拽上传
-  const onDrop = event => {
-    event.preventDefault();
-    const file = _.get(event, 'dataTransfer.files.[0]', null);
-    file && onUpload(file);
-  };
+```shell
+# 拉取远程数据包括 tag 信息
+git fetch origin --prune
+```
 
-  // 内容改变
-  const onChange = useCallback(() => {
-    const content = immutable.codeMirror.getValue();
-    dispatch({
-      work: { content },
-      type: 'editor/setWork',
-      article: props.work.article,
-    });
-  }, [props.work]);
+- 版本发布， 生成 changelog 和  tag
 
-  // 初始化 codeMirror
-  useEffect(() => {
-    if (!immutable.codeMirror) {
-      immutable.codeMirror = codeMirror(editorBodyRef.current, {
-        tabSize: 2,
-        indentUnit: 2,
-        mode: 'markdown',
-        lineNumbers: true,
-        lineWrapping: true,
-        theme: 'oceanic-next',
-        cursorScrollMargin: 200, // 该参数受限于 .CodeMirror-lines padding 值
-        value: article.content || '',
-      });
-      immutable.codeMirror.on('change', onChange);
-    }
-  }, [article, immutable, onChange]);
+```shell
+# 1.0.0 表示当前要发布的版本
+npm run release -- --release-as 1.1.2
+```
 
-  return { editorBodyRef, onKeyDown, onPaste, onDrop };
-};
+```shell
+# 如遇如下问题请删除 v1.1.5 分支
+✔ bumping version in package.json from 1.1.6 to 1.1.6
+Error in git-raw-commits: warning: refname 'v1.1.5' is ambiguous.
+
+```
+
+- push commit 和 tag 到远程
+
+
+```shell
+git push --follow-tags
+```
+
+- 创建 github releases: 直接讲 changelog 当前版本信息拷贝过去创建 github releases: 直接讲 changelog 当前版本信息拷贝过去创建 github releases: 直接讲 changelog 当前版本信息拷贝过去创建 github releases: 直接讲 changelog 当前版本信息拷贝过去创建 github releases: 直接讲 changelog 当前版本信息拷贝过去
+
+### npm 包发布
+
+- npm 包编译
+
+```shell
+npm run build:publish
+```
+
+- 发布包
+
+```shell
+# 1. 切换官方源头
+npm config set registry http://registry.npmjs.org
+
+# 2. 登录 npm
+npm login
+
+# 3. 发布包
+npm publish --access public
+
+# 4. 如果需要则切换回淘宝源 / https://registry.yarnpkg.com
+npm config set registry https://registry.npm.taobao.org/
+```

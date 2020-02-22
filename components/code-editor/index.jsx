@@ -16,7 +16,6 @@ import { Resize } from '..';
 const propTypes = {
   onSave: PropTypes.func,
   onDrop: PropTypes.func,
-  onResize: PropTypes.func,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   onCreated: PropTypes.func,
@@ -40,7 +39,6 @@ const filterPropKeys = [
   'onPaste',
   'onChange',
   'language',
-  'onResize',
   'onCreated',
   'onKeyDown',
   'className',
@@ -53,12 +51,6 @@ const defaultProps = {
   themeConfig: [],
   theme: 'vs',
   language: 'javascript',
-  options: {
-    cursorStyle: 'line',
-    roundedSelection: false,
-    selectOnLineNumbers: true,
-    scrollBeyondLastLine: false,
-  }
 };
 
 const useStateHook = (props, ref) => {
@@ -150,15 +142,6 @@ const useStateHook = (props, ref) => {
     insertText(text);
   };
 
-  // 容器大小改变
-  const onResize = args => {
-    immutable.editor && immutable.editor.layout();
-    _.isFunction(props.onResize) && props.onResize({
-      ... args,
-      editor: immutable.editor,
-    });
-  };
-
   // 监听 props.onChange 变更, 修改 immutable.onChange
   useEffect(() => {
     immutable.onChange = props.onChange;
@@ -195,15 +178,14 @@ const useStateHook = (props, ref) => {
     registerTheme(props.themeConfig);
 
     // 2. 创建 editor
-    immutable.editor = monaco.editor.create(
-      editorBodyRef.current,
-      {
-        value: props.value,
-        theme: props.theme,
-        language: props.language,
-        ... props.options,
-      }
-    );
+    const options = {
+      value: props.value,         // 默认值
+      automaticLayout: true,      // 容器自适应
+      theme: props.theme,         // 主题
+      language: props.language,   // 语言
+      ... props.options,         // 个性化配置
+    };
+    immutable.editor = monaco.editor.create(editorBodyRef.current, options);
 
     // 3. 调用回调函数
     _.isFunction(props.onCreated) && props.onCreated({
@@ -214,7 +196,7 @@ const useStateHook = (props, ref) => {
     immutable.editor.onDidChangeModelContent(onChange);
   }, []);
 
-  return { editorBodyRef, onKeyDown, onPaste, onResize, onDrop };
+  return { editorBodyRef, onKeyDown, onPaste, onDrop };
 };
 
 const Editor = React.forwardRef((props, ref) => {
@@ -224,7 +206,6 @@ const Editor = React.forwardRef((props, ref) => {
     <Resize
       onDrop={state.onDrop}
       onPaste={state.onPaste}
-      onResize={state.onResize}
       ref={state.editorBodyRef}
       onKeyDown={state.onKeyDown}
       className={classNames('qyrc-editor', props.className)}

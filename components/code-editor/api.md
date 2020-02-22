@@ -54,43 +54,37 @@
 - 类型: String
 - 默认值: ---
 
-### 1.7 onResize
-
-- 描述: 编辑器容器大小改变事件
-- 类型: Function ==> ({ width, height, editor }) => {}
-- 默认值: ---
-
-### 1.8 onChange
+### 1.7 onChange
 
 - 描述: 模块内容改变事件
 - 类型: Function ==> ({ event, value, editor }) => {}
 - 默认值: ---
 
-### 1.9 onSave
+### 1.8 onSave
 
 - 描述: 编辑器执行 ctr + s 事件
 - 类型: Function ==> ({ event, value, editor }) => {}
 - 默认值: ---
 
-### 1.10 onDrop
+### 1.9 onDrop
 
 - 描述: 编辑器拖拽事件, 事件返回值将被插入编辑器内(当前光标)
 - 类型: Function ==> ({ event, editor }) => {}
 - 默认值: ---
 
-### 1.11 onPasteImage
+### 1.10 onPasteImage
 
 - 描述: 编辑器黏贴图片事件, 事件返回值将被插入编辑器内(当前光标)
 - 类型: Promise, 组件内部调用 await onPasteImage({ file, event, editor })
 - 默认值: ---
 
-### 1.12 onKeyDown
+### 1.11 onKeyDown
 
 - 描述: 编辑器鼠标按下事件
 - 类型: Function ==> ({ event, editor }) => {}
 - 默认值: ---
 
-### 1.13 onCreated
+### 1.12 onCreated
 
 - 描述: 编辑器创建 editor 对象后的回调函数, 父组件可通过该事件获取多 editor 实例对象
 - 类型: Function ==> ({ editor }) => {}
