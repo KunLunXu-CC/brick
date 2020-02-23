@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.5](https://github.com/qianyin925/qyrc/compare/v1.2.4...v1.2.5) (2020-02-23)
+
+
+### Features
+
+* 【qyrc】Code Editor 移除 onResize ([30eabbc](https://github.com/qianyin925/qyrc/commit/30eabbce83b969ba7a8176c7d9ae59994c05011d))
+* 【qyrc】markdown 代码块渲染方式修改 ([3ae8e63](https://github.com/qianyin925/qyrc/commit/3ae8e633fbcc0bf847ed4e720c0c8d3d4ef4aba7))
+* 【qyrc】options 可动态修改 ([2e61902](https://github.com/qianyin925/qyrc/commit/2e61902968c9a4a581d10b6036e63c281a9272fc))
+
 ### [1.2.4](https://github.com/qianyin925/qyrc/compare/v1.2.3...v1.2.4) (2020-02-20)
 
 
