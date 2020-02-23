@@ -172,6 +172,14 @@ const useStateHook = (props, ref) => {
     }
   }, [props.language]);
 
+  // 监听 props.options 并设置 editor.options
+  // 多个 useEffect 执行顺序和它们位置一致, 所以 useEffect 位置很重要
+  useEffect(() => {
+    if (immutable.editor) {
+      immutable.editor.updateOptions(props.options);
+    }
+  }, [props.options]);
+
   // 初始化
   useEffect(() => {
     // 1. 注册主题

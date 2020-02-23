@@ -33,7 +33,7 @@
 
 ### 1.5 options
 
-- 描述: 编辑器初始配置项, 也可在该配置中配置初始 value、theme、language 字段
+- 描述: 编辑器初始配置项, 也可在该配置中配置 value、theme、language 等字段, 但是无法动态修改
 - 类型: Object
 - 默认值
 

@@ -9,16 +9,14 @@ import personality from './personality';
 import '@components/code-editor/style';
 import './index.scss';
 
-const options = {
-  language: 'javascript',
-  fontFamily: "monospace, 'Droid Sans Mono', 'Droid Sans Fallback'",
-};
-
 export default (props) => {
+  const [options, setOptions] = useState({
+    language: 'javascript',
+    fontFamily: "monospace, 'Droid Sans Mono', 'Droid Sans Fallback'",
+  });
   const immutable = useMemo(() => ({
     editor: null,
   }), []);
-  const editorRef = useRef(null);
   const [value, setValue] = useState(initValue);
   const [language, setLanguage] = useState('javascript');
   const [theme, setTheme] = useState('vs');
@@ -97,6 +95,16 @@ export default (props) => {
     immutable.editor.setValue(initValue);
   }
 
+  // 重置 options
+  const resetOptions = () => {
+    setOptions({
+      theme: 'one-dark-pro',
+      value: initValue,
+      language: 'markdown',
+      readOnly: true,
+    });
+  }
+
   return (
     <div className="demo-editor">
       <div className="demo-editor-header">
@@ -105,6 +113,7 @@ export default (props) => {
         <span onClick={onToggleLanguage}>切换语言</span>
         <span onClick={onView}>查看内容</span>
         <span onClick={onResetValue}>重置内容</span>
+        <span onClick={resetOptions}>重置 options</span>
       </div>
       <div className="demo-editor-body">
         <CodeEditor
