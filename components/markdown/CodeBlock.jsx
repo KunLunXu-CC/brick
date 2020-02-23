@@ -1,42 +1,62 @@
+import React, {
+  useRef,
+  useMemo,
+  useCallback,
+} from 'react';
 import _ from 'lodash';
-import hljs from 'highlight.js';
-import classNames from 'classnames';
+import * as monaco from 'monaco-editor';
+import { CodeEditor, Icon } from '..';
+import '../code-editor/style';
+import '../icon/style';
 
-import React, { useEffect, useRef, useMemo } from 'react';
-import { Icon } from '..';
+// 最大高度
+const MAX_HEIGHT = 400;
 
 const useStateHook = props => {
   const selectRef = useRef(null);
-  const codeRef = useRef(null);
+  const editorRef = useRef(null);
 
   // 复制
-  const onCopy = (e) => {
+  const onCopy = useCallback((e) => {
     selectRef.current.select();
-    document.execCommand("Copy");
-  };
+    document.execCommand('Copy');
+  }, [selectRef]);
 
-  useEffect(() => {
-    codeRef.current &&
-    codeRef.current.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
-  }, [codeRef.current]);
-  return { onCopy, selectRef, codeRef };
+  const options = useMemo(() => {
+    const { children, className = '' } = props.children.props;
+    return {
+      readOnly: true,
+      theme: 'one-dark-pro',
+      value: `\n${children}\n`,
+      scrollBeyondLastLine: false,
+      minimap: { enabled: false },
+      language: className.replace('lang-', ''),
+      fontFamily: 'monospace, \'Droid Sans Mono\', \'Droid Sans Fallback\'',
+    };
+  }, [props.children.props.children, props.children.props.className]);
+
+  // 创建完成事件
+  const onCreated = useCallback(({ editor }) => {
+    const model =  editor.getModel();
+    const lineHeight = editor.getOption(monaco.editor.EditorOption.lineHeight);
+    const lineCount = model ? model.getLineCount() : 1;
+    const height = editor.getTopForLineNumber(lineCount + 1) + lineHeight;
+    editorRef.current.style.height = `${height > MAX_HEIGHT ? MAX_HEIGHT : height}px`;
+  }, []);
+
+  return { selectRef, editorRef, options, onCopy, onCreated };
 }
 
 export default props => {
   const state = useStateHook(props);
-  const { children, className = '' } = props.children.props;
-  const classNamePrefix = props.classNamePrefix;
-
   return (
-    <div ref={state.codeRef} className="qyrc-md-code">
+    <div className="qyrc-md-code">
       <div className="qyrc-md-code-header">
         <div className="qyrc-md-code-header-red" />
         <div className="qyrc-md-code-header-yellow" />
         <div className="qyrc-md-code-header-green" />
         <div className="qyrc-md-code-header-lang">
-          {className.replace('lang-', '')}
+          {state.options.language}
         </div>
         <Icon
           title="复制代码"
@@ -45,22 +65,16 @@ export default props => {
           className="qyrc-md-code-header-copy"
         />
       </div>
-      <div className="qyrc-md-code-body">
-        <ul className="qyrc-md-code-line">
-          {new Array(children.split('\n').length).fill(0).map((v, index) => (
-            <li key={index}>{index + 1}</li>
-          ))}
-        </ul>
-        <div className="qyrc-md-code-content"><pre>
-          <code className={classNames(className, `qyrc-md-code-block`)}>
-            {children}
-          </code></pre>
-        </div>
+      <div className="qyrc-md-code-body" ref={state.editorRef}>
+        <CodeEditor
+          options={state.options}
+          onCreated={state.onCreated}
+        />
       </div>
       <textarea
         ref={state.selectRef}
-        defaultValue={children}
         className="qyrc-md-code-select"
+        defaultValue={state.options.value}
       />
     </div>
   );
