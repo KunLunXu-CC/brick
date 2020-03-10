@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.7](https://github.com/qianyin925/qyrc/compare/v1.2.6...v1.2.7) (2020-03-10)
+
+
+### Features
+
+* 【qyrc】【code-editor】内部过滤掉 options ([53aa286](https://github.com/qianyin925/qyrc/commit/53aa286004af875df1998a9f362263a287c53c38))
+
 ### [1.2.6](https://github.com/qianyin925/qyrc/compare/v1.2.5...v1.2.6) (2020-03-07)
 
 
