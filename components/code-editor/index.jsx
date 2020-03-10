@@ -37,6 +37,7 @@ const filterPropKeys = [
   'onSave',
   'onDrop',
   'onPaste',
+  'options',
   'onChange',
   'language',
   'onCreated',
