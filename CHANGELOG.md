@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.8](https://github.com/qianyin925/qyrc/compare/v1.2.7...v1.2.8) (2020-03-13)
+
+
+### Features
+
+* 【qyrc】【code-editor】自动布局失效 ([0fab067](https://github.com/qianyin925/qyrc/commit/0fab067289a5e04873182b537374d116841a9e5f))
+
 ### [1.2.7](https://github.com/qianyin925/qyrc/compare/v1.2.6...v1.2.7) (2020-03-10)
 
 
