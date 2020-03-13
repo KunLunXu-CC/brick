@@ -17,6 +17,7 @@ const propTypes = {
   onSave: PropTypes.func,
   onDrop: PropTypes.func,
   onChange: PropTypes.func,
+  onResize: PropTypes.func,
   onKeyDown: PropTypes.func,
   onCreated: PropTypes.func,
   onPasteImage: PropTypes.func,
@@ -39,6 +40,7 @@ const filterPropKeys = [
   'onPaste',
   'options',
   'onChange',
+  'onResize',
   'language',
   'onCreated',
   'onKeyDown',
@@ -143,6 +145,14 @@ const useStateHook = (props, ref) => {
     insertText(text);
   };
 
+  // 容器改变
+  const onResize = (... args) => {
+    _.isFunction(props.onResize) && props.onResize(... args);
+    _.get(props, 'options.automaticLayout') !== false &&
+    immutable.editor &&
+    immutable.editor.layout();
+  };
+
   // 监听 props.onChange 变更, 修改 immutable.onChange
   useEffect(() => {
     immutable.onChange = props.onChange;
@@ -189,10 +199,9 @@ const useStateHook = (props, ref) => {
     // 2. 创建 editor
     const options = {
       value: props.value,         // 默认值
-      automaticLayout: true,      // 容器自适应
       theme: props.theme,         // 主题
       language: props.language,   // 语言
-      ... props.options,         // 个性化配置
+      ... omit(props.options, ['automaticLayout']),// 个性化配置
     };
     immutable.editor = monaco.editor.create(editorBodyRef.current, options);
 
@@ -205,7 +214,7 @@ const useStateHook = (props, ref) => {
     immutable.editor.onDidChangeModelContent(onChange);
   }, []);
 
-  return { editorBodyRef, onKeyDown, onPaste, onDrop };
+  return { editorBodyRef, onKeyDown, onPaste, onDrop, onResize };
 };
 
 const Editor = React.forwardRef((props, ref) => {
@@ -216,6 +225,7 @@ const Editor = React.forwardRef((props, ref) => {
       onDrop={state.onDrop}
       onPaste={state.onPaste}
       ref={state.editorBodyRef}
+      onResize={state.onResize}
       onKeyDown={state.onKeyDown}
       className={classNames('qyrc-editor', props.className)}
       {...omit(props, filterPropKeys)}
