@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/qianyin925/qyrc/compare/v1.2.8...v1.3.0) (2020-03-24)
+
+
+### Features
+
+* 【qyrc】【variable-block】添加 onBoundary 表示是否到达边界 ([81ac1be](https://github.com/qianyin925/qyrc/commit/81ac1be811135f0f205df90a9d7674670df630c2))
+
 ### [1.2.8](https://github.com/qianyin925/qyrc/compare/v1.2.7...v1.2.8) (2020-03-13)
 
 
