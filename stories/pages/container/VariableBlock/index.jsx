@@ -41,9 +41,14 @@ const Container = () => {
 
 // 2. layout 在布局中使用
 const Layout = () => {
+  const onBoundary = types => {
+    console.log('--->> 到达边界吧', types);
+  };
+
   return (
     <div style={{ display: 'flex', width: 800, height: 400, background: '#eee' }}>
       <VariableBlock
+        onBoundary={onBoundary}
         operationList={['right']}
         margin={{ right: '20%' }}
         style={{ height: '100%', transform: 'translate(0px, 0px)' }}
@@ -56,6 +61,7 @@ const Layout = () => {
         </div>
         <VariableBlock
           margin={{ top: 50 }}
+          onBoundary={onBoundary}
           operationList={['top']}
           defaultParams={{ height: 100 }}
           constraintSize={{ height: 100 }}

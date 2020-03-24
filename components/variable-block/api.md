@@ -50,7 +50,13 @@
 - 类型: Function ({ offsetX, offsetY, width, height })=>{}
 - 默认值: ---
 
-### 1.9 style
+### 1.9 onBoundary
+
+- 描述: 到达边界时触发函数
+- 类型: Function (String[])=>{}, 参数是个数组表示哪个方法到达边界, 可能值有 left、 right、 top、 bottom
+- 默认值: ---
+
+### 1.10 style
 
 说明: 在些特殊的情况下需要覆盖 width height transform 等样式, 比如在实现某些可拉伸区块布局中则需要覆盖这些特定样式
 
@@ -58,7 +64,7 @@
 - 类型: Object
 - 默认值: ---
 
-### 1.10 className
+### 1.11 className
 
 - 描述: 追加 className
 - 类型:  String

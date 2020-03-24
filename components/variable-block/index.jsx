@@ -13,6 +13,7 @@ const filterPropKeys = [
   'onResize',
   'className',
   'threshold',
+  'onBoundary',
   'dragHeight',
   'operationList',
   'defaultParams',
@@ -45,6 +46,7 @@ const propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   onResize: PropTypes.func,
+  onBoundary: PropTypes.func,
 };
 
 const useStateHook = (props, ref) => {
@@ -54,13 +56,14 @@ const useStateHook = (props, ref) => {
   const params = useResize(targetRef, {
     margin: props.margin,
     threshold: props.threshold,
+    onBoundary: props.onBoundary,
     dragHeight: props.dragHeight,
     operationList: props.operationList,
     constraintSize: props.constraintSize,
     defaultParams: props.params || props.defaultParams,
   });
 
-  // 合并计算后的状态, 也是用于组件渲染的状态(受控组件受外部属性的控制不直接用内部状态来渲染组件)
+  // 合并计算后的状态, 也是用于最终用于组件渲染的状态(受控组件受外部属性的控制不直接用内部状态来渲染组件)
   const _params = useMemo(() => ({
     ...params,
     ...props.params,

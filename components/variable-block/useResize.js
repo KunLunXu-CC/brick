@@ -9,8 +9,8 @@ const DEFAULT_OPTION = {
   margin: { left: 0, right: 0, top: 0, bottom: 0 },
   defaultParams: { width: 200, height: 200, offsetX: 0, offsetY: 0 },
   operationList: [
-    'top', 'left', 'right', 'bottom', 
-    'leftTop', 'rightTop', 'leftBottom', 'rightBottom', 
+    'top', 'left', 'right', 'bottom',
+    'leftTop', 'rightTop', 'leftBottom', 'rightBottom',
     'drag',
   ],
 };
@@ -30,7 +30,7 @@ const OPERATION_TYPE_MAP_CURSOR = {
 
 /**
  * 解析 params: 因为支持百分比所以需要将值转为数值
- * @param {Object} target  目标对象 
+ * @param {Object} target  目标对象
  */
 const parseParams = ({ target }) => {
   const { width, height } = target.getBoundingClientRect();
@@ -43,8 +43,8 @@ const parseParams = ({ target }) => {
 
 /**
  * 解析 constraintSize: 因为支持百分比所以需要将值转为数值
- * @param {Object} target           目标对象 
- * @param {Object} constraintSize   传入 constraintSize 
+ * @param {Object} target           目标对象
+ * @param {Object} constraintSize   传入 constraintSize
  */
 const parseConstraintSize = ({ target, constraintSize }) => {
   let { width, height } = { ...DEFAULT_OPTION.constraintSize, ...constraintSize };
@@ -56,7 +56,7 @@ const parseConstraintSize = ({ target, constraintSize }) => {
 
 /**
  * 解析 margin: 因为支持百分比所以需要将值转为数值
- * @param {Object} target   目标对象 
+ * @param {Object} target   目标对象
  * @param {Object} margin   传入 margin
  */
 const parseMargin = ({ target, margin }) => {
@@ -167,12 +167,37 @@ const getBoundary = ({ margin, target, operationType, constraintSize }) => {
  * 修正 client 值
  * @param {Object} e          事件对象
  * @param {Object} boundary   client 限制范围
+ * @param {Function} onBoundary       到底边界触发 (types) => {}
  * @returns {Object}          返回当前 { clientX, clientY }
  */
-const correctClient = (e, boundary) => {
+const correctClient = (e, boundary, onBoundary) => {
   const correctValue = (v, min, max) => (
     v < min ? min : v > max ? max : v
   );
+
+  // 到达边界情况
+  const types = [
+    {
+      conds: e.clientX <= boundary.left,
+      value: 'left',
+    },
+    {
+      conds: e.clientX >= boundary.right,
+      value: 'right',
+    },
+    {
+      conds: e.clientY <= boundary.top,
+      value: 'top',
+    },
+    {
+      conds: e.clientY >= boundary.bottom,
+      value: 'bottom',
+    }
+  ].filter(v => v.conds).map(v => v.value);
+
+  // 如果到达边界则执行 onBoundary
+  _.isFunction(onBoundary) && types.length !== 0 && onBoundary(types);
+
   return {
     clientX: correctValue(e.clientX, boundary.left, boundary.right),
     clientY: correctValue(e.clientY, boundary.top, boundary.bottom),
@@ -186,10 +211,11 @@ const correctClient = (e, boundary) => {
  * @param {String} operationType    操作类型
  * @param {Object} previousParams   上一次 params 或者说是操作前 params
  * @param {Object} boundary         client 限制范围
+ * @param {Function} onBoundary     到底边界触发 (types) => {}
  * @returns {Object}                计算后 params
  */
-const getParams = ({ e, originClient, operationType, previousParams, boundary }) => {
-  const { clientX, clientY } = correctClient(e, boundary);
+const getParams = ({ e, originClient, operationType, previousParams, boundary, onBoundary }) => {
+  const { clientX, clientY } = correctClient(e, boundary, onBoundary);
   const offsetW =
     /left/i.test(operationType) ? originClient.x - clientX :
     /right/i.test(operationType) ? clientX - originClient.x : 0;
@@ -208,7 +234,7 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
 };
 
 /**
- * 弹窗 hook
+ * useResize hook
  * @param {Object} ref               操作对象 ref
  * @param {NUmber} threshold         容错率， 距离目标对象边界多少触发操作
  * @param {NUmber} dragHeight        顶部允许拖拽区域高度
@@ -216,8 +242,10 @@ const getParams = ({ e, originClient, operationType, previousParams, boundary })
  * @param {Object} constraintSize    宽高限制大小(最小宽、高)
  * @param {Object} defaultParams     默认 params 参数
  * @param {String[]} operationList   允许的操作类型
+ * @param {Function} onBoundary     到底边界触发 (types) => {}
  */
 export default (ref, {
+  onBoundary,
   margin = DEFAULT_OPTION.margin,
   threshold = DEFAULT_OPTION.threshold,
   dragHeight = DEFAULT_OPTION.dragHeight,
@@ -236,7 +264,7 @@ export default (ref, {
     let operationType = null;
     let previousParams = null;
     let originClient = { x: 0, y: 0 };
- 
+
     // 鼠标悬停(mousemove): 处理操作类型、cursor
     const onHover = (e) => {
       if (lock){return false;}
@@ -247,7 +275,7 @@ export default (ref, {
     // 操作处理中(mousemove): 计算设置 params
     const onHanding = (e) => {
       e.preventDefault();
-      const _params = getParams({ e, boundary, originClient,  operationType, previousParams });
+      const _params = getParams({ e, boundary, originClient,  operationType, previousParams, onBoundary });
       if (!_.isEqual(_params, tem)){
         tem = _params;
         setParams({ ...tem });
