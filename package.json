@@ -49,6 +49,12 @@
     "qy-create-react": "^1.1.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-angular": "^8.3.4",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.1.0",
+    "husky": "^4.2.3",
+    "standard-version": "^7.1.0",
     "cross-env": "^7.0.2",
     "monaco-editor-webpack-plugin": "^1.9.0"
   },
