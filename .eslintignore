@@ -1,9 +1,0 @@
-tests
-node_modules
-*.bundle.js
-*.js.map
-.history
-dist
-.vscode
-**/*.snap
-**/assets
