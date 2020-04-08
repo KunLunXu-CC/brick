@@ -5,4 +5,4 @@ import './index.scss';
 import '../../icon/style';
 
 // VariableBlock 可变容器组件样式
-import '../../variable-block/style';
+import '../../variable-container/style';

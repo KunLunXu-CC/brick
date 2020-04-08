@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Window, VariableBlock } from '@components';
+import { Window } from '@components';
 
 import '../../../../components/window/style';
 import './index.scss';

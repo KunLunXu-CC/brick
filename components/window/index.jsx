@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 
-import { Icon, VariableBlock } from '..';
+import { Icon, VariableContainer } from '..';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -149,7 +149,7 @@ const Window = (props) => {
   const state = useStateHook(props);
 
   return (
-    <VariableBlock
+    <VariableContainer
       params={state.params}
       onResize={state.onResize}
       style={{ ...props.style }}
@@ -178,7 +178,7 @@ const Window = (props) => {
         </span>
         <div className={classNames('qyrc-window-content')}>{props.children}</div>
       </div>
-    </VariableBlock>
+    </VariableContainer>
   );
 };
 

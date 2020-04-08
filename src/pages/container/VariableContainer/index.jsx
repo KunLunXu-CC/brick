@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { VariableBlock } from '@components';
-import '@components/variable-block/style';
+import { VariableContainer } from '@components';
+import '@components/variable-container/style';
 
 // 1. 在容器内使用
 const Container = () => {
@@ -25,7 +25,7 @@ const Container = () => {
           background: 'rgba(255, 0, 0, 0.1)',
         }}
       >
-        <VariableBlock
+        <VariableContainer
           params={params}
           onResize={onResize}
           operationList={operationList}
@@ -33,7 +33,7 @@ const Container = () => {
           <div style={{ background: 'pink', width: 900, height: 900 }}>
             内容
           </div>
-        </VariableBlock>
+        </VariableContainer>
       </div>
     </div>
   );
@@ -47,19 +47,19 @@ const Layout = () => {
 
   return (
     <div style={{ display: 'flex', width: 800, height: 400, background: '#eee' }}>
-      <VariableBlock
+      <VariableContainer
         onBoundary={onBoundary}
         operationList={['right']}
         margin={{ right: '20%' }}
         style={{ height: '100%', transform: 'translate(0px, 0px)' }}
       >
         左侧
-      </VariableBlock>
+      </VariableContainer>
       <div style={{ flex: 1, background: 'pink', display: 'flex', flexDirection: 'column' }}>
         <div style={{ flex: 1, background: '#1a1a1a' }}>
           顶部
         </div>
-        <VariableBlock
+        <VariableContainer
           margin={{ top: 50 }}
           onBoundary={onBoundary}
           operationList={['top']}
@@ -68,7 +68,7 @@ const Layout = () => {
           style={{ width: '100%', transform: 'translate(0px, 0px)' }}
         >
           底部
-        </VariableBlock>
+        </VariableContainer>
       </div>
     </div>
   );

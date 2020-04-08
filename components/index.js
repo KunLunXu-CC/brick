@@ -1,4 +1,4 @@
-export { default as VariableBlock } from './variable-block';
+export { default as VariableContainer } from './variable-container';
 export { default as CodeEditor } from './code-editor';
 export { default as Markdown } from './markdown';
 export { default as Resize } from './resize';
