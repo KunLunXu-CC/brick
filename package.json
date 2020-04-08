@@ -16,7 +16,7 @@
     "react-dom": ">=16.8.0"
   },
   "scripts": {
-    "start": "cross-env CONFIG_PATH=./src/config react-script start",
+    "start": "react-script start",
     "commit": "git-cz",
     "release": "standard-version --release-as",
     "release:100": "npm run release -- major",
@@ -45,8 +45,7 @@
     "markdown-to-jsx": "^6.10.3",
     "monaco-editor": "^0.20.0",
     "omit.js": "^1.0.2",
-    "prop-types": "^15.7.2",
-    "qy-create-react": "^1.1.3"
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -54,9 +53,9 @@
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.1.0",
     "husky": "^4.2.3",
-    "standard-version": "^7.1.0",
-    "cross-env": "^7.0.2",
-    "monaco-editor-webpack-plugin": "^1.9.0"
+    "monaco-editor-webpack-plugin": "^1.9.0",
+    "qy-create-react": "^1.1.6",
+    "standard-version": "^7.1.0"
   },
   "config": {
     "commitizen": {
