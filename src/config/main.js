@@ -7,11 +7,13 @@ export default {
       url: '/',
       key: 'home',
       title: '首页',
+      icon: 'HomeOutlined',
       router: [{ path: '/', component: pages.Home, exact: true }],
     },
     {
       title: '通用',
       key: 'common',
+      icon: 'BorderInnerOutlined',
       children: [
         {
           key: 'icon',
@@ -36,6 +38,7 @@ export default {
     {
       title: '容器',
       key: 'container',
+      icon: 'InboxOutlined',
       children: [
         {
           title: '可变容器',
