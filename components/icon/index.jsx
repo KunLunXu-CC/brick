@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../assets/iconfont/iconfont.js';
 
-const useState = (props) => {
-  const onClick = (...args) => {
-    _.isFunction(props.onClick) && props.onClick(...args);
-  }
+const useState = props => {
+  const onClick = (... args) => {
+    _.isFunction(props.onClick) && props.onClick(... args);
+  };
   return { onClick };
 };
 
@@ -18,7 +18,7 @@ const propTypes = {
   style: PropTypes.object,
 };
 
-const Icon = (props) => {
+const Icon = props => {
   const state = useState(props);
   return (
     <svg
@@ -27,7 +27,7 @@ const Icon = (props) => {
       className={classNames(
         'qyrc-icon',
         props.className,
-        {'qyrc-icon-btn': _.isFunction(props.onClick)},
+        { 'qyrc-icon-btn': _.isFunction(props.onClick) },
       )}
       aria-hidden="true" >
       <use xlinkHref={`#${props.type}`} ></use>

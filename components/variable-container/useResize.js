@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // 该 hook 默认参数
 const DEFAULT_OPTION = {
@@ -34,7 +34,7 @@ const OPERATION_TYPE_MAP_CURSOR = {
  */
 const parseParams = ({ target }) => {
   const { width, height } = target.getBoundingClientRect();
-  const style = window.getComputedStyle(target, null).getPropertyValue("transform");
+  const style = window.getComputedStyle(target, null).getPropertyValue('transform');
   const values = style.split('(')[1].split(')')[0].split(',');
   const offsetX = _.toNumber(values[values.length - 2]);
   const offsetY = _.toNumber(values[values.length - 1]);

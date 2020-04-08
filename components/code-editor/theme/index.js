@@ -11,5 +11,5 @@ export default (thems = []) => ([
   ... thems,
 ].forEach(v => {
   const { name, ... theme } = v;
-  monaco.editor.defineTheme(name, theme)
+  monaco.editor.defineTheme(name, theme);
 }));

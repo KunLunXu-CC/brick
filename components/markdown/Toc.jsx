@@ -12,8 +12,10 @@ const parseToc = (markdown, tocParseTypeList) => {
   const sortTocParseTypeList = tocParseTypeList.sort();
   const tocData = [];
   compiler(markdown, {
-    createElement(type, props, children) {
-      if (!sortTocParseTypeList.includes(type)){return false;}
+    createElement (type, props, children) {
+      if (!sortTocParseTypeList.includes(type)) {
+        return false;
+      }
       const id = encodeURIComponent(`${type || ''}${children[0].trim()}`);
       const level = sortTocParseTypeList.indexOf(type);
       const onClick = () => {
@@ -24,7 +26,7 @@ const parseToc = (markdown, tocParseTypeList) => {
     },
   });
   return tocData;
-}
+};
 
 /**
  * 渲染 toc
@@ -48,14 +50,15 @@ const useStateHook = props => {
   const toc = useMemo(() => {
     const parseData = parseToc(props.children, props.tocParseTypeList);
     const reactElement = renderToc(parseData);
-    _.isFunction(props.onTocParsed) && props.onTocParsed({ parseData, reactElement });
+    _.isFunction(props.onTocParsed) &&
+    props.onTocParsed({ parseData, reactElement });
     return props.showToc ? reactElement : null;
   }, [props.children, props.showToc]);
 
   return { toc };
-}
+};
 
 export default props => {
   const state = useStateHook(props);
   return state.toc;
-}
+};

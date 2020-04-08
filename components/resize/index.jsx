@@ -20,14 +20,22 @@ const propTypes = {
   className: PropTypes.string,
 };
 
-const useStateHook = (props) => {
+const useStateHook = props => {
   const iframeRef = useRef(null);
 
   // 容器大小改变
   const onResize = () => {
-    if (!_.isFunction(props.onResize)){return false;}
-    const width = _.get(iframeRef, 'current.contentWindow.document.documentElement.clientWidth');
-    const height = _.get(iframeRef, 'current.contentWindow.document.documentElement.clientHeight');
+    if (!_.isFunction(props.onResize)) {
+      return false;
+    }
+    const width = _.get(
+      iframeRef,
+      'current.contentWindow.document.documentElement.clientWidth'
+    );
+    const height = _.get(
+      iframeRef,
+      'current.contentWindow.document.documentElement.clientHeight'
+    );
     props.onResize({ width, height });
   };
 
@@ -37,7 +45,7 @@ const useStateHook = (props) => {
   }, [iframeRef.current]);
 
   return { iframeRef };
-}
+};
 
 const Resize = React.forwardRef((props, ref) => {
   const state = useStateHook(props);
@@ -45,10 +53,13 @@ const Resize = React.forwardRef((props, ref) => {
     <div
       ref={ref}
       className={classNames('qyrc-resize', props.className)}
-      {...omit(props, filterPropKeys)}
-    >
+      {...omit(props, filterPropKeys)}>
       {props.children}
-      <iframe frameBorder="0" ref={state.iframeRef} className="qyrc-resize-iframe"/>
+      <iframe
+        frameBorder="0"
+        ref={state.iframeRef}
+        className="qyrc-resize-iframe"
+      />
     </div>
   );
 });

@@ -3,7 +3,6 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
-import _ from 'lodash';
 import * as monaco from 'monaco-editor';
 import { CodeEditor, Icon } from '..';
 import '../code-editor/style';
@@ -17,7 +16,7 @@ const useStateHook = props => {
   const editorRef = useRef(null);
 
   // 复制
-  const onCopy = useCallback((e) => {
+  const onCopy = useCallback(() => {
     selectRef.current.select();
     document.execCommand('Copy');
   }, [selectRef]);
@@ -41,11 +40,13 @@ const useStateHook = props => {
     const lineHeight = editor.getOption(monaco.editor.EditorOption.lineHeight);
     const lineCount = model ? model.getLineCount() : 1;
     const height = editor.getTopForLineNumber(lineCount + 1) + lineHeight;
-    editorRef.current.style.height = `${height > MAX_HEIGHT ? MAX_HEIGHT : height}px`;
+    editorRef.current.style.height = `${height > MAX_HEIGHT
+      ? MAX_HEIGHT
+      : height}px`;
   }, []);
 
   return { selectRef, editorRef, options, onCopy, onCreated };
-}
+};
 
 export default props => {
   const state = useStateHook(props);

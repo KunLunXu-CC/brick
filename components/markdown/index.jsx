@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import MarkdownToJsx from 'markdown-to-jsx';
 
-import CodeBlock from './CodeBlock';
-import Title from './Title';
 import Toc from './Toc';
+import Title from './Title';
+import CodeBlock from './CodeBlock';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -37,7 +37,7 @@ const propTypes = {
   tocParseTypeList: PropTypes.arrayOf(PropTypes.string),
 };
 
-const useStateHook = (props) => {
+const useStateHook = props => {
   // 合并计算 options
   const options = useMemo(() => {
     const baseOptions = {
@@ -63,14 +63,14 @@ const useStateHook = (props) => {
   const wrapperClassName = useMemo(() => classNames(
     'qyrc-md',
     `qyrc-md-${props.theme}`,
-    {'qyrc-md-show-toc': props.showToc},
+    { 'qyrc-md-show-toc': props.showToc },
     props.className,
-  ), [])
+  ), []);
 
   return { options, wrapperClassName };
 };
 
-const Markdown = (props) => {
+const Markdown = props => {
   const state = useStateHook(props);
   return (
     <div
@@ -78,9 +78,9 @@ const Markdown = (props) => {
       {...omit(props, filterPropKeys)}>
       <MarkdownToJsx
         options={state.options}
-        children={props.children}
-        className="qyrc-md-body"
-      />
+        className="qyrc-md-body">
+        {props.children}
+      </MarkdownToJsx>
       <Toc {...props}/>
     </div>
   );

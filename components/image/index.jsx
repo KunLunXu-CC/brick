@@ -18,7 +18,7 @@ const filterPropKeys = [
   'bodyStyle',
   'className',
   'bodyClassName',
-]
+];
 
 // 默认 props
 const defaultProps = {
@@ -52,9 +52,10 @@ const propTypes = {
   bodyClassName: PropTypes.string,
 };
 
-const useStateHook = (props) => {
+const useStateHook = props => {
   const [src, setSrc] = useState(null);
-  const [img, setImg] = useState('loading');    // 三种值: img.src(正常)、loading(加载中)、error(加载错误)
+  // 三种值: img.src(正常)、loading(加载中)、error(加载错误)
+  const [img, setImg] = useState('loading');
   const [size, setSize] = useState(null);
 
   const imgRef = useRef(null);
@@ -62,40 +63,41 @@ const useStateHook = (props) => {
 
   // 重置 size 值
   const resetSize = () => {
-    if (!imgRef.current) {return false;}
+    if (!imgRef.current) {
+      return false;
+    }
     // 1. 获取图片的原始尺寸
-    const naturalWidth = imgRef.current.naturalWidth;
-    const naturalHeight = imgRef.current.naturalHeight;
+    const { naturalWidth, naturalHeight } = imgRef.current.naturalWidth;
     const {
       width: containerWidth,
       height: containerHeight,
     } = containerRef.current.getBoundingClientRect();
     const scale = naturalWidth / naturalHeight;
     const reset = { width: 'auto', height: 'auto' };
-    const changeKey = containerHeight * scale < containerWidth ? 'width' : 'height';
+    const changeKey = containerHeight * scale < containerWidth
+      ? 'width'
+      : 'height';
     reset[changeKey] = '100%';
-    !_.isEqual(reset, size) &&  setSize({ ...reset });
+    !_.isEqual(reset, size) &&  setSize({ ... reset });
   };
 
-  const imgClass = useMemo(() => {
-    return classNames(
-        'qyrc-image-bg',
-        { 'qyrc-image-bg-show': !['loading', 'error'].includes(img) },
-      );
-  }, [img]);
+  const imgClass = useMemo(() => classNames(
+    'qyrc-image-bg',
+    { 'qyrc-image-bg-show': !['loading', 'error'].includes(img) },
+  ), [img]);
 
   // 读取 src
   useEffect(() => {
-    if (props.src && props.src.constructor === File){
+    if (props.src && props.src.constructor === File) {
       // 支持传入 file 对象
-      if (!/image/.test(props.src.type)){
+      if (!/image/.test(props.src.type)) {
         setSrc(null);
       } else {
         const reader = new FileReader();
         reader.readAsDataURL(props.src);
         reader.onload = () => {
           setSrc(reader.result);
-        }
+        };
       }
     } else {
       setSrc(props.src);
@@ -117,7 +119,7 @@ const useStateHook = (props) => {
   return { imgRef, containerRef, size, img, resetSize, imgClass };
 };
 
-const ImageContainer =  (props) => {
+const ImageContainer =  props => {
   const state = useStateHook(props);
   return (
     <Resize
@@ -125,7 +127,7 @@ const ImageContainer =  (props) => {
       ref={state.containerRef}
       onResize={state.resetSize}
       className={classNames('qyrc-image', props.className)}
-      style={{ width: props.width, height: props.height, ...props.style}}>
+      style={{ width: props.width, height: props.height, ... props.style }}>
       {state.img === 'loading' ? props.loading : null}
       {state.img === 'error' ? props.error : null}
       <div className={state.imgClass}>
@@ -133,7 +135,7 @@ const ImageContainer =  (props) => {
           src={state.img}
           ref={state.imgRef}
           onLoad={state.resetSize}
-          style={{ ...state.size, transition: `opacity ${props.fadeTime}s` }}
+          style={{ ... state.size, transition: `opacity ${props.fadeTime}s` }}
         />
       </div>
       <div

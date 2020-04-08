@@ -70,13 +70,17 @@ const useStateHook = (props, ref) => {
 
   // 插入内容
   const insertText = text => {
-    if (!immutable.editor || !_.isString(text)) {return false;}
+    if (!immutable.editor || !_.isString(text)) {
+      return false;
+    }
     immutable.editor.trigger('keyboard', 'type', { text });
   };
 
   // 模块内容改变事件
   const onChange = useCallback(event => {
-    if (!_.isFunction(immutable.onChange) || !immutable.editor) {return false;}
+    if (!_.isFunction(immutable.onChange) || !immutable.editor) {
+      return false;
+    }
     immutable.onChange({
       event,
       editor: immutable.editor,
@@ -93,7 +97,7 @@ const useStateHook = (props, ref) => {
       event.keyCode === 83,
       _.isFunction(props.onSave),
     ];
-    if (saveConds.every(v => v)){
+    if (saveConds.every(v => v)) {
       event.preventDefault();
       props.onSave({
         event,
@@ -119,11 +123,13 @@ const useStateHook = (props, ref) => {
     ) {
       const [item] = event.clipboardData.items;
       const file = item.kind === 'file' ? item.getAsFile() : null;
-      const text = file && /^image\/.*/ig.test(file.type) ? await props.onPasteImage({
-        file,
-        event,
-        editor: immutable.editor,
-      }) : void 0;
+      const text = file && /^image\/.*/ig.test(file.type)
+        ? await props.onPasteImage({
+          file,
+          event,
+          editor: immutable.editor,
+        })
+        : void 0;
       insertText(text);
     }
 
@@ -136,7 +142,9 @@ const useStateHook = (props, ref) => {
 
   // 拖拽事件
   const onDrop = event => {
-    if (!_.isFunction(props.onDrop)){return false;}
+    if (!_.isFunction(props.onDrop)) {
+      return false;
+    }
     event.preventDefault();
     const text = props.onDrop({
       event,
@@ -201,7 +209,7 @@ const useStateHook = (props, ref) => {
       value: props.value,         // 默认值
       theme: props.theme,         // 主题
       language: props.language,   // 语言
-      ... omit(props.options, ['automaticLayout']),// 个性化配置
+      ... omit(props.options, ['automaticLayout']), // 个性化配置
     };
     immutable.editor = monaco.editor.create(editorBodyRef.current, options);
 
