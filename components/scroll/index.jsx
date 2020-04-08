@@ -58,7 +58,7 @@ const propTypes = {
  * 1. 正常情况下(滑块自动响应)： 内容块总高度 / 内容块容器高度 = 滚动条总高度 / 滑块高度
  * 2. 内容卷起高度 / 滑块距离顶部距离 = 内容块偏移量 / 滑块偏移量 = (内容块高度 - 内容块视口) / (滚动条高度 - 滑块高度)
  */
-const useStateHook = (props) => {
+const useStateHook = props => {
   const [scrollHeight, setScrollHeight] = useState(
     props.scrollHeight || props.defaultScrollHeight
   );
@@ -77,11 +77,17 @@ const useStateHook = (props) => {
 
   // 偏移比例： 内容块偏移量 / 滑块偏移量
   const offSetRatio = useMemo(() => {
-    if (!sliderRef.current || !bodyRef.current){return void 0;}
+    if (!sliderRef.current || !bodyRef.current) {
+      return void 0;
+    }
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const clientRect = bodyRef.current.parentNode.getBoundingClientRect();
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
-    return (bodyRect.height - clientRect.height) / (sliderBarRect.height - _sliderHeight);
+    return (
+      bodyRect.height - clientRect.height
+    ) / (
+      sliderBarRect.height - _sliderHeight
+    );
   }, [sliderHeight, bodyRef, sliderRef]);
 
   // 计算高度
@@ -99,35 +105,49 @@ const useStateHook = (props) => {
 
   // 是否显示滚动条
   const showScroll = useMemo(() => {
-    if (_.has(props, 'showScroll')){return props.showScroll;}
-    if (!sliderRef.current){return true;}
+    if (_.has(props, 'showScroll')) {
+      return props.showScroll;
+    }
+    if (!sliderRef.current) {
+      return true;
+    }
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
     return sliderBarRect.height !== _sliderHeight;
   }, [props.showScroll, sliderRef, _sliderHeight]);
 
   // 重置滑块高度：根据计算公式一进行计算, 添加最小高度限制
   const resetSliderHeight = () => {
-    if (!bodyRef.current){return void 0;}
+    if (!bodyRef.current) {
+      return void 0;
+    }
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
-    let scale = Math.min(parentRect.height / bodyRect.height, 1);
+    const scale = Math.min(parentRect.height / bodyRect.height, 1);
     setSliderHeight((_.isNaN(scale) ? 1 : scale) * sliderBarRect.height);
   };
 
   // 处理边界情况: 触底、触顶部
   const handleBoundary = (min, max, value) => {
-    if ( _.isFunction(props.onReachTop) && value - props.touchTopDistance < min){
+    if (
+      _.isFunction(props.onReachTop) &&
+      value - props.touchTopDistance < min
+    ) {
       props.onReachTop(value);
     }
-    if (_.isFunction(props.onReachBottom) && value + props.touchBottomDistance > max){
+    if (
+      _.isFunction(props.onReachBottom) &&
+      value + props.touchBottomDistance > max
+    ) {
       _.isFunction(props.onReachBottom) && props.onReachBottom(value);
     }
-  }
+  };
 
   // 重置滚动高度: 限制最大最小值
-  const resetScrollHeight = (value) => {
-    if (!bodyRef.current || !_.isNumber(value)){return void 0;}
+  const resetScrollHeight = value => {
+    if (!bodyRef.current || !_.isNumber(value)) {
+      return void 0;
+    }
     const bodyRect = bodyRef.current.getBoundingClientRect();
     const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
     const dift = bodyRect.height - parentRect.height;
@@ -136,19 +156,20 @@ const useStateHook = (props) => {
     const reset = value < max
       ? (value < min ? min : value)
       : max;
+    console.log('--->>', min, max, value, reset);
     reset !== _scrollHeight && setScrollHeight(reset);
     handleBoundary(min, max, value);
   };
 
   // 鼠标滚动事件
-  const onWheel = (e) => {
+  const onWheel = e => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    resetScrollHeight(_scrollHeight + props.shifting * Math.sign(e.deltaY));
+    resetScrollHeight(_scrollHeight + (props.shifting * Math.sign(e.deltaY)));
   };
 
   // 鼠标按下事件: 设置操作目标: slider content
-  const onMouseDown = (e) => {
+  const onMouseDown = e => {
     sliderRef.current.contains(e.target) && (immutable.dragIn = 'slider');
     bodyRef.current.contains(e.target) && (immutable.dragIn = 'content');
     immutable.scrollHeight = _scrollHeight;
@@ -166,11 +187,10 @@ const useStateHook = (props) => {
       immutable.dragIn === 'slider',
       immutable.dragIn === 'content' && props.dropBody,
     ];
-    if (!execConds.includes(true)) {return false;}
+    if (!execConds.includes(true)) {
+      return false;
+    }
     e.preventDefault();
-    const bodyRect = bodyRef.current.getBoundingClientRect();
-    const parentRect = bodyRef.current.parentNode.getBoundingClientRect();
-    const sliderBarRect = sliderRef.current.parentNode.getBoundingClientRect();
     const diff = immutable.dragIn === 'slider'
       ? offSetRatio * (e.clientY - immutable.clientY)
       : immutable.clientY - e.clientY;
@@ -203,7 +223,7 @@ const useStateHook = (props) => {
     return () => {
       window.removeEventListener('mouseup', onMouseUp);
       window.removeEventListener('mousemove', onMove);
-    }
+    };
   });
 
   return {
@@ -220,12 +240,12 @@ const useStateHook = (props) => {
   };
 };
 
-const Sroll = (props) => {
+const Sroll = props => {
   const state = useStateHook(props);
   return (
     <Resize
       onWheel={state.onWheel}
-      style={{ ...props.style }}
+      style={{ ... props.style }}
       onResize={state.onResize}
       className={classNames('qyrc-sroll', props.className)}
       {...omit(props, filterPropKeys)}>
@@ -239,18 +259,21 @@ const Sroll = (props) => {
       </Resize>
       <div className={classNames(
         'qyrc-sroll-bar',
-        {'qyrc-sroll-bar-hidden': !state.showScroll}
+        { 'qyrc-sroll-bar-hidden': !state.showScroll }
       )}>
         <div
           ref={state.sliderRef}
           onMouseDown={state.onMouseDown}
           className={classNames('qyrc-sroll-bar-slider')}
-          style={{ height: state._sliderHeight, marginTop: state.sliderMarginTop }}
+          style={{
+            height: state._sliderHeight,
+            marginTop: state.sliderMarginTop,
+          }}
         />
       </div>
     </Resize>
   );
-}
+};
 
 Sroll.defaultProps = defaultProps;
 Sroll.propTypes = propTypes;
