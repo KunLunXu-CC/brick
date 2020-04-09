@@ -2,7 +2,7 @@ import _ from 'lodash';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import { Icon, VariableContainer } from '..';
 
@@ -57,7 +57,7 @@ const propTypes = {
   toolClassName: PropTypes.string,
 };
 
-const useStateHook = (props) => {
+const useStateHook = props => {
   const [isMin, setIsMin] = useState(!!props.isMin);
   const [isMax, setIsMax] = useState(!!props.isMax);
   const [params, setParams] = useState(null);
@@ -74,57 +74,60 @@ const useStateHook = (props) => {
   }, [props.toolPosition]);
 
   // 点击关闭触发
-  const onClose = (e) => {
+  const onClose = e => {
     _.isFunction(props.onClose) && props.onClose(e);
   };
 
   // 最小化切换触发
-  const onMin = (e) => {
+  const onMin = e => {
     const reset = !isMin;
     _.has(props, 'isMin') ? null : setIsMin(reset);
     _.isFunction(props.onMin) && props.onMin(reset, e);
   };
 
   // 最大化切换触发
-  const onMax = (e) => {
+  const onMax = e => {
     const reset = !isMax;
     _.has(props, 'isMax') ? null : setIsMax(reset);
     _.isFunction(props.onMax) && props.onMax(reset, e);
   };
 
   // params 变更时触发
-  const onResize = (p) => {
-    setParams({ ...p });
-    _.isFunction(props.onResize) && props.onResize(p);
+  const onResize = params => {
+    setParams({ ... params });
+    _.isFunction(props.onResize) && props.onResize(params);
   };
 
   // 窗体最外层 class
-  const windowClass = useMemo(() => {
-    return classNames(
-      'qyrc-window',
-      { 'qyrc-window-max': isMax },
-      { 'qyrc-window-min': isMin },
-      props.className,
-    )
-  }, [props.className, isMin, isMax]);
+  const windowClass = useMemo(() => classNames(
+    'qyrc-window',
+    { 'qyrc-window-max': isMax },
+    { 'qyrc-window-min': isMin },
+    props.className,
+  ), [props.className, isMin, isMax]);
 
   // 处理 props.isMax props.isMin
-  useEffect(() => {setIsMin(!!props.isMin);}, [props.isMin]);
-  useEffect(() => {setIsMax(!!props.isMax);}, [props.isMax]);
+  useEffect(() => {
+    setIsMin(!!props.isMin);
+  }, [props.isMin]);
+
+  useEffect(() => {
+    setIsMax(!!props.isMax);
+  }, [props.isMax]);
 
   // 最大化处理
   useEffect(() => {
-    if (!!isMax){
-      statics.history.push({ ...params });
+    if (!!isMax) {
+      statics.history.push({ ... params });
       setParams({
         offsetX: 0,
         offsetY: 0,
         width: '100%',
         height: '100%',
-        ...props.maxParams,
+        ... props.maxParams,
       });
-    } else if (statics.maxHandled){
-      setParams({ ...params, ...statics.history.pop() })
+    } else if (statics.maxHandled) {
+      setParams({ ... params, ... statics.history.pop() });
     }
     // 标记是否处理过
     statics.maxHandled = true;
@@ -132,11 +135,11 @@ const useStateHook = (props) => {
 
   // 最小化处理
   useEffect(() => {
-    if (!!isMin){
-      statics.history.push({ ...params });
+    if (!!isMin) {
+      statics.history.push({ ... params });
       setParams(props.minParams);
-    } else if (statics.minHandled){
-      setParams({ ...params, ...statics.history.pop() })
+    } else if (statics.minHandled) {
+      setParams({ ... params, ... statics.history.pop() });
     }
     // 标记是否处理过
     statics.minHandled = true;
@@ -145,20 +148,20 @@ const useStateHook = (props) => {
   return { onClose, onMin, onMax, onResize, params, toolPosition, windowClass };
 };
 
-const Window = (props) => {
+const Window = props => {
   const state = useStateHook(props);
 
   return (
     <VariableContainer
       params={state.params}
       onResize={state.onResize}
-      style={{ ...props.style }}
+      style={{ ... props.style }}
       className={state.windowClass}
       {...omit(props, filterPropKeys)}
     >
       <div className={classNames('qyrc-window-body')}>
         <span
-          style={{ ...state.toolPosition, ...props.toolStyle }}
+          style={{ ... state.toolPosition, ... props.toolStyle }}
           className={classNames('qyrc-window-tool', props.toolClassName)}>
           <Icon
             type="icon-guanbi6-copy"
@@ -176,7 +179,9 @@ const Window = (props) => {
             type={state.isMax ? 'icon-suoxiao2' : 'icon-fangda1'}
           />
         </span>
-        <div className={classNames('qyrc-window-content')}>{props.children}</div>
+        <div className={classNames('qyrc-window-content')}>
+          {props.children}
+        </div>
       </div>
     </VariableContainer>
   );

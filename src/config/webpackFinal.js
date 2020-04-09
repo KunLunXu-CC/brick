@@ -6,10 +6,11 @@ module.exports = config => {
   config.plugins.push(new MonacoEditor());
 
   // 2. 添加路径别名
+  // eslint-disable-next-line
   config.resolve.alias = {
     ... config.resolve.alias,
     '@components': path.resolve(__dirname, '../../components'),
   };
 
   return config;
-}
+};
