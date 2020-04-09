@@ -153,10 +153,7 @@ const useStateHook = props => {
     const dift = bodyRect.height - parentRect.height;
     const max = dift > 0 ? dift : 0;
     const min = 0;
-    const reset = value < max
-      ? (value < min ? min : value)
-      : max;
-    console.log('--->>', min, max, value, reset);
+    const [, reset] = _.sortBy([min, max, value], v => v);
     reset !== _scrollHeight && setScrollHeight(reset);
     handleBoundary(min, max, value);
   };
@@ -177,12 +174,12 @@ const useStateHook = props => {
   };
 
   // 鼠标弹起事件: 清除操作目标
-  const onMouseUp = (e) => {
+  const onMouseUp = () => {
     immutable.dragIn = null;
   };
 
   // 鼠标移动事件: 根据计算公式二
-  const onMove = (e) => {
+  const onMove = e => {
     const execConds = [
       immutable.dragIn === 'slider',
       immutable.dragIn === 'content' && props.dropBody,
