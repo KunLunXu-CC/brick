@@ -5,13 +5,32 @@ import { useState, useEffect } from 'react';
 const DEFAULT_OPTION = {
   threshold: 5,
   dragHeight: 20,
-  constraintSize: { width: 200, height: 200 },
-  margin: { left: 0, right: 0, top: 0, bottom: 0 },
-  defaultParams: { width: 200, height: 200, offsetX: 0, offsetY: 0 },
+  constraintSize: {
+    width: 200,
+    height: 200,
+  },
+  margin: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  defaultParams: {
+    offsetX: 0,
+    offsetY: 0,
+    width: 200,
+    height: 200,
+  },
   operationList: [
-    'top', 'left', 'right', 'bottom',
-    'leftTop', 'rightTop', 'leftBottom', 'rightBottom',
+    'top',
+    'left',
     'drag',
+    'right',
+    'bottom',
+    'leftTop',
+    'rightTop',
+    'leftBottom',
+    'rightBottom',
   ],
 };
 
@@ -19,12 +38,12 @@ const DEFAULT_OPTION = {
 const OPERATION_TYPE_MAP_CURSOR = {
   drag: 'move',
   top: 'n-resize',
-  bottom: 's-resize',
   left: 'w-resize',
   right: 'e-resize',
+  bottom: 's-resize',
   leftTop: 'nw-resize',
-  leftBottom: 'sw-resize',
   rightTop: 'ne-resize',
+  leftBottom: 'sw-resize',
   rightBottom: 'se-resize',
 };
 
@@ -34,7 +53,7 @@ const OPERATION_TYPE_MAP_CURSOR = {
  */
 const parseParams = ({ target }) => {
   const { width, height } = target.getBoundingClientRect();
-  const style = window.getComputedStyle(target, null).getPropertyValue('transform');
+  const style = getComputedStyle(target, null).getPropertyValue('transform');
   const values = style.split('(')[1].split(')')[0].split(',');
   const offsetX = _.toNumber(values[values.length - 2]);
   const offsetY = _.toNumber(values[values.length - 1]);
@@ -47,10 +66,17 @@ const parseParams = ({ target }) => {
  * @param {Object} constraintSize   传入 constraintSize
  */
 const parseConstraintSize = ({ target, constraintSize }) => {
-  let { width, height } = { ...DEFAULT_OPTION.constraintSize, ...constraintSize };
+  let { width, height } = {
+    ... DEFAULT_OPTION.constraintSize,
+    ... constraintSize,
+  };
   const parentRect = target.parentNode.getBoundingClientRect();
-  width = (/%$/.test(width) ? parentRect.width / 100 : 1) * parseFloat(width, 10);
-  height = (/%$/.test(height) ? parentRect.height / 100 : 1) * parseFloat(height, 10);
+  width = (
+    /%$/.test(width) ? parentRect.width / 100 : 1
+  ) * parseFloat(width, 10);
+  height = (
+    /%$/.test(height) ? parentRect.height / 100 : 1
+  ) * parseFloat(height, 10);
   return { width, height };
 };
 
@@ -60,12 +86,23 @@ const parseConstraintSize = ({ target, constraintSize }) => {
  * @param {Object} margin   传入 margin
  */
 const parseMargin = ({ target, margin }) => {
-  let { left, right, top, bottom } = { ...DEFAULT_OPTION.margin, ...margin };
+  let { left, right, top, bottom } = {
+    ... DEFAULT_OPTION.margin,
+    ... margin,
+  };
   const parentRect = target.parentNode.getBoundingClientRect();
-  left = (/%$/.test(left) ? parentRect.width / 100 : 1) * parseFloat(left, 10);
-  right = (/%$/.test(right) ? parentRect.width / 100 : 1) * parseFloat(right, 10);
-  top = (/%$/.test(top) ? parentRect.height / 100 : 1) * parseFloat(top, 10);
-  bottom = (/%$/.test(bottom) ? parentRect.height / 100 : 1) * parseFloat(bottom, 10);
+  left = (
+    /%$/.test(left) ? parentRect.width / 100 : 1
+  ) * parseFloat(left, 10);
+  right = (
+    /%$/.test(right) ? parentRect.width / 100 : 1
+  ) * parseFloat(right, 10);
+  top = (
+    /%$/.test(top) ? parentRect.height / 100 : 1
+  ) * parseFloat(top, 10);
+  bottom = (
+    /%$/.test(bottom) ? parentRect.height / 100 : 1
+  ) * parseFloat(bottom, 10);
   return { left, right, top, bottom };
 };
 
@@ -76,12 +113,12 @@ const parseMargin = ({ target, margin }) => {
  */
 const setCursor = ({ target, operationType }) => {
   const cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'inherit';
-  if (cursor !== target.style.cursor){
+  if (cursor !== target.style.cursor) {
     setCursor.cursor = true;
-    target.style.cursor = cursor;
+    target.style.cursor = cursor; // eslint-disable-line
     document.body.style.cursor = cursor;
   }
-}
+};
 
 /**
  * 获取操作类型
@@ -91,9 +128,17 @@ const setCursor = ({ target, operationType }) => {
  * @param {Number} dragHeight        可拖拽区域高度
  * @param {String[]} operationList   允许的操作类型
  */
-const getOperationType = ({ event, target, threshold, dragHeight, operationList }) => {
+const getOperationType = ({
+  event,
+  target,
+  threshold,
+  dragHeight,
+  operationList,
+}) => {
   // 1. 操作范围检测如果操作范围在 target 之外直接返回 null
-  if (!target.contains(event.target)){return null}
+  if (!target.contains(event.target)) {
+    return null;
+  }
 
   // 2. 判断当前鼠标位置
   const targetRect = target.getBoundingClientRect();
@@ -113,9 +158,9 @@ const getOperationType = ({ event, target, threshold, dragHeight, operationList 
     { conds: inRight, value: 'right' },
     { conds: inLeft, value: 'left' },
     { conds: inTop, value: 'top' },
-    { conds: event.type === 'mousedown' && inDrag, value: 'drag'},
+    { conds: event.type === 'mousedown' && inDrag, value: 'drag' },
     { conds: true, value: null },
-  ].filter(v => ([...operationList, null].includes(v.value)));
+  ].filter(v => ([... operationList, null].includes(v.value)));
 
   return possibilities.find(v => v.conds).value;
 };
@@ -156,10 +201,18 @@ const getBoundary = ({ margin, target, operationType, constraintSize }) => {
     bottom: parentRect.bottom - _margin.bottom,
   };
   const _constraintSize = parseConstraintSize({ target, constraintSize });
-  /left/i.test(operationType) && (boundary.right = targetRect.right - _constraintSize.width);
-  /right/i.test(operationType) && (boundary.left = targetRect.left + _constraintSize.width);
-  /top/i.test(operationType) && (boundary.bottom = targetRect.bottom - _constraintSize.height);
-  /bottom/i.test(operationType) && (boundary.top = targetRect.top + _constraintSize.height);
+  /left/i.test(operationType) && (
+    boundary.right = targetRect.right - _constraintSize.width
+  );
+  /right/i.test(operationType) && (
+    boundary.left = targetRect.left + _constraintSize.width
+  );
+  /top/i.test(operationType) && (
+    boundary.bottom = targetRect.bottom - _constraintSize.height
+  );
+  /bottom/i.test(operationType) && (
+    boundary.top = targetRect.top + _constraintSize.height
+  );
   return boundary;
 };
 
@@ -172,7 +225,7 @@ const getBoundary = ({ margin, target, operationType, constraintSize }) => {
  */
 const correctClient = (e, boundary, onBoundary) => {
   const correctValue = (v, min, max) => (
-    v < min ? min : v > max ? max : v
+    _.sortBy([v, min, max], v => v)[1]
   );
 
   // 到达边界情况
@@ -192,7 +245,7 @@ const correctClient = (e, boundary, onBoundary) => {
     {
       conds: e.clientY >= boundary.bottom,
       value: 'bottom',
-    }
+    },
   ].filter(v => v.conds).map(v => v.value);
 
   // 如果到达边界则执行 onBoundary
@@ -214,17 +267,49 @@ const correctClient = (e, boundary, onBoundary) => {
  * @param {Function} onBoundary     到底边界触发 (types) => {}
  * @returns {Object}                计算后 params
  */
-const getParams = ({ e, originClient, operationType, previousParams, boundary, onBoundary }) => {
+const getParams = ({
+  e,
+  boundary,
+  onBoundary,
+  originClient,
+  operationType,
+  previousParams,
+}) => {
   const { clientX, clientY } = correctClient(e, boundary, onBoundary);
-  const offsetW =
-    /left/i.test(operationType) ? originClient.x - clientX :
-    /right/i.test(operationType) ? clientX - originClient.x : 0;
-  const offsetH =
-    /top/i.test(operationType) ? originClient.y - clientY :
-    /bottom/i.test(operationType) ? clientY - originClient.y : 0;
-
-  const offsetX = /(left|drag)/i.test(operationType) ? clientX - originClient.x : 0;
-  const offsetY = /(top|drag)/i.test(operationType) ? clientY - originClient.y : 0;
+  const offsetW = [
+    {
+      conds: /left/i.test(operationType),
+      value: originClient.x - clientX,
+    },
+    {
+      conds: /right/i.test(operationType),
+      value: clientX - originClient.x,
+    },
+    {
+      conds: true,
+      value: 0,
+    },
+  ].find(v => v.conds).value;
+  const offsetH = [
+    {
+      conds: /top/i.test(operationType),
+      value: originClient.y - clientY,
+    },
+    {
+      conds: /bottom/i.test(operationType),
+      value: clientY - originClient.y,
+    },
+    {
+      conds: true,
+      value: 0,
+    },
+  ].find(v => v.conds).value;
+  const offsetX = /(left|drag)/i.test(operationType)
+    ? clientX - originClient.x
+    : 0;
+  const offsetY = /(top|drag)/i.test(operationType)
+    ? clientY - originClient.y
+    : 0;
   return {
     width: previousParams.width + offsetW,
     height: previousParams.height + offsetH,
@@ -253,9 +338,14 @@ export default (ref, {
   defaultParams = DEFAULT_OPTION.defaultParams,
   operationList = DEFAULT_OPTION.operationList,
 } = {}) => {
-  const [params, setParams] = useState({ ...DEFAULT_OPTION.defaultParams, ...defaultParams });
+  const [params, setParams] = useState({
+    ... DEFAULT_OPTION.defaultParams,
+    ... defaultParams,
+  });
   useEffect(() => {
-    if (!ref || !ref.current){return;}
+    if (!ref || !ref.current) {
+      return;
+    }
     const target = ref.current;
 
     let tem = null;
@@ -266,41 +356,58 @@ export default (ref, {
     let originClient = { x: 0, y: 0 };
 
     // 鼠标悬停(mousemove): 处理操作类型、cursor
-    const onHover = (e) => {
-      if (lock){return false;}
-      operationType = getOperationType({ event: e, target, threshold, dragHeight, operationList });
+    const onHover = e => {
+      if (lock) {
+        return false;
+      }
+      operationType = getOperationType({
+        target,
+        threshold,
+        dragHeight,
+        operationList,
+        event: e,
+      });
       setCursor({ target, operationType });
-    }
+    };
 
     // 操作处理中(mousemove): 计算设置 params
-    const onHanding = (e) => {
+    const onHanding = e => {
       e.preventDefault();
-      const _params = getParams({ e, boundary, originClient,  operationType, previousParams, onBoundary });
-      if (!_.isEqual(_params, tem)){
+      const _params = getParams({
+        e,
+        boundary,
+        onBoundary,
+        originClient,
+        operationType,
+        previousParams,
+      });
+      if (!_.isEqual(_params, tem)) {
         tem = _params;
-        setParams({ ...tem });
+        setParams({ ... tem });
       }
     };
 
     // 操作结束(mouseup): 结束操作后处理相关业务
-    const onStop = (e) => {
+    const onStop = () => {
       lock = false;
-      previousParams = { ...previousParams, ...tem };
+      previousParams = { ... previousParams, ... tem };
       window.removeEventListener('mouseup', onStop);
       window.removeEventListener('mousemove', onHanding);
     };
 
     // 操作开始(mousedown): 开始操作前处理相关业务
-    const onStart = (e) => {
+    const onStart = e => {
       onHover(e);
-      if (!operationType){return false;}
+      if (!operationType) {
+        return false;
+      }
       lock = true;
-      previousParams = { ...parseParams({ target }) };
+      previousParams = { ... parseParams({ target }) };
       originClient = getOriginClient({ e, target, operationType });
       boundary = getBoundary({ margin, target, operationType, constraintSize });
       window.addEventListener('mouseup', onStop);
       window.addEventListener('mousemove', onHanding);
-    }
+    };
 
     window.addEventListener('mousedown', onStart);
     window.addEventListener('mousemove', onHover);
