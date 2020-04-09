@@ -1,18 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import { Window } from '@components';
 
 import '../../../../components/window/style';
 import './index.scss';
 
-export default (props) => {
+export default () => (
+  <div className="window-demo">
+    <Window defaultParams={{ width: '50%', height: '50%' }}>
+      <div className="window-demo-body">
 
-  return (
-    <div className="window-demo">
-      <Window defaultParams={{ width: '50%', height: '50%' }}>
-        <div className="window-demo-body">
-
-        </div>
-      </Window>
-    </div>
-  );
-};
+      </div>
+    </Window>
+  </div>
+);

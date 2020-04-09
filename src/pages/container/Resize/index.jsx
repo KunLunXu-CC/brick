@@ -9,28 +9,32 @@ export default () => {
 
   const onResizeWith = () => {
     setWidth(width + 100);
-  }
+  };
 
   const onResizeHeight = () => {
     setHeight(height + 100);
-  }
-  
+  };
+
   const onResize = (w, h) => {
     console.log('=========>>> ', w, h);
     console.log(resizeRef.current);
-  }
+  };
+
+  const onClickContainer = () => {
+    console.log('onClick');
+  };
 
   return (
     <div>
       <span onClick={onResizeWith}>加宽</span>&nbsp;&nbsp;&nbsp;
       <span onClick={onResizeHeight}>加高</span> <br/><br/>
-      <Resize 
-        ref={resizeRef} 
+      <Resize
+        ref={resizeRef}
         onResize={onResize}
-        onClick={() => {console.log('onClick')}}
+        onClick={onClickContainer}
         style={{ width, height, background: 'red', padding: 20, margin: 20 }}>
         11111111
       </Resize>
     </div>
   );
-}
+};

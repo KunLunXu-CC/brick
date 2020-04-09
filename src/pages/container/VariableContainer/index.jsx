@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { VariableContainer } from '@components';
 import '@components/variable-container/style';
@@ -7,15 +7,29 @@ import '@components/variable-container/style';
 const Container = () => {
   const [params, setParams] = useState({ width: 400 });
 
-  const onResize = (params) => {
-    setParams(params);
-  }
+  const operationList = [
+    'top',
+    'left',
+    'drag',
+    'right',
+    'bottom',
+    'leftTop',
+    'rightTop',
+    'leftBottom',
+    'rightBottom',
+  ];
 
-  const operationList = ['top', 'left', 'right', 'bottom', 'leftTop', 'rightTop', 'leftBottom', 'rightBottom', 'drag'];
+  const onResize = params => {
+    setParams(params);
+  };
+
+  const onReset = () => {
+    setParams({ width: 400 });
+  };
 
   return (
     <div>
-      <div style={{textAlign: 'center'}} onClick={() => {setParams({ width: 400 })}}>最大</div>
+      <div style={{ textAlign: 'center' }} onClick={onReset}>最大</div>
       <div
         style={{
           margin: 50,
@@ -23,8 +37,7 @@ const Container = () => {
           height: '500px',
           overflow: 'hidden',
           background: 'rgba(255, 0, 0, 0.1)',
-        }}
-      >
+        }}>
         <VariableContainer
           params={params}
           onResize={onResize}
@@ -46,7 +59,12 @@ const Layout = () => {
   };
 
   return (
-    <div style={{ display: 'flex', width: 800, height: 400, background: '#eee' }}>
+    <div style={{
+      width: 800,
+      height: 400,
+      display: 'flex',
+      background: '#eee',
+    }}>
       <VariableContainer
         onBoundary={onBoundary}
         operationList={['right']}
@@ -55,7 +73,12 @@ const Layout = () => {
       >
         左侧
       </VariableContainer>
-      <div style={{ flex: 1, background: 'pink', display: 'flex', flexDirection: 'column' }}>
+      <div style={{
+        flex: 1,
+        background: 'pink',
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
         <div style={{ flex: 1, background: '#1a1a1a' }}>
           顶部
         </div>
@@ -72,15 +95,13 @@ const Layout = () => {
       </div>
     </div>
   );
-}
-
-export default () => {
-  return (
-    <div style={{ margin: '100px 0' }}>
-      <h2>在特定容器内使用</h2>
-      <Container />
-      <h2>在布局中使用</h2>
-      <Layout />
-    </div>
-  );
 };
+
+export default () => (
+  <div style={{ margin: '100px 0' }}>
+    <h2>在特定容器内使用</h2>
+    <Container />
+    <h2>在布局中使用</h2>
+    <Layout />
+  </div>
+);

@@ -1,5 +1,4 @@
 import React, {
-  useRef,
   useMemo,
   useState,
 } from 'react';
@@ -9,10 +8,10 @@ import personality from './personality';
 import '@components/code-editor/style';
 import './index.scss';
 
-export default (props) => {
+export default () => {
   const [options, setOptions] = useState({
     language: 'javascript',
-    fontFamily: "monospace, 'Droid Sans Mono', 'Droid Sans Fallback'",
+    fontFamily: 'monospace, \'Droid Sans Mono\', \'Droid Sans Fallback\'',
   });
   const immutable = useMemo(() => ({
     editor: null,
@@ -24,76 +23,76 @@ export default (props) => {
   // 完成
   const onAppendValue = () => {
     setValue(`${value}\n${initValue}`);
-  }
+  };
 
   // 完成
   const onToggleTheme = () => {
     setTheme(
       theme === 'vs'
-      ? 'personality'
-      : 'vs'
+        ? 'personality'
+        : 'vs'
     );
-  }
+  };
 
   // 完成
   const onToggleLanguage = () => {
     setLanguage(
       language === 'javascript'
-      ? 'markdown'
-      : 'javascript'
+        ? 'markdown'
+        : 'javascript'
     );
-  }
+  };
 
   // 完成
   const onSave = args => {
     console.log('----> 保存 ctr+s', args);
-  }
+  };
 
   // 有点小问题
   const onDrop = args => {
     console.log('----> onDrop', args);
     return '拖拽完成';
-  }
+  };
 
   // 完成
   const onPaste = args => {
     console.log('----> onPaste', args);
-  }
+  };
 
   const onPasteImage = async args => {
     console.log('----> onPasteImage', args);
     return '黏贴图片';
-  }
+  };
 
   const onChange = args => {
     console.log('----> onChange', args, theme);
-  }
+  };
 
   // 完成
   const onResize = args => {
     console.log('----> onResize', args);
-  }
+  };
 
   const onCreated = args => {
     immutable.editor = args.editor;
     console.log('----> onCreated', args);
-  }
+  };
 
   // 完成
   const onKeyDown = args => {
     console.log('----> onKeyDown', args);
-  }
+  };
 
   // 预览内容
   const onView = () => {
     const value = immutable.editor.getValue();
     console.log('------------>> 预览', value);
-  }
+  };
 
   // 预览内容
   const onResetValue = () => {
     immutable.editor.setValue(initValue);
-  }
+  };
 
   // 重置 options
   const resetOptions = () => {
@@ -103,7 +102,7 @@ export default (props) => {
       language: 'markdown',
       readOnly: true,
     });
-  }
+  };
 
   return (
     <div className="demo-editor">
