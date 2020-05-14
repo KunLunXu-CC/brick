@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/qianyin925/qyrc/compare/v1.3.0...v1.4.0) (2020-05-14)
+
+
+### Features
+
+* eslint 修复 - variable-container ([0184749](https://github.com/qianyin925/qyrc/commit/01847496623f9049f5b78c4b70506d2b726ef38b))
+* eslint 修复 - window ([c4e3b80](https://github.com/qianyin925/qyrc/commit/c4e3b80e76e7990fd337265996fbce60b4c68577))
+* eslint 修复完成 ([45efb2a](https://github.com/qianyin925/qyrc/commit/45efb2a42b9d04c37e0a54381f289753fbdc70ab))
+* eSlint 校验 -滚动条 ([388ef4f](https://github.com/qianyin925/qyrc/commit/388ef4fb39707770a9c9d618d56b818374058150))
+* eslint 校验修复 ([069637b](https://github.com/qianyin925/qyrc/commit/069637b9fad8f369ffbf6b6d807761e6b0a2a990))
+* 修复 Eslint ([1609e6e](https://github.com/qianyin925/qyrc/commit/1609e6e45bc3e54bacdf988c76328148f8ae2db8))
+* 完成基本布局 ([1b938e2](https://github.com/qianyin925/qyrc/commit/1b938e2498f0cf9b666fbd9a1b2c3727f723772f))
+* 引入 qy-create-app ([b915306](https://github.com/qianyin925/qyrc/commit/b9153060d15c1ee907c5973032d6cba8698b2357))
+* 引入 qy-create-app 测试 ([b7fb019](https://github.com/qianyin925/qyrc/commit/b7fb0195a18ed6c8dc236534567d8d39905ddf2e))
+* 引入 qy-create-qy ([0184cdb](https://github.com/qianyin925/qyrc/commit/0184cdb28b7d5a2dda25496431bd40037790e1d8))
+* 添加图标 ([a680793](https://github.com/qianyin925/qyrc/commit/a680793276d1870a716ce8ac24df248985af913a))
+
 ## [1.3.0](https://github.com/qianyin925/qyrc/compare/v1.2.8...v1.3.0) (2020-03-24)
 
 
