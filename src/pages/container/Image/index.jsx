@@ -4,7 +4,7 @@ import '@components/image/style';
 import './inde.scss';
 
 // eslint-disable-next-line
-const Img = 'http://qiniu.cdn.blog.qianyin925.com/dGltZy5qcGVnMTU3NDMwNzA3MTMxNw==.jpeg';
+const Img = 'https://www.qianyin925.com/service/static/images/pro.dGltZy5qcGVnMTU4MzU4NzkzNDA3Mg==.jpeg';
 
 // 基本使用方法
 const Bast = () => (

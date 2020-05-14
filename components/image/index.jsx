@@ -67,7 +67,7 @@ const useStateHook = props => {
       return false;
     }
     // 1. 获取图片的原始尺寸
-    const { naturalWidth, naturalHeight } = imgRef.current.naturalWidth;
+    const { naturalWidth, naturalHeight } = imgRef.current;
     const {
       width: containerWidth,
       height: containerHeight,
@@ -119,7 +119,7 @@ const useStateHook = props => {
   return { imgRef, containerRef, size, img, resetSize, imgClass };
 };
 
-const ImageContainer =  props => {
+const ImageContainer = props => {
   const state = useStateHook(props);
   return (
     <Resize
