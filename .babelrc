@@ -10,5 +10,5 @@
     // Webpack4 动态导入文件
     ["@babel/plugin-syntax-dynamic-import"]
   ],
-  "presets": ["@babel/preset-react", "@babel/preset-env"]
+  "presets": ["@babel/env", "@babel/preset-react"]
 }

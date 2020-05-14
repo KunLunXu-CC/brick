@@ -48,9 +48,11 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-angular": "^8.3.4",
     "commitizen": "^4.0.3",
+    "cross-env": "^7.0.2",
     "cz-conventional-changelog": "^3.1.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
@@ -63,6 +65,8 @@
     "gulp-sourcemaps": "^2.6.5",
     "husky": "^4.2.3",
     "monaco-editor-webpack-plugin": "^1.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "qy-create-react": "^1.1.10",
     "standard-version": "^7.1.0"
   },

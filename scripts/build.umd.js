@@ -10,7 +10,6 @@
 const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -73,11 +72,10 @@ module.exports = {
         include: [path.resolve("components")]
       },
       {
-        test: /\.(le|c)ss$/,
+        test: /\.(css|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
-          { loader: "postcss-loader", options: { sourceMap: false } },
           {
             loader: "sass-loader",
             options: {
@@ -86,6 +84,7 @@ module.exports = {
           }
         ]
       },
+      { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
       {
         test: /\.(jpg|jpeg|png|gif|cur|ico)$/,
         use: [
@@ -101,17 +100,6 @@ module.exports = {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        uglifyOptions: {
-          warnings: false,
-          compress: {
-            drop_debugger: true,
-            drop_console: false
-          },
-        }
-      }),
       new OptimizeCSSAssetsPlugin({
         // 压缩css  与 ExtractTextPlugin 配合使用
         cssProcessor: require("cssnano"),
