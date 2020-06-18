@@ -2,9 +2,10 @@
   width: 1em;
   height: 1em;
   margin: 0 5px;
-  fill: currentColor;
   overflow: hidden;
+  fill: currentColor;
   transition: color .2s;
+  box-sizing: content-box;
   vertical-align: -0.15em;
 }
 
