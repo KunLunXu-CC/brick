@@ -1,9 +1,9 @@
 // 1. 整体设置
 .qyrc-md-light {
   color: #333;
+  padding: 20px;
   line-height: 2;
   font-size: 16px;
-  padding: 10px 20px;
   font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -25,6 +25,12 @@
       content: '#';
       color: #ff6d6d;
       padding: {right: 10px};
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    &:nth-child(1) {
+      margin-top: 0;
     }
   }
 }
