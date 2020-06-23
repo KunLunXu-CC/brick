@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/qianyin925/qyrc/compare/v1.4.1...v1.4.2) (2020-06-23)
+
+
+### Features
+
+* 【qyrc】【Markdown】代码块预览滚动时页面无法滚动 ([6259037](https://github.com/qianyin925/qyrc/commit/625903702ac227ec70add4464abfc2a4933c92d6))
+* 【qyrc】【Markdown】相同层级第一个标题移除 margin ([0ec19bb](https://github.com/qianyin925/qyrc/commit/0ec19bbcb5d717cb3f54b5515e7afc530986fa17))
+* 【qyrc】Icon 样式修改: box-sizing 修改为 border-box ([61cabb3](https://github.com/qianyin925/qyrc/commit/61cabb3bcaedc5b25fae210bd99ecaa5980e8294))
+
 ### [1.4.1](https://github.com/qianyin925/qyrc/compare/v1.4.0...v1.4.1) (2020-05-14)
 
 
