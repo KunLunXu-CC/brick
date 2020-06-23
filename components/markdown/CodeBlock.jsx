@@ -31,6 +31,7 @@ const useStateHook = props => {
       minimap: { enabled: false },
       language: className.replace('lang-', ''),
       fontFamily: 'monospace, \'Droid Sans Mono\', \'Droid Sans Fallback\'',
+      scrollbar: { alwaysConsumeMouseWheel: false },
     };
   }, [props.children.props.children, props.children.props.className]);
 
