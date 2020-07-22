@@ -3,5 +3,3 @@ coverage
 dist
 es
 lib
-
-package-lock.json
