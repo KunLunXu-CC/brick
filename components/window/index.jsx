@@ -25,7 +25,7 @@ const filterPropKeys = [
 
 // props 默认值
 const defaultProps = {
-  toolPosition: { top: 10, left: 5 },
+  toolPosition: { top: 5, left: 5 },
   minParams: { width: 100, height: 100, offsetX: 50, offsetY: 50 },
 };
 
