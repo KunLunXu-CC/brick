@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/qianyin925/qyrc/compare/v1.4.2...v1.4.3) (2020-08-18)
+
+
+### Features
+
+* 【qyrc】【Markdown】标题未设置内容情况下将报错 ([575e085](https://github.com/qianyin925/qyrc/commit/575e0850a53495cd3337668c663ebd93f7358b4c))
+* 【qyrc】window 工具栏图标修改 ([0cfd437](https://github.com/qianyin925/qyrc/commit/0cfd437955b30a0659aeff082f0666ab0c85c47c))
+
 ### [1.4.2](https://github.com/qianyin925/qyrc/compare/v1.4.1...v1.4.2) (2020-06-23)
 
 
