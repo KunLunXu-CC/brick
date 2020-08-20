@@ -50,12 +50,6 @@ export default {
           }],
         },
         {
-          key: 'scroll',
-          title: '滚动条',
-          url: '/container/scroll',
-          router: [{ path: '/container/scroll', component: pages.Scroll }],
-        },
-        {
           title: '窗体',
           key: 'window',
           url: '/container/window',
