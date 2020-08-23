@@ -53,11 +53,15 @@ const OPERATION_TYPE_MAP_CURSOR = {
  */
 const parseParams = ({ target }) => {
   const { width, height } = target.getBoundingClientRect();
-  const style = getComputedStyle(target, null).getPropertyValue('transform');
-  const values = style.split('(')[1].split(')')[0].split(',');
-  const offsetX = _.toNumber(values[values.length - 2]);
-  const offsetY = _.toNumber(values[values.length - 1]);
-  return { width, height, offsetX, offsetY };
+  const offsetX = getComputedStyle(target, null).getPropertyValue('left') || 0;
+  const offsetY = getComputedStyle(target, null).getPropertyValue('top') || 0;
+
+  return {
+    width,
+    height,
+    offsetX: Number.parseFloat(offsetX, 10),
+    offsetY: Number.parseFloat(offsetY, 10),
+  };
 };
 
 /**
