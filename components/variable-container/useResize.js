@@ -75,12 +75,14 @@ const parseConstraintSize = ({ target, constraintSize }) => {
     ... constraintSize,
   };
   const parentRect = target.parentNode.getBoundingClientRect();
+
   width = (
     /%$/.test(width) ? parentRect.width / 100 : 1
   ) * parseFloat(width, 10);
   height = (
     /%$/.test(height) ? parentRect.height / 100 : 1
   ) * parseFloat(height, 10);
+
   return { width, height };
 };
 
@@ -95,6 +97,7 @@ const parseMargin = ({ target, margin }) => {
     ... margin,
   };
   const parentRect = target.parentNode.getBoundingClientRect();
+
   left = (
     /%$/.test(left) ? parentRect.width / 100 : 1
   ) * parseFloat(left, 10);
@@ -107,6 +110,7 @@ const parseMargin = ({ target, margin }) => {
   bottom = (
     /%$/.test(bottom) ? parentRect.height / 100 : 1
   ) * parseFloat(bottom, 10);
+
   return { left, right, top, bottom };
 };
 
@@ -224,37 +228,12 @@ const getBoundary = ({ margin, target, operationType, constraintSize }) => {
  * 修正 client 值
  * @param {Object} e          事件对象
  * @param {Object} boundary   client 限制范围
- * @param {Function} onBoundary       到底边界触发 (types) => {}
  * @returns {Object}          返回当前 { clientX, clientY }
  */
-const correctClient = (e, boundary, onBoundary) => {
+const correctClient = (e, boundary) => {
   const correctValue = (v, min, max) => (
     _.sortBy([v, min, max], v => v)[1]
   );
-
-  // 到达边界情况
-  const types = [
-    {
-      conds: e.clientX <= boundary.left,
-      value: 'left',
-    },
-    {
-      conds: e.clientX >= boundary.right,
-      value: 'right',
-    },
-    {
-      conds: e.clientY <= boundary.top,
-      value: 'top',
-    },
-    {
-      conds: e.clientY >= boundary.bottom,
-      value: 'bottom',
-    },
-  ].filter(v => v.conds).map(v => v.value);
-
-  // 如果到达边界则执行 onBoundary
-  _.isFunction(onBoundary) && types.length !== 0 && onBoundary(types);
-
   return {
     clientX: correctValue(e.clientX, boundary.left, boundary.right),
     clientY: correctValue(e.clientY, boundary.top, boundary.bottom),
@@ -268,18 +247,16 @@ const correctClient = (e, boundary, onBoundary) => {
  * @param {String} operationType    操作类型
  * @param {Object} previousParams   上一次 params 或者说是操作前 params
  * @param {Object} boundary         client 限制范围
- * @param {Function} onBoundary     到底边界触发 (types) => {}
  * @returns {Object}                计算后 params
  */
 const getParams = ({
   e,
   boundary,
-  onBoundary,
   originClient,
   operationType,
   previousParams,
 }) => {
-  const { clientX, clientY } = correctClient(e, boundary, onBoundary);
+  const { clientX, clientY } = correctClient(e, boundary);
   const offsetW = [
     {
       conds: /left/i.test(operationType),
@@ -331,10 +308,8 @@ const getParams = ({
  * @param {Object} constraintSize    宽高限制大小(最小宽、高)
  * @param {Object} defaultParams     默认 params 参数
  * @param {String[]} operationList   允许的操作类型
- * @param {Function} onBoundary     到底边界触发 (types) => {}
  */
 export default (ref, {
-  onBoundary,
   margin = DEFAULT_OPTION.margin,
   threshold = DEFAULT_OPTION.threshold,
   dragHeight = DEFAULT_OPTION.dragHeight,
@@ -352,14 +327,14 @@ export default (ref, {
     }
     const target = ref.current;
 
-    let tem = null;
-    let lock = false;
-    let boundary = null;
-    let operationType = null;
-    let previousParams = null;
-    let originClient = { x: 0, y: 0 };
+    let tem = null;                     // 存储临时数据: 当符合操作条件时、存储初始值
+    let lock = false;                   // 锁定状态(是否正在操作)、避免多次操作
+    let boundary = null;                // 存储边界值
+    let operationType = null;           // 当前操作类型
+    let previousParams = null;          // 上一次参数
+    let originClient = { x: 0, y: 0 };  // 操控点
 
-    // 鼠标悬停(mousemove): 处理操作类型、cursor
+    // 鼠标悬停(mousemove): 处理操作类型、cursor 状态
     const onHover = e => {
       if (lock) {
         return false;
@@ -380,11 +355,11 @@ export default (ref, {
       const _params = getParams({
         e,
         boundary,
-        onBoundary,
         originClient,
         operationType,
         previousParams,
       });
+
       if (!_.isEqual(_params, tem)) {
         tem = _params;
         setParams({ ... tem });
@@ -400,11 +375,12 @@ export default (ref, {
     };
 
     // 操作开始(mousedown): 开始操作前处理相关业务
-    const onStart = e => {
+    const onMousedown = e => {
       onHover(e);
       if (!operationType) {
         return false;
       }
+
       lock = true;
       previousParams = { ... parseParams({ target }) };
       originClient = getOriginClient({ e, target, operationType });
@@ -413,12 +389,13 @@ export default (ref, {
       window.addEventListener('mousemove', onHanding);
     };
 
-    window.addEventListener('mousedown', onStart);
+    window.addEventListener('mousedown', onMousedown);
     window.addEventListener('mousemove', onHover);
+
     return () => {
       window.removeEventListener('mouseup', onStop);
       window.removeEventListener('mousemove', onHanding);
-      window.removeEventListener('mousedown', onStart);
+      window.removeEventListener('mousedown', onMousedown);
       window.removeEventListener('mousemove', onHover);
     };
   }, []);

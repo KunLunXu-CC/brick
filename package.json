@@ -67,7 +67,7 @@
     "monaco-editor-webpack-plugin": "^1.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "progress-bar-webpack-plugin": "^2.1.0",
-    "qy-create-react": "^1.1.13",
+    "qy-create-react": "^1.1.14",
     "standard-version": "^7.1.0"
   },
   "config": {

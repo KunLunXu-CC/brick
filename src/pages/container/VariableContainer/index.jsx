@@ -3,8 +3,8 @@ import Base from './Base';
 import Layout from './Layout';
 
 export default () => (
-  <div>
+  <React.Fragment>
     <Base/>
     <Layout/>
-  </div>
+  </React.Fragment>
 );

@@ -1,53 +1,63 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { VariableContainer } from '@components';
 import '@components/variable-container/style';
 
-export default () => {
-  const [params, setParams] = useState({ width: 400 });
+const BODY_WIDTH = 800;
 
-  const operationList = [
-    'top',
-    'left',
-    'drag',
-    'right',
-    'bottom',
-    'leftTop',
-    'rightTop',
-    'leftBottom',
-    'rightBottom',
-  ];
+const Container = styled.div`
+  padding: 20px;
+  background: #fff;
+  margin-bottom: 20px;
+`;
+
+const Body = styled.div`
+  height: 500px;
+  overflow: hidden;
+  width: ${BODY_WIDTH}px;
+
+  background: rgba(255, 0, 0, 0.1);
+`;
+
+const Content = styled.div`
+  width: 900px;
+  height: 900px;
+  background: pink;
+`;
+
+const Link = styled.div`
+  padding: 8px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: inline-block;
+
+  color: #fff;
+  cursor: pointer;
+  background: #1890ff;
+`;
+
+export default () => {
+  const [params, setParams] = useState({ width: 200 });
 
   const onResize = params => {
     setParams(params);
   };
 
   const onReset = () => {
-    setParams({ width: 400 });
+    setParams({ width: BODY_WIDTH });
   };
 
   return (
-    <div>
-      <div style={{ textAlign: 'center' }} onClick={onReset}>最大</div>
-      <div
-        style={{
-          margin: 50,
-          width: '800px',
-          height: '500px',
-          overflow: 'hidden',
-          background: 'rgba(255, 0, 0, 0.1)',
-        }}>
-        <VariableContainer
-          params={params}
-          onResize={onResize}
-          // operationList={operationList}
-        >
-          <div style={{ background: 'pink', width: 900, height: 900 }}>
+    <Container>
+      <Link onClick={onReset}>宽度最大化</Link>
+      <Body>
+        <VariableContainer params={params} onResize={onResize}>
+          <Content>
             内容
-          </div>
+          </Content>
         </VariableContainer>
-      </div>
-    </div>
+      </Body>
+    </Container>
   );
 };
-
