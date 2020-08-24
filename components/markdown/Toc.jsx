@@ -16,7 +16,7 @@ const parseToc = (markdown, tocParseTypeList) => {
       if (!sortTocParseTypeList.includes(type)) {
         return false;
       }
-      const id = encodeURIComponent(`${type || ''}${children[0] ?. trim()}`);
+      const id = encodeURIComponent(`${type || ''}${children[0]?.trim()}`);
       const level = sortTocParseTypeList.indexOf(type);
       const onClick = () => {
         const target = document.getElementById(id);

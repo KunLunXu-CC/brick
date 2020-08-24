@@ -75,14 +75,11 @@ const parseConstraintSize = ({ target, constraintSize }) => {
     ... constraintSize,
   };
   const parentRect = target.parentNode.getBoundingClientRect();
-
-  width = (
-    /%$/.test(width) ? parentRect.width / 100 : 1
-  ) * parseFloat(width, 10);
-  height = (
-    /%$/.test(height) ? parentRect.height / 100 : 1
-  ) * parseFloat(height, 10);
-
+  const reg = /%$/;
+  width = (reg.test(width) ? parentRect.width / 100 : 1)
+    * parseFloat(width, 10);
+  height = (reg.test(height) ? parentRect.height / 100 : 1)
+    * parseFloat(height, 10);
   return { width, height };
 };
 
@@ -97,20 +94,15 @@ const parseMargin = ({ target, margin }) => {
     ... margin,
   };
   const parentRect = target.parentNode.getBoundingClientRect();
-
-  left = (
-    /%$/.test(left) ? parentRect.width / 100 : 1
-  ) * parseFloat(left, 10);
-  right = (
-    /%$/.test(right) ? parentRect.width / 100 : 1
-  ) * parseFloat(right, 10);
-  top = (
-    /%$/.test(top) ? parentRect.height / 100 : 1
-  ) * parseFloat(top, 10);
-  bottom = (
-    /%$/.test(bottom) ? parentRect.height / 100 : 1
-  ) * parseFloat(bottom, 10);
-
+  const reg = /%$/;
+  left = (reg.test(left) ? parentRect.width / 100 : 1)
+    * parseFloat(left, 10);
+  right = (reg.test(right) ? parentRect.width / 100 : 1)
+    * parseFloat(right, 10);
+  top = (reg.test(top) ? parentRect.height / 100 : 1)
+    * parseFloat(top, 10);
+  bottom = (reg.test(bottom) ? parentRect.height / 100 : 1)
+    * parseFloat(bottom, 10);
   return { left, right, top, bottom };
 };
 
@@ -245,7 +237,7 @@ const correctClient = (e, boundary) => {
  * @param {Object} e                事件对象
  * @param {Object} originClient     源 client， 鼠标按下时记录的 client
  * @param {String} operationType    操作类型
- * @param {Object} previousParams   上一次 params 或者说是操作前 params
+ * @param {Object} preParams   上一次 params 或者说是操作前 params
  * @param {Object} boundary         client 限制范围
  * @returns {Object}                计算后 params
  */
@@ -254,7 +246,7 @@ const getParams = ({
   boundary,
   originClient,
   operationType,
-  previousParams,
+  preParams,
 }) => {
   const { clientX, clientY } = correctClient(e, boundary);
   const offsetW = [
@@ -292,10 +284,10 @@ const getParams = ({
     ? clientY - originClient.y
     : 0;
   return {
-    width: previousParams.width + offsetW,
-    height: previousParams.height + offsetH,
-    offsetX: previousParams.offsetX + offsetX,
-    offsetY: previousParams.offsetY + offsetY,
+    width: preParams.width + offsetW,
+    height: preParams.height + offsetH,
+    offsetX: preParams.offsetX + offsetX,
+    offsetY: preParams.offsetY + offsetY,
   };
 };
 
@@ -327,24 +319,24 @@ export default (ref, {
     }
     const target = ref.current;
 
-    let tem = null;                     // 存储临时数据: 当符合操作条件时、存储初始值
-    let lock = false;                   // 锁定状态(是否正在操作)、避免多次操作
-    let boundary = null;                // 存储边界值
-    let operationType = null;           // 当前操作类型
-    let previousParams = null;          // 上一次参数
+    let tem = null;           // 临时值: 每次更新 params 时和 tem 进行比较, 不相同才更新
+    let lock = false;         // 锁定状态(是否正在操作)、避免多次操作
+    let boundary = null;      // 存储边界值
+    let operationType = null; // 当前操作类型
+    let preParams = null;     // 上一次参数(操作前、鼠标按下时更新)
     let originClient = { x: 0, y: 0 };  // 操控点
 
     // 鼠标悬停(mousemove): 处理操作类型、cursor 状态
-    const onHover = e => {
+    const onHover = event => {
       if (lock) {
         return false;
       }
       operationType = getOperationType({
+        event,
         target,
         threshold,
         dragHeight,
         operationList,
-        event: e,
       });
       setCursor({ target, operationType });
     };
@@ -355,21 +347,20 @@ export default (ref, {
       const _params = getParams({
         e,
         boundary,
+        preParams,
         originClient,
         operationType,
-        previousParams,
       });
 
       if (!_.isEqual(_params, tem)) {
         tem = _params;
-        setParams({ ... tem });
+        setParams(_params);
       }
     };
 
     // 操作结束(mouseup): 结束操作后处理相关业务
     const onStop = () => {
       lock = false;
-      previousParams = { ... previousParams, ... tem };
       window.removeEventListener('mouseup', onStop);
       window.removeEventListener('mousemove', onHanding);
     };
@@ -382,7 +373,8 @@ export default (ref, {
       }
 
       lock = true;
-      previousParams = { ... parseParams({ target }) };
+      // 在这边计算下列值, 而不是在 getParams 是因为下列值只需要在操作前进行计算, 每次都进行计算影响性能
+      preParams = parseParams({ target });
       originClient = getOriginClient({ e, target, operationType });
       boundary = getBoundary({ margin, target, operationType, constraintSize });
       window.addEventListener('mouseup', onStop);
