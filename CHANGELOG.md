@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.6](https://github.com/qianyin925/qyrc/compare/v1.4.5...v1.4.6) (2020-08-25)
+
+
+### Features
+
+* 【qyrc】variable-container 组件调整 ([d2a6e49](https://github.com/qianyin925/qyrc/commit/d2a6e49b487d1ff0cefda529dd736cc2238030a6))
+
 ### [1.4.5](https://github.com/qianyin925/qyrc/compare/v1.4.4...v1.4.5) (2020-08-20)
 
 ### [1.4.4](https://github.com/qianyin925/qyrc/compare/v1.4.3...v1.4.4) (2020-08-20)
