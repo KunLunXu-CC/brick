@@ -13,7 +13,6 @@ const filterPropKeys = [
   'onResize',
   'className',
   'threshold',
-  'onBoundary',
   'dragHeight',
   'operationList',
   'defaultParams',
@@ -46,7 +45,6 @@ const propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   onResize: PropTypes.func,
-  onBoundary: PropTypes.func,
 };
 
 const useStateHook = (props, ref) => {
@@ -57,7 +55,6 @@ const useStateHook = (props, ref) => {
   const params = useResize(targetRef, {
     margin: props.margin,
     threshold: props.threshold,
-    onBoundary: props.onBoundary,
     dragHeight: props.dragHeight,
     operationList: props.operationList,
     constraintSize: props.constraintSize,

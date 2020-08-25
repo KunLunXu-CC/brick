@@ -28,34 +28,26 @@ const Right = styled.div`
   flex-direction: column;
 `;
 
-export default () => {
-  const onBoundary = types => {
-    console.log('--->> 到达边界吧', types);
-  };
-
-  return (
-    <Container>
-      <Body>
+export default () => (
+  <Container>
+    <Body>
+      <VariableContainer
+        operationList={['right']}
+        margin={{ right: '20%' }}
+        style={{ height: '100' }}>
+        左侧
+      </VariableContainer>
+      <Right>
+        <Top>顶部</Top>
         <VariableContainer
-          onBoundary={onBoundary}
-          operationList={['right']}
-          margin={{ right: '20%' }}
-          style={{ height: '100' }}>
-          左侧
+          margin={{ top: 50 }}
+          operationList={['top']}
+          defaultParams={{ height: 100 }}
+          constraintSize={{ height: 100 }}
+          style={{ width: '100%', top: 0 }}>
+          底部
         </VariableContainer>
-        <Right>
-          <Top>顶部</Top>
-          <VariableContainer
-            margin={{ top: 50 }}
-            onBoundary={onBoundary}
-            operationList={['top']}
-            defaultParams={{ height: 100 }}
-            constraintSize={{ height: 100 }}
-            style={{ width: '100%', top: 0 }}>
-            底部
-          </VariableContainer>
-        </Right>
-      </Body>
-    </Container>
-  );
-};
+      </Right>
+    </Body>
+  </Container>
+);

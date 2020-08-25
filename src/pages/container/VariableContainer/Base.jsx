@@ -52,7 +52,9 @@ export default () => {
     <Container>
       <Link onClick={onReset}>宽度最大化</Link>
       <Body>
-        <VariableContainer params={params} onResize={onResize}>
+        <VariableContainer
+          params={params}
+          onResize={onResize}>
           <Content>
             内容
           </Content>
