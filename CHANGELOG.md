@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.7](https://github.com/qianyin925/qyrc/compare/v1.4.6...v1.4.7) (2020-08-27)
+
+
+### Features
+
+* 【qyrc】window 工具栏层级太高 ([abd4a40](https://github.com/qianyin925/qyrc/commit/abd4a40e88b0e6797946a64b8c9de1a3246574d6))
+
 ### [1.4.6](https://github.com/qianyin925/qyrc/compare/v1.4.5...v1.4.6) (2020-08-25)
 
 
