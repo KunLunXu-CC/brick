@@ -1,0 +1,32 @@
+# 1. 为工作流定义名字
+name: build & deploy
+
+# 2. 触发条件修改为：当 master 分支，有 push 的时候，执行任务
+on:
+  push:
+    branches:
+      - master
+
+# 3. 创建工作流
+jobs:
+  build:                      # 工作流名称
+    runs-on: ubuntu-latest    # 依赖环境
+
+    steps:                    # 工作流步骤
+      # step1: 获取源码
+      - name: chekcout
+        uses: actions/checkout@v2
+
+      # step2. 安装依赖并打包
+      - name: Install and Build 🔧
+        run: |
+          npm install
+          npm run build
+
+      # step3. 项目部署
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.5.9
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}   # 当前项目 secrets: 在项目内 setting/Secrets 可进行添加
+          BRANCH: gh-pages # 部署分支
+          FOLDER: build    # 当前打包目录
