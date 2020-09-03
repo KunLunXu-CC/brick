@@ -17,13 +17,19 @@ jobs:
       - name: chekcout
         uses: actions/checkout@v2
 
-      # step2. 安装依赖并打包
+      # step2: 更新系统最大监听依赖
+      - name: update sysctl
+        run: |
+          sysctl fs.inotify.max_user_watches=524288
+          sysctl -p
+
+      # step3. 安装依赖并打包
       - name: Install and Build 🔧
         run: |
           npm install
           npm run build
 
-      # step3. 项目部署
+      # step4. 项目部署
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
