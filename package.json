@@ -22,7 +22,7 @@
     "release:100": "npm run release -- major",
     "release:010": "npm run release -- minor",
     "release:001": "npm run release -- patch",
-    "build": "react-script start",
+    "build": "react-script build",
     "build:publish": "npm run build:lib && npm run build:es && npm run build:css && npm run build:umd",
     "build:umd": "webpack --config ./scripts/build.umd.js",
     "build:css": "cd scripts && gulp",

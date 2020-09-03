@@ -13,23 +13,17 @@ jobs:
     runs-on: ubuntu-latest    # 依赖环境
 
     steps:                    # 工作流步骤
-      # step1: 获取源码
+      # step1. 获取源码
       - name: chekcout
         uses: actions/checkout@v2
 
-      # step2: 更新系统最大监听依赖
-      - name: update sysctl
-        run: |
-          echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
-          sysctl -p
-
-      # step3. 安装依赖并打包
+      # step2. 安装依赖并打包
       - name: Install and Build 🔧
         run: |
           npm install
           npm run build
 
-      # step4. 项目部署
+      # step3. 项目部署
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
