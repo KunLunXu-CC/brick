@@ -68,7 +68,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "progress-bar-webpack-plugin": "^2.1.0",
     "qy-create-react": "^1.1.18",
-    "standard-version": "^7.1.0"
+    "standard-version": "^8.0.1"
   },
   "config": {
     "commitizen": {
