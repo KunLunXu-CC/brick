@@ -20,7 +20,7 @@ jobs:
       # step2: 更新系统最大监听依赖
       - name: update sysctl
         run: |
-          sysctl fs.inotify.max_user_watches=524288
+          echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
           sysctl -p
 
       # step3. 安装依赖并打包
