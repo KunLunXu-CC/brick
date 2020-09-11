@@ -1,15 +1,8 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "baseUrl": ".",
-
     "paths": {
       "@cpmponents/*": ["components/*"],
     },
-    "target": "ES6",
-    "module": "es6",
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  }
 }
