@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.8](https://github.com/qianyin925/qyrc/compare/v1.4.7...v1.4.8) (2020-09-27)
+
+
+### Features
+
+* 【qyrc】编辑器 command + s 保存内容 ([a63989d](https://github.com/qianyin925/qyrc/commit/a63989d59abb2ba7c7b98aa6b4e74d74efa56c6a))
+
 ### [1.4.7](https://github.com/qianyin925/qyrc/compare/v1.4.6...v1.4.7) (2020-08-27)
 
 
