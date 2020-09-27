@@ -74,12 +74,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: false,
-            },
-          },
+          'sass-loader',
         ],
       },
       { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },

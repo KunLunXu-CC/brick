@@ -5,10 +5,10 @@
  */
 const path = require('path');
 const gulp = require('gulp');
-const sass = require('gulp-sass');
 const size = require('gulp-filesize');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
+const sass = require('gulp-dart-sass');
 const cssnano = require('gulp-cssnano');
 const replace = require('gulp-replace');
 const sourcemaps = require('gulp-sourcemaps');
