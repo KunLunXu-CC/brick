@@ -92,8 +92,8 @@ const useStateHook = (props, ref) => {
   const onKeyDown = event => {
     // 1. 保存: saveConds 为调用 props.onSave 条件
     const saveConds = [
-      event.ctrlKey,
       immutable.editor,
+      event.ctrlKey || event.metaKey,
       event.keyCode === 83,
       _.isFunction(props.onSave),
     ];
