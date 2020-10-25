@@ -56,30 +56,9 @@ const useStateHook = props => {
   const [src, setSrc] = useState(null);
   // 三种值: img.src(正常)、loading(加载中)、error(加载错误)
   const [img, setImg] = useState('loading');
-  const [size, setSize] = useState(null);
 
   const imgRef = useRef(null);
   const containerRef = useRef(null);
-
-  // 重置 size 值
-  const resetSize = () => {
-    if (!imgRef.current) {
-      return false;
-    }
-    // 1. 获取图片的原始尺寸
-    const { naturalWidth, naturalHeight } = imgRef.current;
-    const {
-      width: containerWidth,
-      height: containerHeight,
-    } = containerRef.current.getBoundingClientRect();
-    const scale = naturalWidth / naturalHeight;
-    const reset = { width: 'auto', height: 'auto' };
-    const changeKey = containerHeight * scale < containerWidth
-      ? 'width'
-      : 'height';
-    reset[changeKey] = '100%';
-    !_.isEqual(reset, size) &&  setSize({ ... reset });
-  };
 
   const imgClass = useMemo(() => classNames(
     'qyrc-image-bg',
@@ -116,16 +95,14 @@ const useStateHook = props => {
     }
   }, [src]);
 
-  return { imgRef, containerRef, size, img, resetSize, imgClass };
+  return { imgRef, containerRef, img, imgClass };
 };
 
 const ImageContainer = props => {
   const state = useStateHook(props);
   return (
-    <Resize
+    <div
       {...omit(props, filterPropKeys)}
-      ref={state.containerRef}
-      onResize={state.resetSize}
       className={classNames('qyrc-image', props.className)}
       style={{ width: props.width, height: props.height, ... props.style }}>
       {state.img === 'loading' ? props.loading : null}
@@ -134,8 +111,7 @@ const ImageContainer = props => {
         <img
           src={state.img}
           ref={state.imgRef}
-          onLoad={state.resetSize}
-          style={{ ... state.size, transition: `opacity ${props.fadeTime}s` }}
+          style={{ transition: `opacity ${props.fadeTime}s` }}
         />
       </div>
       <div
@@ -143,7 +119,7 @@ const ImageContainer = props => {
         className={classNames('qyrc-image-body', props.bodyClassName)} >
         {props.children}
       </div>
-    </Resize>
+    </div>
   );
 };
 
