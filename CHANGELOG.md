@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.10](https://github.com/qianyin925/qyrc/compare/v1.4.9...v1.4.10) (2020-12-02)
+
+
+### Features
+
+* image 组件调整 ([9a3e9e6](https://github.com/qianyin925/qyrc/commit/9a3e9e6d9d16d2ee3f80ff4d33a3155e678dfc9f))
+
 ### [1.4.9](https://github.com/qianyin925/qyrc/compare/v1.4.8...v1.4.9) (2020-10-25)
 
 ### [1.4.8](https://github.com/qianyin925/qyrc/compare/v1.4.7...v1.4.8) (2020-09-27)
