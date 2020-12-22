@@ -33,6 +33,12 @@ export default {
           url: '/common/editor',
           router: [{ path: '/common/editor', component: pages.Editor }],
         },
+        {
+          key: 'echart',
+          title: 'Echart',
+          url: '/common/echart',
+          router: [{ path: '/common/echart', component: pages.Echart }],
+        },
       ],
     },
     {

@@ -1,10 +1,7 @@
-import _ from 'lodash';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { useRef, useEffect, useMemo, useState } from 'react';
-
-import { Resize } from '..';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
