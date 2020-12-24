@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.12](https://github.com/qianyin925/qyrc/compare/v1.4.11...v1.4.12) (2020-12-24)
+
+
+### Features
+
+* 【qyrc】 新增 Echart 组件 ([c27d2cf](https://github.com/qianyin925/qyrc/commit/c27d2cfe8a9d0e95a9c3c8d2e2f5832102e28f40))
+
 ### [1.4.11](https://github.com/qianyin925/qyrc/compare/v1.4.10...v1.4.11) (2020-12-02)
 
 ### [1.4.10](https://github.com/qianyin925/qyrc/compare/v1.4.9...v1.4.10) (2020-12-02)
