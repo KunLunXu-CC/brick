@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "echarts": "^5.0.0",
     "highlight.js": "^9.15.10",
     "markdown-to-jsx": "^6.10.3",
     "monaco-editor": "^0.20.0",
