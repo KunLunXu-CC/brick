@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.13](https://github.com/qianyin925/qyrc/compare/v1.4.12...v1.4.13) (2020-12-24)
+
 ### [1.4.12](https://github.com/qianyin925/qyrc/compare/v1.4.11...v1.4.12) (2020-12-24)
 
 
