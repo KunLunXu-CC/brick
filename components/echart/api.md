@@ -26,7 +26,10 @@
 
 ### 1.4 on
 
-说明: 配置参数参考: https://echarts.apache.org/zh/api.html#echartsInstance.on, 绑定事件时会将所有对应的事件先进行解版
+> 说明: 
+> 1. 配置参数参考: https://echarts.apache.org/zh/api.html#echartsInstance.on, 
+> 2. 绑定事件时会将所有对应的事件先进行解版
+> 3. handler 函数绑定了 echarts 实例, (echart, event) => {}
 
 - 描述: 配置事件
 - 类型: Object[],   { eventName, query, handler, context }, 
