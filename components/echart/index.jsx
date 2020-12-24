@@ -67,7 +67,7 @@ const useStateHook = props => {
           return false;
         }
         echart.off(eventName);
-        echart.on(eventName, query, handler, context);
+        echart.on(eventName, query, handler.bind(null, echart), context);
       });
     }
   }, [echart, props.on]);
