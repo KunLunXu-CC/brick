@@ -52,15 +52,14 @@ const OPERATION_TYPE_MAP_CURSOR = {
  * @param {Object} target  目标对象
  */
 const parseParams = ({ target }) => {
-  const { width, height } = target.getBoundingClientRect();
-  const offsetX = getComputedStyle(target, null).getPropertyValue('left') || 0;
-  const offsetY = getComputedStyle(target, null).getPropertyValue('top') || 0;
+  const { width, height, left, top } = target.getBoundingClientRect();
+  const { left: pLeft, top: pTop } = target.parentNode.getBoundingClientRect();
 
   return {
     width,
     height,
-    offsetX: Number.parseFloat(offsetX, 10),
-    offsetY: Number.parseFloat(offsetY, 10),
+    offsetX: left - pLeft,
+    offsetY: top - pTop,
   };
 };
 
@@ -183,7 +182,7 @@ const getOriginClient = ({ e, target, operationType }) => {
 };
 
 /**
- * 合并计算 margin 值
+ * 获取边界值
  * @param {Object} margin          目标对象距离父节点的 margin
  * @param {Object} target          目标对象
  * @param {String} operationType   操作类型
@@ -193,6 +192,7 @@ const getOriginClient = ({ e, target, operationType }) => {
 const getBoundary = ({ margin, target, operationType, constraintSize }) => {
   const parentRect = target.parentNode.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
+
   const _margin = parseMargin({ target, margin });
   const boundary = {
     top: parentRect.top + _margin.top,
@@ -237,7 +237,7 @@ const correctClient = (e, boundary) => {
  * @param {Object} e                事件对象
  * @param {Object} originClient     源 client， 鼠标按下时记录的 client
  * @param {String} operationType    操作类型
- * @param {Object} preParams   上一次 params 或者说是操作前 params
+ * @param {Object} preParams        上一次 params 或者说是操作前 params
  * @param {Object} boundary         client 限制范围
  * @returns {Object}                计算后 params
  */

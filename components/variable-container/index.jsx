@@ -9,6 +9,7 @@ import useResize from './useResize';
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
   'style',
+  'layout',
   'margin',
   'onResize',
   'className',
@@ -27,6 +28,7 @@ const paramsType =  PropTypes.shape({
   offsetY: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 });
 const propTypes = {
+  layout: PropTypes.bool,
   threshold: PropTypes.number,
   constraintSize: PropTypes.shape({
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -70,8 +72,9 @@ const useStateHook = (props, ref) => {
   const containerStype = useMemo(() => ({
     width: _params.width,
     height: _params.height,
-    top: `${_params.offsetY}px`,
-    left: `${_params.offsetX}px`,
+    transform: !props.layout
+      ? `translate(${_params.offsetX}px, ${_params.offsetY}px)`
+      : void 0,
     ... props.style,
   }), [_params]);
 

@@ -32,19 +32,20 @@ export default () => (
   <Container>
     <Body>
       <VariableContainer
+        layout
         operationList={['right']}
         margin={{ right: '20%' }}
-        style={{ height: '100' }}>
+        style={{ height: '100%' }}>
         左侧
       </VariableContainer>
       <Right>
         <Top>顶部</Top>
         <VariableContainer
+          layout
           margin={{ top: 50 }}
           operationList={['top']}
           defaultParams={{ height: 100 }}
-          constraintSize={{ height: 100 }}
-          style={{ width: '100%', top: 0 }}>
+          constraintSize={{ height: 100 }}>
           底部
         </VariableContainer>
       </Right>
