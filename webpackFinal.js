@@ -1,3 +1,4 @@
+// qy-create-react webpack 定制
 const path = require('path');
 const MonacoEditor = require('monaco-editor-webpack-plugin');
 
@@ -9,7 +10,7 @@ module.exports = config => {
   // eslint-disable-next-line
   config.resolve.alias = {
     ... config.resolve.alias,
-    '@components': path.resolve(__dirname, '../../components'),
+    '@components': path.resolve(__dirname, './components'),
   };
 
   return config;

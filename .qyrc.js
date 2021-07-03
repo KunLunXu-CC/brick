@@ -1,14 +1,20 @@
-import * as pages from '../pages';
+import * as pages from './src/pages';
 
 export default {
-  logo: { img: void 0, title: 'QYRC' },
+  logo: {             // logo 配置
+    img: void 0,      // logo 配置图片: require('*/**/*.png')
+    title: 'QYRC', // 标题
+  },
+  // footer: () => ('footer'),  // 组件
+  // header: () => ('header'),  // 组件
+
   menu: [
     {
       url: '/',
       key: 'home',
       title: '首页',
       icon: 'HomeOutlined',
-      router: [{ path: '/', component: pages.Home, exact: true }],
+      routers: [{ path: '/', component: pages.Home, exact: true }],
     },
     {
       title: '通用',
@@ -19,25 +25,25 @@ export default {
           key: 'icon',
           title: '图标',
           url: '/common/icon',
-          router: [{ path: '/common/icon', component: pages.Icon }],
+          routers: [{ path: '/common/icon', component: pages.Icon }],
         },
         {
           title: 'markdown',
           key: 'Markdown 渲染',
           url: '/common/markdown',
-          router: [{ path: '/common/markdown', component: pages.Markdown }],
+          routers: [{ path: '/common/markdown', component: pages.Markdown }],
         },
         {
           key: 'editor',
           title: '编辑器',
           url: '/common/editor',
-          router: [{ path: '/common/editor', component: pages.Editor }],
+          routers: [{ path: '/common/editor', component: pages.Editor }],
         },
         {
           key: 'echart',
           title: 'Echart',
           url: '/common/echart',
-          router: [{ path: '/common/echart', component: pages.Echart }],
+          routers: [{ path: '/common/echart', component: pages.Echart }],
         },
       ],
     },
@@ -50,7 +56,7 @@ export default {
           title: '可变容器',
           key: 'variableContainer',
           url: '/container/variable-container',
-          router: [{
+          routers: [{
             component: pages.VariableContainer,
             path: '/container/variable-container',
           }],
@@ -59,19 +65,19 @@ export default {
           title: '窗体',
           key: 'window',
           url: '/container/window',
-          router: [{ path: '/container/window', component: pages.Window }],
+          routers: [{ path: '/container/window', component: pages.Window }],
         },
         {
           title: '图片',
           key: 'image',
           url: '/container/image',
-          router: [{ path: '/container/image', component: pages.Image }],
+          routers: [{ path: '/container/image', component: pages.Image }],
         },
         {
           key: 'resize',
           title: '监听 Resize',
           url: '/container/resize',
-          router: [{ path: '/container/resize', component: pages.Resize }],
+          routers: [{ path: '/container/resize', component: pages.Resize }],
         },
       ],
     },
