@@ -228,6 +228,7 @@ const useStateHook = (props, ref) => {
 const Editor = React.forwardRef((props, ref) => {
   const state = useStateHook(props, ref);
 
+  // 该组件宽高自适应外容器
   return (
     <Resize
       onDrop={state.onDrop}

@@ -11,6 +11,15 @@
 
 [ ] 这是未完成任务
 
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 ## 浏览器支持
 
 ![浏览器支持](http://img.redocn.com/sheji/20141219/zhongguofengdaodeliyizhanbanzhijing_3744115.jpg)
@@ -62,7 +71,6 @@
 
 - 图中项目不再具有块级元素的特性（有点类似 `inline-block`）
 
-![项目不再具有块级元素特性](../img/2018-11-0409:43:37.png)
 
 ### 在弹性容器中项目的 margin 在垂直方向上的值不会进行叠加
 
@@ -95,7 +103,6 @@
 
 - 代码效果图
 
-![margin在垂直方向上不叠加](../img/2018-12-0115:50:17.png)
 
 ### 主轴和交叉轴
 
@@ -104,7 +111,6 @@
 > - 交叉轴的开始位置叫做 `cross start`，结束位置叫做 `cross end`。
 > - 单个项目占据的主轴空间叫做 `main size`，占据的交叉轴空间叫做 `cross size`
 
-![主轴交叉轴图](../img/2018-11-0410:09:42.png)
 
 ### 容器属性
 
@@ -131,7 +137,6 @@
 
 - flex-direction 属性不同取值， 容器内项目的排列顺序：
 
-![flex-direction演示图](../img/2018110410:52:00.png)
 
 - 下面代码分别修改容器 `flex-direction` 属性的取值将得到上文演示图片的效果
 
@@ -176,7 +181,6 @@
 - 如下图， 默认情况（`flex-wrap: nowrap`）下项目都排在一条线（又称”轴线”）上； 即使一行无法排列所有的项目，也会对项目在主轴方向上的大小进行缩放迫使所有项目都能够在一行进行排列
 - 补充： 至于项目如何进行缩放， 则取决于项目的 `flex-shrink` 属性， 该属性后续会进行讲解
 
-![flex-wrap 默认值](../img/2018-11-0411:18:42.png)
 
 - 上图演示代码
 
@@ -237,7 +241,6 @@
 </div>
 ```
 
-![flex-wrap: wrap 演示](../img/2018-11-0411:31:07.png)
 
 - `flex-wrap: wrap-reverse` 当所有项目无法在一行进行排列时，允许换行进行排序，行的排列顺序和交叉轴的方向相反；
 - 如下演示代码：
@@ -271,7 +274,6 @@
 
 - 如图：交叉轴的方向从上到下， 项目换行排序的方向和交叉轴相反从下到上
 
-![flex-wrap: wrap-reverse 演示](../img/2018-11-0411:34:45.png)
 
 #### flex-flow
 
@@ -292,7 +294,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - `justify-content` 不同属性值在主轴方向上的排列演示图
 
-![justify-content属性](../img/2018111109:37:17.png)
 
 - 下面代码分别修改容器 `justify-content` 属性值将得到上文演示图片的效果
 
@@ -338,8 +339,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 | stretch       | (默认值)每行都在交叉轴方法进行均匀伸缩，企图占满交叉轴上所有剩余的空间 |
 
 - align-content 不同属性值, 行在交叉轴方向上的排列演示图
-
-![align-content属性](../img/2018120210:48:17.png)
 
 - 下面代码依次修改 align-content 属性值将得到上文演示图的效果
 - 补充：对比代码和示意图，其实我们并没有给每个项目设置高度，但是项目却自动伸缩获取 100% 的高度，这是因为 align-items 的默认值为 stretch ， align-items 在下文会进详细的说明；
@@ -389,8 +388,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 | stretch     | （默认）行内项目(在未为项目设置高度或者设为 auto 情况下)在交叉轴方法进行伸缩，占满该行在交叉轴上的所有剩余空间 |
 
 - `align-items` 不同属性值, 行内项目在交叉轴方向上的排列示意图
-
-![align-items属性](../img/2018120211:32:53.png)
 
 - 上文示意图代码：依次修改 `align-center` 属性值将得上上文示意图的效果
 - 注意对比代码和示意图，发现 `basline` 和 `center` 效果貌似一样， 实际上是因为所有项目设置了相同的字体大小、并且文字居中；有兴趣的可以尝试移除行高并为每个项目设置不同的字体大小，查看 `baseline` 的具体效果；
@@ -471,8 +468,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - 演示效果有:
 
-!['roder'](../img/2018112409:17:05.png)
-
 ### flex-grow: \<number\>
 
 - 已只项目是沿着主轴的方向进行排列的,当项目较少时, 主轴方法存在剩余的空间时; 可通过 `flex-grow` 来规定如何处理主轴方向上剩余的空间;
@@ -482,8 +477,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 - 如果一个项目的 `flex-grow` 属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍（按 2:1 的比例分配剩余空间）。
 
 - flex-grow 属性演示图
-
-![flex-grow](../img/2018112409:48:41.png)
 
 - 下面代码中只需修改每个项目的 `flex-grow` 属性值即可得到上述效果
 
@@ -523,8 +516,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - `flex-shrink` 属性演示图
 
-![flex-shrink](../img/2018112410:37:48.png)
-
 - 下面代码中只需要修改 `flex-shrink` 即可实现上述效果
 
 ```html
@@ -559,8 +550,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 - 浏览器实际上是根据 `flex-basis` 属性来计算主轴上的剩余空间(只是 `flex-basis` 默认值为 `auto` 等于项目的大小);
 
 - flex-basis 属性演示图
-
-![flex-basis](../img/2018112411:16:02.png)
 
 - 上文演示图代码:
 
@@ -604,8 +593,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - `align-self` 属性演示
 
-![align-self](../img/2018-12-0211:47:21.png)
-
 - 演示代码如下:
 
 ```html
@@ -648,8 +635,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - 效果演示:
 
-![单项目在flex容器中的定位布局](../img/2018112414:56:50.png)
-
 - 演示代码有(依次修改 flex 容器 justify-content 和 align-items 属性值):
 
 ```html
@@ -682,8 +667,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 #### 双项目以及三项目在 flex 容器中简单布局
 
 - 简单演示
-
-![双项目三项目布局](../img/2018-11-2415:55:17.png)
 
 - 演示代码
 
@@ -788,8 +771,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - 演示效果
 
-![四项目](../img/2018-11-2416:23:28.png)
-
 - 演示代码
 
 ```html
@@ -854,8 +835,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 #### 六项目九项目简单布局
 
 - 演示效果
-
-![六项目九项目](../img/2018-11-2416:49:00.png)
 
 - 演示代码(实际就是对项目进行分组嵌套)
 
@@ -936,8 +915,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - 演示效果
 
-![文字布局](../img/2018-11-2417:25:17.png)
-
 - 演示代码
 
 ```html
@@ -988,8 +965,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 #### 每个子项平局分布容器的宽度（关键： flex-grow 属性）
 
 - 演示效果
-
-![网格布局](../img/2018-11-2417:43:47.png)
 
 - 演示代码
 
@@ -1044,8 +1019,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 #### 个别子项具有固定宽度其余项目平均分布（关键： flex-grow flex-basis 属性）
 
 - 演示效果
-
-![网格布局](../img/2018-12-0109:29:49.png)
 
 - 演示代码
 
@@ -1126,8 +1099,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - 演示效果
 
-![圣杯布局](../img/2018120110:48:06.png)
-
 - 演示代码
 
 ```html
@@ -1166,8 +1137,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 - 常见输入框带前后缀，且自适应：
 - 效果演示
 
-![输入框布局](../img/2018-12-0112:28:46.png)
-
 - 演示代码
 
 ```html
@@ -1199,8 +1168,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - 图文左右布局，图片和文字的任意对齐
 - 效果演示
-
-![图文布局](../img/2018-12-0114:28:52.png)
 
 - 演示代码:(修改 align-self 属性可控制图片和文本的对齐方式)
 
@@ -1243,8 +1210,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 
 - 效果演示：
 
-![流式布局](../img/2018-12-0114:44:11.png)
-
 - 演示代码：
 
 ```html
@@ -1282,8 +1247,6 @@ flex-flow 属性是 flex-direction 属性和flex-wrap属性的简写形式，默
 - 在某些页面中有时页面内容太少，无法占满一屏的高度，底栏经常就会抬高到页面的中间， 下面使用flex实现底部固定在页面底部上；
 
 - 效果演示
-
-![底部固定](../img/2018-12-0115:30:41.png)
 
 - 演示代码
 

@@ -41,9 +41,7 @@ const useStateHook = props => {
     const lineHeight = editor.getOption(monaco.editor.EditorOption.lineHeight);
     const lineCount = model ? model.getLineCount() : 1;
     const height = editor.getTopForLineNumber(lineCount + 1) + lineHeight;
-    editorRef.current.style.height = `${height > MAX_HEIGHT
-      ? MAX_HEIGHT
-      : height}px`;
+    editorRef.current.style.height = `${Math.min(height, MAX_HEIGHT)}px`;
   }, []);
 
   return { selectRef, editorRef, options, onCopy, onCreated };
