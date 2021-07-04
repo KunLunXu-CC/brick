@@ -1,69 +1,54 @@
 import _ from 'lodash';
+import React from 'react';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import React, { useRef, useEffect } from 'react';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
   'onResize',
-  'className',
 ];
 
-// props 默认值
-const defaultProps = {};
+const useHooks = (props, ref) => {
+  const _containerRef = React.useRef(null);
+  const resizeObserver = React.useRef(null);
 
-// props 参数校验
-const propTypes = {
-  onResize: PropTypes.func,
-  style: PropTypes.object,
-  className: PropTypes.string,
-};
-
-const useHooks = props => {
-  const iframeRef = useRef(null);
+  // 容器 ref
+  const containerRef = React.useMemo(() => (
+    ref || _containerRef
+  ), [_containerRef]);
 
   // 容器大小改变
-  const onResize = () => {
+  const onResize = React.useCallback(([entrie = {}]) => {
     if (!_.isFunction(props.onResize)) {
       return false;
     }
-    const width = _.get(
-      iframeRef,
-      'current.contentWindow.document.documentElement.clientWidth'
-    );
-    const height = _.get(
-      iframeRef,
-      'current.contentWindow.document.documentElement.clientHeight'
-    );
-    props.onResize({ width, height });
-  };
+    const { bottom, height, left, right, top, width, x, y } = entrie?.contentRect ?? {};
+    props.onResize({ bottom, height, left, right, top, width, x, y });
+  }, [props.onResize]);
 
-  useEffect(() => {
-    iframeRef.current &&
-    iframeRef.current.contentWindow.addEventListener('resize', onResize);
-  }, [iframeRef.current]);
+  React.useEffect(() => {
+    resizeObserver.current?.disconnect(); // 取消所以监听
+    resizeObserver.current = new ResizeObserver(onResize); // 重新创建 resizeObserver
+    resizeObserver.current?.observe(containerRef.current); // 添加监听
+  }, [containerRef.current, onResize]);
 
-  return { iframeRef };
+  return { containerRef };
 };
 
 const Resize = React.forwardRef((props, ref) => {
-  const state = useHooks(props);
+  const state = useHooks(props, ref);
+
   return (
-    <div
-      ref={ref}
-      className={classNames('qyrc-resize', props.className)}
-      {...omit(props, filterPropKeys)}>
+    <div ref={state.containerRef} {...omit(props, filterPropKeys)}>
       {props.children}
-      <iframe
-        frameBorder="0"
-        ref={state.iframeRef}
-        className="qyrc-resize-iframe"
-      />
     </div>
   );
 });
 
-Resize.defaultProps = defaultProps;
-Resize.propTypes = propTypes;
+Resize.defaultProps = {};
+
+Resize.propTypes = {
+  onResize: PropTypes.func,
+};
+
 export default Resize;
