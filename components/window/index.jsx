@@ -57,7 +57,7 @@ const propTypes = {
   toolClassName: PropTypes.string,
 };
 
-const useStateHook = props => {
+const useHooks = props => {
   const [isMin, setIsMin] = useState(!!props.isMin);
   const [isMax, setIsMax] = useState(!!props.isMax);
   const [params, setParams] = useState(null);
@@ -149,7 +149,7 @@ const useStateHook = props => {
 };
 
 const Window = props => {
-  const state = useStateHook(props);
+  const state = useHooks(props);
 
   return (
     <VariableContainer

@@ -11,7 +11,7 @@ import '../icon/style';
 // 最大高度
 const MAX_HEIGHT = 400;
 
-const useStateHook = props => {
+const useHooks = props => {
   const selectRef = useRef(null);
   const editorRef = useRef(null);
 
@@ -48,7 +48,7 @@ const useStateHook = props => {
 };
 
 export default props => {
-  const state = useStateHook(props);
+  const state = useHooks(props);
   return (
     <div className="qyrc-markdown-preview-code">
       <div className="qyrc-markdown-preview-code-header">

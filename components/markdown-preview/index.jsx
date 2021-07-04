@@ -37,7 +37,7 @@ const propTypes = {
   tocParseTypeList: PropTypes.arrayOf(PropTypes.string),
 };
 
-const useStateHook = props => {
+const useHooks = props => {
   // 合并计算 options
   const options = useMemo(() => {
     const baseOptions = {
@@ -71,7 +71,7 @@ const useStateHook = props => {
 };
 
 const Markdown = props => {
-  const state = useStateHook(props);
+  const state = useHooks(props);
   return (
     <div
       className={state.wrapperClassName}

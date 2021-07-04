@@ -46,7 +46,7 @@ const renderToc = setting => (
   </div>
 );
 
-const useStateHook = props => {
+const useHooks = props => {
   const toc = useMemo(() => {
     const parseData = parseToc(props.children, props.tocParseTypeList);
     const reactElement = renderToc(parseData);
@@ -59,6 +59,6 @@ const useStateHook = props => {
 };
 
 export default props => {
-  const state = useStateHook(props);
+  const state = useHooks(props);
   return state.toc;
 };

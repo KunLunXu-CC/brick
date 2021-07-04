@@ -31,7 +31,7 @@ const propTypes = {
   ]),
 };
 
-const useStateHook = props => {
+const useHooks = props => {
   const containerRef = React.useRef(null);
   const [echart, setEchart] = React.useState(null);
 
@@ -76,7 +76,7 @@ const useStateHook = props => {
 };
 
 const Echart = props => {
-  const state = useStateHook(props);
+  const state = useHooks(props);
   return (
     <div
       ref={state.containerRef}

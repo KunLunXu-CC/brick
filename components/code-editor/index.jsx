@@ -56,7 +56,7 @@ const defaultProps = {
   language: 'javascript',
 };
 
-const useStateHook = (props, ref) => {
+const useHooks = (props, ref) => {
   const _editorBodyRef = useRef(ref);
 
   const editorBodyRef = useMemo(() => (
@@ -226,7 +226,7 @@ const useStateHook = (props, ref) => {
 };
 
 const Editor = React.forwardRef((props, ref) => {
-  const state = useStateHook(props, ref);
+  const state = useHooks(props, ref);
 
   // 该组件宽高自适应外容器
   return (

@@ -20,7 +20,7 @@ const propTypes = {
   className: PropTypes.string,
 };
 
-const useStateHook = props => {
+const useHooks = props => {
   const iframeRef = useRef(null);
 
   // 容器大小改变
@@ -48,7 +48,7 @@ const useStateHook = props => {
 };
 
 const Resize = React.forwardRef((props, ref) => {
-  const state = useStateHook(props);
+  const state = useHooks(props);
   return (
     <div
       ref={ref}

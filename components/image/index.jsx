@@ -49,7 +49,7 @@ const propTypes = {
   bodyClassName: PropTypes.string,
 };
 
-const useStateHook = props => {
+const useHooks = props => {
   const [src, setSrc] = useState(null);
   // 三种值: img.src(正常)、loading(加载中)、error(加载错误)
   const [img, setImg] = useState('loading');
@@ -96,7 +96,7 @@ const useStateHook = props => {
 };
 
 const ImageContainer = props => {
-  const state = useStateHook(props);
+  const state = useHooks(props);
   return (
     <div
       {...omit(props, filterPropKeys)}

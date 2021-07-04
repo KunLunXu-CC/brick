@@ -49,7 +49,7 @@ const propTypes = {
   onResize: PropTypes.func,
 };
 
-const useStateHook = (props, ref) => {
+const useHooks = (props, ref) => {
   const _targetRef = useRef(null);
   const targetRef = ref || _targetRef;
 
@@ -87,7 +87,7 @@ const useStateHook = (props, ref) => {
 };
 
 const VariableBlock =  React.forwardRef((props, ref) => {
-  const state = useStateHook(props, ref);
+  const state = useHooks(props, ref);
   return (
     <div
       style={state.containerStype}
