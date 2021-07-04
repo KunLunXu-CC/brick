@@ -11,6 +11,16 @@
 
 [ ] 这是未完成任务
 
+If your `browser supports this element`, it should allow you to expand and collapse these details
+
+这是两个点这这是`两个点这这是两个点这这是两个点这这是两个`点这这是两个点这
+
+```js
+const name = 'name'
+const fun = () => {
+  console.log('%c [ fun ]', 'font-size:13px; background:pink; color:#bf2c9f;', fun);
+}
+```
 
 ```mermaid
 graph TD;

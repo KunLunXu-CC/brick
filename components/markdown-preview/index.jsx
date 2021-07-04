@@ -6,8 +6,8 @@ import React, { useMemo } from 'react';
 import MarkdownToJsx from 'markdown-to-jsx';
 
 import Toc from './Toc';
+import Code from './Code';
 import Title from './Title';
-import CodeBlock from './CodeBlock';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -19,28 +19,10 @@ const filterPropKeys = [
   'tocParseTypeList',
 ];
 
-// props 默认值
-const defaultProps = {
-  theme: 'light',
-  showToc: false,
-  tocParseTypeList: ['h2', 'h3'],
-};
-
-// props 参数校验
-const propTypes = {
-  theme: PropTypes.string,
-  showToc: PropTypes.bool,
-  style: PropTypes.object,
-  options: PropTypes.object,
-  onTocParsed: PropTypes.func,
-  className: PropTypes.string,
-  tocParseTypeList: PropTypes.arrayOf(PropTypes.string),
-};
-
 const useHooks = props => {
   // 合并计算 options
-  const options = useMemo(() => {
-    const baseOptions = {
+  const options = useMemo(() => _.merge(
+    {
       overrides: {
         h1: { component: Title, props: { type: 'h1' } },
         h2: { component: Title, props: { type: 'h2' } },
@@ -48,16 +30,12 @@ const useHooks = props => {
         h4: { component: Title, props: { type: 'h4' } },
         h5: { component: Title, props: { type: 'h5' } },
         h6: { component: Title, props: { type: 'h6' } },
-        pre: {
-          component: CodeBlock,
-          props: {
-            classNamePrefix: `qyrc-markdown-preview-${props.theme}`,
-          },
-        },
+        pre: { component: Code, props: { type: 'block' } },
+        code: { component: Code, props: { type: 'inline' } },
       },
-    };
-    return _.merge(baseOptions, props.options);
-  }, [props.options]);
+    },
+    props.options
+  ), [props.options]);
 
   // 组件最外层 className
   const wrapperClassName = useMemo(() => classNames(
@@ -86,6 +64,20 @@ const Markdown = props => {
   );
 };
 
-Markdown.defaultProps = defaultProps;
-Markdown.propTypes = propTypes;
-export default Markdown;
+Markdown.defaultProps = {
+  theme: 'light',
+  showToc: false,
+  tocParseTypeList: ['h2', 'h3'],
+};
+
+Markdown.propTypes = {
+  theme: PropTypes.string,
+  showToc: PropTypes.bool,
+  style: PropTypes.object,
+  options: PropTypes.object,
+  onTocParsed: PropTypes.func,
+  className: PropTypes.string,
+  tocParseTypeList: PropTypes.arrayOf(PropTypes.string),
+};
+
+export default React.memo(Markdown);
