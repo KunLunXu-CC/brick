@@ -34,13 +34,13 @@ const parseToc = (markdown, tocParseTypeList) => {
  * @return {ReactElement}
  */
 const renderToc = setting => (
-  <div className="qyrc-md-toc">
+  <div className="qyrc-markdown-preview-toc">
     {setting.map((v, index) => (
       <div
         key={index}
         onClick={v.onClick}
         className={`toc-${v.type} level-${v.level}`}>
-        <div className="qyrc-md-toc-title">{v.children}</div>
+        <div className="qyrc-markdown-preview-toc-title">{v.children}</div>
       </div>
     ))}
   </div>

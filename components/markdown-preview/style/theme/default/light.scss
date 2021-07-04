@@ -1,16 +1,15 @@
 // 1. 整体设置
-.qyrc-md-dark {
-  color: rgba($color: #fff, $alpha: 0.7);
+.qyrc-markdown-preview-light {
+  color: #333;
+  padding: 20px;
   line-height: 2;
   font-size: 16px;
-  padding: 10px 20px;
   font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 // 2. 标题设置
-.qyrc-md-dark {
+.qyrc-markdown-preview-light {
   h1 {
-    color: #999;
     margin: 20px 0;
     font-size: 30px;
     font-weight: 700;
@@ -18,9 +17,9 @@
   }
 
   h2, h3, h4, h5, h6 {
-    color: #999;
     padding: 5px 0;
-    border-bottom: 1px dashed #666;
+    color: #666;
+    border-bottom: 1px dashed #ddd;
     margin: 40px 0;
     &::before {
       content: '#';
@@ -28,17 +27,24 @@
       padding: {right: 10px};
     }
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    &:nth-child(1) {
+      margin-top: 0;
+    }
+  }
 }
 
 // 3. code `` 提示内容
-.qyrc-md-dark code{
-  color: #D5A947;
+.qyrc-markdown-preview-light code{
+  color: #ff502c;
   font-size: .87em;
   padding: .065em .4em;
+  background-color: #fff5f5;
 }
 
 // 4. 表格
-.qyrc-md-dark table {
+.qyrc-markdown-preview-light table {
   $color-border: #dfdfdf;
 
   width: 100%;
@@ -62,8 +68,7 @@
 }
 
 // 5. 快引用
-.qyrc-md-dark blockquote {
-  color: #666;
+.qyrc-markdown-preview-light blockquote {
   padding: 10px 20px;
   background: #f6f6f6;
   margin: { top: 10px; left: 0 };
@@ -71,7 +76,7 @@
 }
 
 // 6. checkbox 样式
-.qyrc-md-dark input[type=checkbox] {
+.qyrc-markdown-preview-light input[type=checkbox] {
   width: 1em;
   height: 1em;
   margin: 0 0.2em;
@@ -100,8 +105,7 @@
 }
 
 // 7. 折叠面板
-.qyrc-md-dark details {
-  color: #666;
+.qyrc-markdown-preview-light details {
   margin: 10px 0;
   padding: 10px 20px;
   background: #f6f6f6;
@@ -114,17 +118,17 @@
 }
 
 // 8. 图片设置
-.qyrc-md-dark img {
+.qyrc-markdown-preview-light img {
   max-width: 100%;
 }
 
-// 9. 代码块部分
-.qyrc-md-dark .qyrc-md-code {
+// 8. 代码块部分
+.qyrc-markdown-preview-light .qyrc-markdown-preview-code {
   padding: 0;
   margin: 20px 0;
   overflow: hidden;
   border-radius: 8px;
-  background: #272822;
+  background: #282c34;
   flex-direction: column;
 
   &-header {
@@ -171,34 +175,69 @@
 
   &-body {
     flex: 1;
-    display: flex;
-    padding: 10px 0;
-    line-height: 25px;
-  };
-
-  &-line {
-    margin: 0;
-    flex: none;
-    color: #666;
-    padding: 0 10px;
-    font-size: 14px;
-    text-align: right;
-    list-style-type: none;
-  }
-
-  &-content {
-    flex: 1;
-    pre, code {
-      margin: 0;
-      padding: 0;
-      color: #999;
-      background: transparent;
-    }
+    width: 100%;
   };
 
   &-select {
     width: 0;
     height: 0;
     opacity: 0;
+    position: absolute;
+  }
+}
+
+// 9. toc 设置
+.qyrc-markdown-preview-light.qyrc-markdown-preview-show-toc {
+  $width: 200px;
+  $textIndent: 12px;
+
+  display: flex;
+
+  .qyrc-markdown-preview-body {
+    flex: 1;
+    padding-right: 1.5 * $textIndent;
+  }
+
+  .qyrc-markdown-preview-toc {
+    top: 10px;
+    width: $width;
+    font-size: 14px;
+    position: relative;
+    align-self: flex-start;
+    padding-left: $textIndent;
+    border-left: 1px solid rgb(221, 221, 221);
+
+    .level-0 {
+      display: flex;
+      position: relative;
+      align-items: center;
+
+      // 圆点
+      &:after {
+        width: 8px;
+        content: '';
+        height: 8px;
+        z-index: 999;
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        background: #eb5055;
+        left: -($textIndent + 4);
+      }
+    }
+
+    @for $i from 0 through 6 {
+      .level-#{$i} {
+        padding-left: ($textIndent * $i);
+        color: rgba($color: #333, $alpha: 1 - (0.2 * $i));
+        > div {
+          cursor: pointer;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          &:hover { color: #eb5055; }
+        }
+      }
+    }
   }
 }

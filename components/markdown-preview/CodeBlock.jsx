@@ -50,22 +50,22 @@ const useStateHook = props => {
 export default props => {
   const state = useStateHook(props);
   return (
-    <div className="qyrc-md-code">
-      <div className="qyrc-md-code-header">
-        <div className="qyrc-md-code-header-red" />
-        <div className="qyrc-md-code-header-yellow" />
-        <div className="qyrc-md-code-header-green" />
-        <div className="qyrc-md-code-header-lang">
+    <div className="qyrc-markdown-preview-code">
+      <div className="qyrc-markdown-preview-code-header">
+        <div className="qyrc-markdown-preview-code-header-red" />
+        <div className="qyrc-markdown-preview-code-header-yellow" />
+        <div className="qyrc-markdown-preview-code-header-green" />
+        <div className="qyrc-markdown-preview-code-header-lang">
           {state.options.language}
         </div>
         <Icon
           title="复制代码"
           type="icon-copy"
           onClick={state.onCopy}
-          className="qyrc-md-code-header-copy"
+          className="qyrc-markdown-preview-code-header-copy"
         />
       </div>
-      <div className="qyrc-md-code-body" ref={state.editorRef}>
+      <div className="qyrc-markdown-preview-code-body" ref={state.editorRef}>
         <CodeEditor
           options={state.options}
           onCreated={state.onCreated}
@@ -73,7 +73,7 @@ export default props => {
       </div>
       <textarea
         ref={state.selectRef}
-        className="qyrc-md-code-select"
+        className="qyrc-markdown-preview-code-select"
         defaultValue={state.options.value}
       />
     </div>

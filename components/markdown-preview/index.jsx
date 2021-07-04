@@ -51,7 +51,7 @@ const useStateHook = props => {
         pre: {
           component: CodeBlock,
           props: {
-            classNamePrefix: `qyrc-md-${props.theme}`,
+            classNamePrefix: `qyrc-markdown-preview-${props.theme}`,
           },
         },
       },
@@ -61,9 +61,9 @@ const useStateHook = props => {
 
   // 组件最外层 className
   const wrapperClassName = useMemo(() => classNames(
-    'qyrc-md',
-    `qyrc-md-${props.theme}`,
-    { 'qyrc-md-show-toc': props.showToc },
+    'qyrc-markdown-preview',
+    `qyrc-markdown-preview-${props.theme}`,
+    { 'qyrc-markdown-preview-show-toc': props.showToc },
     props.className,
   ), []);
 
@@ -78,7 +78,7 @@ const Markdown = props => {
       {...omit(props, filterPropKeys)}>
       <MarkdownToJsx
         options={state.options}
-        className="qyrc-md-body">
+        className="qyrc-markdown-preview-body">
         {props.children}
       </MarkdownToJsx>
       <Toc {...props}/>

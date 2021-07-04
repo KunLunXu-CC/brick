@@ -28,10 +28,10 @@ export default {
           routers: [{ path: '/common/icon', component: pages.Icon }],
         },
         {
-          title: 'markdown',
-          key: 'Markdown 渲染',
-          url: '/common/markdown',
-          routers: [{ path: '/common/markdown', component: pages.Markdown }],
+          title: 'Markdown 预览',
+          key: 'Markdown 预览',
+          url: '/common/markdown-preview',
+          routers: [{ path: '/common/markdown-preview', component: pages.MarkdownPreview }],
         },
         {
           key: 'editor',
