@@ -3,6 +3,8 @@ import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as echarts from 'echarts';
+import { Resize } from '..';
+import '../resize/style';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -11,36 +13,25 @@ const filterPropKeys = [
   'width',
   'option',
   'height',
+  'onCreate',
   'className',
-  'createEchart',
 ];
-
-// props 默认值
-const defaultProps = {};
-
-// props 参数校验
-const propTypes = {
-  on: PropTypes.array,
-  style: PropTypes.object,
-  option: PropTypes.object,
-  className: PropTypes.string,
-  createEchart: PropTypes.func,
-  height: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-};
 
 const useHooks = props => {
   const containerRef = React.useRef(null);
   const [echart, setEchart] = React.useState(null);
+
+  // 容器变化
+  const onResize = React.useCallback(() => {
+    echart?.resize({ width: 'auto', height: 'auto' });
+  }, [echart]);
 
   // 创建 echart
   React.useEffect(() => {
     if (containerRef.current) {
       const e = echarts.init(containerRef.current);
       setEchart(e);
-      _.isFunction(props.createEchart) && props.createEchart(e);
+      _.isFunction(props.onCreate) && props.onCreate(e);
     }
   }, [containerRef.current]);
 
@@ -48,16 +39,6 @@ const useHooks = props => {
   React.useEffect(() => {
     echart && props.option && echart.setOption(props.option);
   }, [echart, props.option]);
-
-  // 监听容器变化, 并重置图表大小
-  React.useEffect(() => {
-    if (echart) {
-      const ro = new ResizeObserver(() => {
-        echart.resize({ width: 'auto', height: 'auto' });
-      });
-      ro.observe(containerRef.current);
-    }
-  }, [echart]);
 
   // 绑定事件
   React.useEffect(() => {
@@ -72,21 +53,34 @@ const useHooks = props => {
     }
   }, [echart, props.on]);
 
-  return { containerRef, echart };
+  return { containerRef, echart, onResize };
 };
 
 const Echart = props => {
   const state = useHooks(props);
   return (
-    <div
+    <Resize
       ref={state.containerRef}
+      onResize={state.onResize}
       className={classNames('qyrc-echart', props.className)}
       style={{ height: props.height, width: props.width, ... props.style }}
-      {...omit(props, filterPropKeys)}>
-    </div>
+      {...omit(props, filterPropKeys)}
+    />
   );
 };
 
-Echart.defaultProps = defaultProps;
-Echart.propTypes = propTypes;
+Echart.defaultProps = {};
+
+Echart.propTypes =  {
+  on: PropTypes.array,
+  style: PropTypes.object,
+  option: PropTypes.object,
+  className: PropTypes.string,
+  onCreate: PropTypes.func,
+  height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+};
+
 export default Echart;

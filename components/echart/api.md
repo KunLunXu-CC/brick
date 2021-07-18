@@ -12,7 +12,7 @@
 - 类型: Object
 - 默认值: ---
 
-### 1.2 createEchart 
+### 1.2 onCreate 
 
 - 描述: 初始化 echarts 实例后的回调函数
 - 类型: Function,  echart => {}
