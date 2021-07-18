@@ -15,7 +15,7 @@
 - 描述: 编辑器主题
 - 类型: String
 - 默认值: vs
-- 内部主题: "one-dark-pro" | "vs" | "vs-dark" | "hc-black"
+- 内部主题: "dark-pro" | "vs" | "vs-dark" | "hc-black"
 
 ### 1.3 language
 

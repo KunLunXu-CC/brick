@@ -97,7 +97,7 @@ export default () => {
   // 重置 options
   const resetOptions = () => {
     setOptions({
-      theme: 'one-dark-pro',
+      theme: 'dark-pro',
       value: initValue,
       language: 'markdown',
       readOnly: true,

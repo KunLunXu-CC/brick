@@ -20,8 +20,8 @@ const useHooks = props => {
   // 代码编辑器 options
   const codeEditoroptions = React.useMemo(() => ({
     readOnly: true,
+    theme: 'dark-pro',
     language: props.lang,
-    theme: 'one-dark-pro',
     value: `\n${props.value}\n`,
     scrollBeyondLastLine: false,
     minimap: { enabled: false },
