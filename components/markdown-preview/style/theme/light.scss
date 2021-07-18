@@ -263,3 +263,26 @@
 .qyrc-markdown-preview-mermaid {
   text-align: center;
 }
+
+// 11. echat 样式
+.qyrc-markdown-preview-echart {
+  position: relative;
+
+  &-main {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+  }
+
+  &:not(.qyrc-error) {
+    height: 400px;
+  }
+
+  &.qyrc-error {
+    color:#f5222d;
+    line-height: 2;
+    text-align: center;
+  }
+}

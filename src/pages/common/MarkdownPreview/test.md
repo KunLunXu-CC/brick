@@ -15,6 +15,40 @@ If your `browser supports this element`, it should allow you to expand and colla
 
 这是两个点这这是`两个点这这是两个点这这是两个点这这是两个`点这这是两个点这
 
+```echart
+{
+  "xAxis": {
+      "type": "category", 
+      "data": [
+          "Mon", 
+          "Tue", 
+          "Wed", 
+          "Thu", 
+          "Fri", 
+          "Sat", 
+          "Sun"
+      ]
+  }, 
+  "yAxis": {
+      "type": "value"
+  }, 
+  "series": [
+      {
+          "data": [
+              150, 
+              230, 
+              224, 
+              218, 
+              135, 
+              147, 
+              260
+          ], 
+          "type": "line"
+      }
+  ]
+}
+```
+
 ```js
 const name = 'name'
 const fun = () => {

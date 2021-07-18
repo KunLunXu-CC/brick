@@ -1,6 +1,7 @@
 import React from 'react';
-import CodeBlock from './CodeBlock';
+import Echart from './Echart';
 import Mermaid from './Mermaid';
+import CodeBlock from './CodeBlock';
 
 // 语言简写映射表
 const ABBREVIATION_MAP_LANG = {
@@ -9,6 +10,7 @@ const ABBREVIATION_MAP_LANG = {
 
 // 自定义语言和对应渲染组件映射表, 默认使用 CodeBlock 进行处理
 const CUSTOM_LANG_MAP_RENDER = {
+  'echart': Echart,
   'mermaid': Mermaid,
 };
 

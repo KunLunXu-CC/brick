@@ -2,6 +2,8 @@
 
 ## 一、 API 文档
 
+> 支持: mermaid、echart
+
 ### 1.1 theme
 
 描述: 设置主题
