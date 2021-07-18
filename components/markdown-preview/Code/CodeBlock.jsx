@@ -59,10 +59,13 @@ export default React.memo(props => {
           className="qyrc-markdown-preview-code-header-copy"
         />
       </div>
-      <div className="qyrc-markdown-preview-code-body" ref={state.editorRef}>
+      <div
+        ref={state.editorRef}
+        className="qyrc-markdown-preview-code-body" >
         <CodeEditor
           onCreated={state.onCreated}
           options={state.codeEditoroptions}
+          className="qyrc-markdown-preview-code-body-editor"
         />
       </div>
       {/* 用于实现复制功能 */}

@@ -21,6 +21,7 @@
     color: #666;
     border-bottom: 1px dashed #ddd;
     margin: 40px 0;
+
     &::before {
       content: '#';
       color: #ff6d6d;
@@ -81,6 +82,7 @@
   height: 1em;
   margin: 0 0.2em;
   position: relative;
+
   &::after{
     content: '';
     display: block;
@@ -93,6 +95,7 @@
     border-radius: 2px;
     border:2px solid #ddd;
   }
+
   &[checked]::after{
     content: '√';
     color: #fff;
@@ -110,10 +113,11 @@
   padding: 10px 20px;
   background: #f6f6f6;
   border-left: 5px solid #657b83;
+
   summary {
+    color: #666;
     outline: none;
     cursor: pointer;
-    color: #666;
   }
 }
 
@@ -129,44 +133,49 @@
   overflow: hidden;
   border-radius: 8px;
   background: #282c34;
-  flex-direction: column;
 
   &-header {
-    flex: none;
     height: 38px;
     display: flex;
     align-items: center;
-    padding: {left: 15px;};
     background: #21252b;
+    padding: { left: 15px; };
+
     &-lang {
       flex: 1;
       font-size: 18px;
       font-weight: 600;
-      padding: {left: 25px};
+      padding: { left: 25px };
       color: rgba($color: #fff, $alpha: 0.8);
     }
+
     &-copy {
       margin: 0 10px;
       cursor: pointer;
       color: rgba($color: #fff, $alpha: 0.8);
+
       &:hover{
         color: rgba($color: #fff, $alpha: 0.5);
       }
     }
+
     %dot {
       width: 12px;
       height: 12px;
       margin: 0 5px;
       border-radius: 50%;
     }
+
     &-red {
       @extend %dot;
       background: #fc625d;
     }
+
     &-yellow {
       @extend %dot;
       background: #fdbc40;
     }
+
     &-green {
       @extend %dot;
       background: #35cd4b;
@@ -174,8 +183,15 @@
   };
 
   &-body {
-    flex: 1;
-    width: 100%;
+    position: relative;
+
+    &-editor {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+    }
   };
 
   &-select {
@@ -230,6 +246,7 @@
       .level-#{$i} {
         padding-left: ($textIndent * $i);
         color: rgba($color: #333, $alpha: 1 - (0.2 * $i));
+
         > div {
           cursor: pointer;
           overflow: hidden;

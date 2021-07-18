@@ -1,2 +1,1 @@
 import './light.scss';
-import './dark.scss';
