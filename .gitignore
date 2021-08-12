@@ -4,3 +4,4 @@ dist
 es
 lib
 .eslintcache
+.DS_Store
