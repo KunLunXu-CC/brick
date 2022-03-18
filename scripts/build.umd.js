@@ -8,8 +8,8 @@
  */
 const path = require('path');
 const webpack = require('webpack');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
@@ -94,12 +94,7 @@ module.exports = {
   },
   optimization: {
     minimizer: [
-      new OptimizeCSSAssetsPlugin({
-        // 压缩css  与 ExtractTextPlugin 配合使用
-        cssProcessor: require('cssnano'),
-        cssProcessorOptions: { discardComments: { removeAll: true } }, // 移除所有注释
-        canPrint: true, // 是否向控制台打印消息
-      }),
+      new CssMinimizerPlugin(),
     ],
     noEmitOnErrors: true,
   },
@@ -121,7 +116,12 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       minimize: true,
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+    // TODO: 复制过来的好像非必要配置
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/,
+    }),
 
     new MonacoWebpackPlugin(),
   ],

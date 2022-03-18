@@ -1,0 +1,60 @@
+.qyrc-markdown {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+// 编辑器
+.qyrc-markdown-editor {
+  flex: 1;
+  position: relative;
+
+  // 编辑器
+  .qyrc-editor {
+    inset: 0;
+    position: absolute;
+    overflow: hidden;
+  }
+}
+
+// 工具
+.qyrc-markdown-tool {
+  display: flex;
+  justify-content: flex-end;
+
+  left: 0;
+  right: 16px;
+  bottom: 16px;
+  position: absolute;
+
+  .qyrc-markdown-tool-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    border: 50%;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: rgba($color: #fff, $alpha: 0.8);
+
+    &:not(:first-child) {
+      margin-left: 20px;
+    }
+  }
+}
+
+
+// 预览
+.qyrc-markdown-preview-wrapper {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  .qyrc-markdown-preview {
+    inset: 0;
+    position: absolute;
+    overflow: auto;
+  }
+}

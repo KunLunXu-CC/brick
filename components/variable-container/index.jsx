@@ -69,7 +69,7 @@ const useHooks = (props, ref) => {
     ... props.params,
   }), [params, props.params]);
 
-  const containerStype = useMemo(() => ({
+  const containerStyle = useMemo(() => ({
     width: _params.width,
     height: _params.height,
     transform: !props.layout
@@ -83,14 +83,14 @@ const useHooks = (props, ref) => {
     _.isFunction(props.onResize) && props.onResize(params);
   }, [params]);
 
-  return { targetRef, containerStype };
+  return { targetRef, containerStyle };
 };
 
 const VariableBlock =  React.forwardRef((props, ref) => {
   const state = useHooks(props, ref);
   return (
     <div
-      style={state.containerStype}
+      style={state.containerStyle}
       ref={ref || state.targetRef}
       className={classNames('qyrc-variable-block', props.className)}
       {... omit(props, filterPropKeys)}>
@@ -99,4 +99,4 @@ const VariableBlock =  React.forwardRef((props, ref) => {
   );
 });
 VariableBlock.propTypes = propTypes;
-export default VariableBlock;
+export default React.memo(VariableBlock);

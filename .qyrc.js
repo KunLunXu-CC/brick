@@ -28,23 +28,23 @@ export default {
           routers: [{ path: '/common/icon', component: pages.Icon }],
         },
         {
-          title: 'Markdown 预览',
-          key: 'Markdown 预览',
-          url: '/common/markdown-preview',
-          routers: [{ path: '/common/markdown-preview', component: pages.MarkdownPreview }],
-        },
-        {
           key: 'editor',
           title: '编辑器',
           url: '/common/editor',
           routers: [{ path: '/common/editor', component: pages.Editor }],
         },
         {
-          key: 'echart',
-          title: 'Echart',
-          url: '/common/echart',
-          routers: [{ path: '/common/echart', component: pages.Echart }],
+          key: 'echarts',
+          title: 'Echarts',
+          url: '/common/echarts',
+          routers: [{ path: '/common/echarts', component: pages.Echarts }],
         },
+        {
+          key: 'markdown',
+          title: 'Markdown',
+          url: '/common/markdown',
+          routers: [{ path: '/common/markdown', component: pages.Markdown }],
+        }
       ],
     },
     {

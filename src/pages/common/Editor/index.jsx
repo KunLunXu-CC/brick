@@ -1,135 +1,116 @@
-import React, {
-  useMemo,
-  useState,
-} from 'react';
+import React from 'react';
 import initValue from './value.md';
-import { CodeEditor } from '@components';
-import personality from './personality';
-import '@components/code-editor/style';
+// import personality from './personality';
+import { PlusOutlined } from '@ant-design/icons';
+import { Card, Select, Button } from 'antd';
+import { Editor } from '@components';
+
+import '@components/editor/style';
 import './index.scss';
 
+const { LANGUAGES } = Editor; // LANGUAGES 语言列表
+
 export default () => {
-  const [options, setOptions] = useState({
-    language: 'javascript',
-    fontFamily: 'monospace, \'Droid Sans Mono\', \'Droid Sans Fallback\'',
-  });
-  const immutable = useMemo(() => ({
-    editor: null,
-  }), []);
-  const [value, setValue] = useState(initValue);
-  const [language, setLanguage] = useState('javascript');
-  const [theme, setTheme] = useState('vs');
+  const [options, setOptions] = React.useState({});
+  const editorRef = React.useRef(null);
 
-  // 完成
-  const onAppendValue = () => {
+  const [theme, setTheme] = React.useState();
+  const [width, setWidth] = React.useState('50%');
+
+  const [value, setValue] = React.useState(initValue);
+  const [language, setLanguage] = React.useState();
+
+  // 追加内容
+  const onAppendValue = React.useCallback(() => {
     setValue(`${value}\n${initValue}`);
-  };
-
-  // 完成
-  const onToggleTheme = () => {
-    setTheme(
-      theme === 'vs'
-        ? 'personality'
-        : 'vs'
-    );
-  };
-
-  // 完成
-  const onToggleLanguage = () => {
-    setLanguage(
-      language === 'javascript'
-        ? 'markdown'
-        : 'javascript'
-    );
-  };
+  }, []);
 
   // 完成
   const onSave = args => {
     console.log('----> 保存 ctr+s', args);
   };
 
-  // 有点小问题
-  const onDrop = args => {
-    console.log('----> onDrop', args);
-    return '拖拽完成';
-  };
+  const onChange = React.useCallback(({ value, editor, event }) => {
+    console.log(
+      '%c [onChange] [  value, editor, event ]-50', 'font-size:13px; background:pink; color:#bf2c9f;',
+      { value, editor, event }
+    );
+    setValue(value);
+  }, []);
 
   // 完成
-  const onPaste = args => {
-    console.log('----> onPaste', args);
-  };
-
-  const onPasteImage = async args => {
-    console.log('----> onPasteImage', args);
-    return '黏贴图片';
-  };
-
-  const onChange = args => {
-    console.log('----> onChange', args, theme);
-  };
-
-  // 完成
-  const onResize = args => {
+  const onResize = React.useCallback(args => {
     console.log('----> onResize', args);
-  };
+  }, []);
 
-  const onCreated = args => {
-    immutable.editor = args.editor;
+  const onCreated = React.useCallback(args => {
+    editorRef.current = args.editor;
     console.log('----> onCreated', args);
-  };
+  }, []);
 
   // 完成
-  const onKeyDown = args => {
+  const onKeyDown = React.useCallback(args => {
     console.log('----> onKeyDown', args);
-  };
+  }, []);
 
   // 预览内容
   const onView = () => {
-    const value = immutable.editor.getValue();
+    const value = editorRef.current.getValue();
     console.log('------------>> 预览', value);
   };
 
-  // 预览内容
-  const onResetValue = () => {
-    immutable.editor.setValue(initValue);
-  };
-
   // 重置 options
-  const resetOptions = () => {
-    setOptions({
-      theme: 'dark-pro',
-      value: initValue,
-      language: 'markdown',
-      readOnly: true,
-    });
-  };
+  const resetOptions = React.useCallback(() => setOptions({
+    readOnly: true,
+    theme: 'dark-pro',
+  }), []);
 
   return (
-    <div className="demo-editor">
-      <div className="demo-editor-header">
-        <span onClick={onAppendValue}>追加内容</span>
-        <span onClick={onToggleTheme}>切换主题</span>
-        <span onClick={onToggleLanguage}>切换语言</span>
-        <span onClick={onView}>查看内容</span>
-        <span onClick={onResetValue}>重置内容</span>
-        <span onClick={resetOptions}>重置 options</span>
-      </div>
+    <Card
+      style={{ width }}
+      className="demo-editor"
+      title={
+        <>
+          <Select
+            allowClear
+            value={theme}
+            placeholder="主题"
+            onChange={setTheme}
+            style={{ width: 100 }}>
+            <Select.Option value="vs">vs</Select.Option>
+            <Select.Option value="vs-dark">vs-dark</Select.Option>
+            <Select.Option value="hc-black">hc-black</Select.Option>
+            <Select.Option value="dark-pro">dark-pro</Select.Option>
+          </Select> &emsp;
+          <Select
+            showSearch
+            allowClear
+            value={language}
+            placeholder="语言"
+            style={{ width: 100 }}
+            onChange={setLanguage}>
+            {LANGUAGES.map(v => (
+              <Select.Option value={v.id} key={v.id}>{v.id}</Select.Option>
+            ))}
+          </Select> &emsp;
+          <Button type="primary" onClick={onAppendValue}>追加</Button> &emsp;
+          <Button type="primary" onClick={resetOptions}>重置 OPT</Button>
+        </>
+      }
+      extra={<PlusOutlined onClick={setWidth.bind(null, `${Number.parseInt(width, 10) + 5}%`)}/>}>
       <div className="demo-editor-body">
-        <CodeEditor
+        <Editor
+          theme={theme}
+          value={value}
           onSave={onSave}
-          onDrop={onDrop}
-          onPaste={onPaste}
+          options={options}
+          language={language}
           onResize={onResize}
+          onChange={onChange}
           onCreated={onCreated}
           onKeyDown={onKeyDown}
-          onPasteImage={onPasteImage}
-          onChange={onChange}
-          language={language}
-          options={options}
-          theme={theme}
-          themeConfig={[personality]}
-          value={value} />
+        />
       </div>
-    </div>
+    </Card>
   );
 };

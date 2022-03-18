@@ -1,19 +1,11 @@
 .demo-editor {
-  height: 90vh;
-  padding: 100px;
-  box-sizing: border-box;
+  margin: auto;
 
-  display: flex;
-  flex-direction: column;
-
-  &-header {
-    flex: none;
-    span {
-      padding-right: 20px;
-    }
+  .ant-card-body {
+    padding: 0
   }
+}
 
-  &-body {
-    flex: 1;
-  }
+.demo-editor-body {
+  height: calc(100vh - 180px);
 }

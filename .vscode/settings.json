@@ -1,5 +1,8 @@
 {
   "eslint.options": {
     "configFile": "./node_modules/qy-create-react/.eslintrc.js"
-  }
+  },
+  "cSpell.words": [
+    "hljs"
+  ]
 }
