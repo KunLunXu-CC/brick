@@ -48,10 +48,11 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
   const editorContainerRef = React.useRef(null); // 编辑器容器
 
   // 当前光标后插入内容
-  const insertText = React.useCallback(text => {
+  const insertText = React.useCallback((text) => {
     if (!_.isString(text)) {
       return false;
     }
+
     const { column, lineNumber } = editorRef.current.getPosition();
     // executeEdits 执行编辑: 可实现文本插入、删除、替换
     // see: https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.IStandaloneCodeEditor.html#executeEdits
@@ -70,9 +71,13 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
   }, []);
 
   // 鼠标按下事件
-  const onKeyDown = React.useCallback(event => {
+  const onKeyDown = React.useCallback((event) => {
     // 1. 保存 ctr + s
-    if (props.onSave && (event.ctrlKey || event.metaKey) && event.keyCode === 83) {
+    if (
+      props.onSave &&
+      (event.ctrlKey || event.metaKey) &&
+      event.keyCode === 83
+    ) {
       event.preventDefault();
       props.onSave({
         event,
@@ -89,8 +94,8 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
   }, [props.onSave, props.onKeyDown]);
 
   // 容器改变
-  const onResize = React.useCallback((... args) => {
-    props.onResize?.(... args);
+  const onResize = React.useCallback((...args) => {
+    props.onResize?.(...args);
     editorRef.current?.layout();
   }, [props.onResize]);
 
@@ -99,12 +104,12 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
     if (!editorRef.current) {
       // 1. 创建 editor, see: https://microsoft.github.io/monaco-editor/api/modules/monaco.editor.html#create
       editorRef.current = monaco.editor.create(editorContainerRef.current, {
-        ... BASE_OPTION,
-        ... (props.options || {}),
+        ...BASE_OPTION,
+        ...(props.options || {}),
       });
 
       // 2. 绑定事件
-      editorRef.current.onDidChangeModelContent(event => handleChange({
+      editorRef.current.onDidChangeModelContent((event) => handleChange({
         event,
         editor: editorRef.current,
         value: editorRef.current.getValue(),
@@ -164,4 +169,5 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
 // 已注册语言列表
 Editor.LANGUAGES = monaco.languages.getLanguages();
 Editor.propTypes = propTypes;
+
 export default Editor;

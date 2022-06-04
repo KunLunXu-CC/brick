@@ -6,7 +6,7 @@ import MarkdownToJsx from 'markdown-to-jsx';
 
 import Code from './Code';
 
-const Markdown = props => {
+const Markdown = (props) => {
   // 合并计算 options
   const options = useMemo(() => _.merge(
     {
@@ -15,7 +15,7 @@ const Markdown = props => {
         code: { component: Code, props: { type: 'inline' } },
       },
     },
-    props.options
+    props.options,
   ), [props.options]);
 
   // 组件最外层 className

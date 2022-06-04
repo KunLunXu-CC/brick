@@ -25,7 +25,9 @@ const Resize = React.forwardRef((props, ref) => {
   }, [handleResize]);
 
   return (
-    <div ref={containerRef} {...omit(props, filterPropKeys)}>
+    <div
+      ref={containerRef}
+      {...omit(props, filterPropKeys)}>
       {props.children}
     </div>
   );

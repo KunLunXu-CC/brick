@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx qy-codelint # 代码校验(eslint、stylelint)
+npx qy-commitlint # commit message 校验(调用commitlint)

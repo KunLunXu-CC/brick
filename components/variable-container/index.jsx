@@ -65,8 +65,8 @@ const useHooks = (props, ref) => {
 
   // 合并计算后的状态, 也是最终用于组件渲染的状态(受控组件受外部属性的控制不直接用内部状态来渲染组件)
   const _params = useMemo(() => ({
-    ... params,
-    ... props.params,
+    ...params,
+    ...props.params,
   }), [params, props.params]);
 
   const containerStyle = useMemo(() => ({
@@ -75,7 +75,7 @@ const useHooks = (props, ref) => {
     transform: !props.layout
       ? `translate(${_params.offsetX}px, ${_params.offsetY}px)`
       : void 0,
-    ... props.style,
+    ...props.style,
   }), [_params]);
 
   // 监听内部状态的变更, 触发 onChange 事件
@@ -99,4 +99,5 @@ const VariableBlock =  React.forwardRef((props, ref) => {
   );
 });
 VariableBlock.propTypes = propTypes;
+
 export default React.memo(VariableBlock);

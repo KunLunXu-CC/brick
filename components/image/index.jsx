@@ -49,7 +49,7 @@ const propTypes = {
   bodyClassName: PropTypes.string,
 };
 
-const useHooks = props => {
+const useHooks = (props) => {
   const [src, setSrc] = useState(null);
   // 三种值: img.src(正常)、loading(加载中)、error(加载错误)
   const [img, setImg] = useState('loading');
@@ -71,6 +71,7 @@ const useHooks = props => {
       } else {
         const reader = new FileReader();
         reader.readAsDataURL(props.src);
+
         reader.onload = () => {
           setSrc(reader.result);
         };
@@ -95,13 +96,13 @@ const useHooks = props => {
   return { imgRef, containerRef, img, imgClass };
 };
 
-const ImageContainer = props => {
+const ImageContainer = (props) => {
   const state = useHooks(props);
   return (
     <div
       {...omit(props, filterPropKeys)}
       className={classNames('qyrc-image', props.className)}
-      style={{ width: props.width, height: props.height, ... props.style }}>
+      style={{ width: props.width, height: props.height, ...props.style }}>
       {state.img === 'loading' ? props.loading : null}
       {state.img === 'error' ? props.error : null}
       <div className={state.imgClass}>
@@ -122,4 +123,5 @@ const ImageContainer = props => {
 
 ImageContainer.defaultProps = defaultProps;
 ImageContainer.propTypes = propTypes;
+
 export default ImageContainer;

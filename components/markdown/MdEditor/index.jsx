@@ -13,16 +13,16 @@ const OPTIONS = {
   padding: { top: 16, bottom: 16 }, // 第一行代码距离顶部距离
 };
 
-export default React.memo(props => {
+export default React.memo((props) => {
   const editorRef = React.useRef(null); // 编辑器实例
 
   // 插入图片
-  const insertImages = React.useCallback(async event => {
+  const insertImages = React.useCallback(async (event) => {
     // 1. 获取图片
     const imageFiles = Array
       .from(event.dataTransfer?.files || event.clipboardData?.files || [])
       .filter(
-        file => /^image\/.*/ig.test(file.type)
+        (file) => /^image\/.*/ig.test(file.type),
       );
 
     // 2. 空值处理
@@ -41,26 +41,27 @@ export default React.memo(props => {
     });
 
     // 5. 在当前光标插入 onInsertImage 返回的内容: hrefList =>  href || href[]
-    const content = (_.isArray(hrefList) ? hrefList : [hrefList]).map((href, index) => {
-      const name = imageFiles[index]?.name?.replace(/\..+?$/ig, '');
-      return `![${name}](${href})`;
-    }).join('\n');
+    const content = (_.isArray(hrefList) ? hrefList : [hrefList])
+      .map((href, index) => {
+        const name = imageFiles[index]?.name?.replace(/\..+?$/ig, '');
+        return `![${name}](${href})`;
+      }).join('\n');
 
     editorRef.current?.insertText(content);
   }, [props.onInsertImages]);
 
   // 编辑器黏贴事件: 插入图片
-  const onPaste = React.useCallback(async event => {
+  const onPaste = React.useCallback(async (event) => {
     insertImages(event);
   }, [insertImages]);
 
   // 编辑器拖拽事件: 阻止默认行为, 防止文件打开
-  const onDragOver = React.useCallback(event => {
+  const onDragOver = React.useCallback((event) => {
     event.preventDefault();
   }, []);
 
   // 编辑器拖拽事件: 插入图片
-  const handleDrop = React.useCallback(async event => {
+  const handleDrop = React.useCallback(async (event) => {
     insertImages(event);
   }, [insertImages]);
 

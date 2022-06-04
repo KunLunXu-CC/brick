@@ -17,7 +17,7 @@ const filterPropKeys = [
   'className',
 ];
 
-const useHooks = props => {
+const useHooks = (props) => {
   const containerRef = React.useRef(null);
   const [echartsInstance, setEchartsInstance] = React.useState(null); // echarts 实例
 
@@ -47,8 +47,14 @@ const useHooks = props => {
         if (!eventName || !handler) {
           return false;
         }
+
         echartsInstance.off(eventName);
-        echartsInstance.on(eventName, query, handler.bind(null, echartsInstance), context);
+        echartsInstance.on(
+          eventName,
+          query,
+          handler.bind(null, echartsInstance),
+          context,
+        );
       });
     }
   }, [echartsInstance, props.on]);
@@ -56,14 +62,14 @@ const useHooks = props => {
   return { containerRef, echartsInstance, onResize };
 };
 
-const Echarts = props => {
+const Echarts = (props) => {
   const state = useHooks(props);
   return (
     <Resize
       ref={state.containerRef}
       onResize={state.onResize}
       className={classNames('qyrc-echarts', props.className)}
-      style={{ height: props.height, width: props.width, ... props.style }}
+      style={{ height: props.height, width: props.width, ...props.style }}
       {...omit(props, filterPropKeys)}
     />
   );

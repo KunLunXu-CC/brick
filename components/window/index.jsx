@@ -57,7 +57,7 @@ const propTypes = {
   toolClassName: PropTypes.string,
 };
 
-const useHooks = props => {
+const useHooks = (props) => {
   const [isMin, setIsMin] = useState(!!props.isMin);
   const [isMax, setIsMax] = useState(!!props.isMax);
   const [params, setParams] = useState(null);
@@ -74,27 +74,27 @@ const useHooks = props => {
   }, [props.toolPosition]);
 
   // 点击关闭触发
-  const onClose = e => {
+  const onClose = (e) => {
     _.isFunction(props.onClose) && props.onClose(e);
   };
 
   // 最小化切换触发
-  const onMin = e => {
+  const onMin = (e) => {
     const reset = !isMin;
     _.has(props, 'isMin') ? null : setIsMin(reset);
     _.isFunction(props.onMin) && props.onMin(reset, e);
   };
 
   // 最大化切换触发
-  const onMax = e => {
+  const onMax = (e) => {
     const reset = !isMax;
     _.has(props, 'isMax') ? null : setIsMax(reset);
     _.isFunction(props.onMax) && props.onMax(reset, e);
   };
 
   // params 变更时触发
-  const onResize = params => {
-    setParams({ ... params });
+  const onResize = (params) => {
+    setParams({ ...params });
     _.isFunction(props.onResize) && props.onResize(params);
   };
 
@@ -118,17 +118,18 @@ const useHooks = props => {
   // 最大化处理
   useEffect(() => {
     if (!!isMax) {
-      statics.history.push({ ... params });
+      statics.history.push({ ...params });
       setParams({
         offsetX: 0,
         offsetY: 0,
         width: '100%',
         height: '100%',
-        ... props.maxParams,
+        ...props.maxParams,
       });
     } else if (statics.maxHandled) {
-      setParams({ ... params, ... statics.history.pop() });
+      setParams({ ...params, ...statics.history.pop() });
     }
+
     // 标记是否处理过
     statics.maxHandled = true;
   }, [isMax]);
@@ -136,11 +137,12 @@ const useHooks = props => {
   // 最小化处理
   useEffect(() => {
     if (!!isMin) {
-      statics.history.push({ ... params });
+      statics.history.push({ ...params });
       setParams(props.minParams);
     } else if (statics.minHandled) {
-      setParams({ ... params, ... statics.history.pop() });
+      setParams({ ...params, ...statics.history.pop() });
     }
+
     // 标记是否处理过
     statics.minHandled = true;
   }, [isMin]);
@@ -148,20 +150,19 @@ const useHooks = props => {
   return { onClose, onMin, onMax, onResize, params, toolPosition, windowClass };
 };
 
-const Window = props => {
+const Window = (props) => {
   const state = useHooks(props);
 
   return (
     <VariableContainer
       params={state.params}
       onResize={state.onResize}
-      style={{ ... props.style }}
+      style={{ ...props.style }}
       className={state.windowClass}
-      {...omit(props, filterPropKeys)}
-    >
+      {...omit(props, filterPropKeys)}>
       <div className={classNames('qyrc-window-body')}>
         <span
-          style={{ ... state.toolPosition, ... props.toolStyle }}
+          style={{ ...state.toolPosition, ...props.toolStyle }}
           className={classNames('qyrc-window-tool', props.toolClassName)}>
           <Icon
             type="icon-guanbi6-copy"
@@ -189,4 +190,5 @@ const Window = props => {
 
 Window.defaultProps = defaultProps;
 Window.propTypes = propTypes;
+
 export default Window;

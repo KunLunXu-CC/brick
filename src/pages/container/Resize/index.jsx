@@ -26,8 +26,16 @@ export default () => {
 
   return (
     <div>
-      <span onClick={onResizeWith}>加宽</span>&nbsp;&nbsp;&nbsp;
-      <span onClick={onResizeHeight}>加高</span> <br/><br/>
+      <span onClick={onResizeWith}>
+        加宽
+      </span>
+      &nbsp;&nbsp;&nbsp;
+      <span onClick={onResizeHeight}>
+        加高
+      </span>
+      {' '}
+      <br />
+      <br />
       <Resize
         ref={resizeRef}
         onResize={onResize}

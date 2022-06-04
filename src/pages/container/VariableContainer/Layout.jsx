@@ -39,7 +39,9 @@ export default () => (
         左侧
       </VariableContainer>
       <Right>
-        <Top>顶部</Top>
+        <Top>
+          顶部
+        </Top>
         <VariableContainer
           layout
           margin={{ top: 50 }}

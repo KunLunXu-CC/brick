@@ -15,8 +15,8 @@ export default ({ fun }) => {
     funRef.current = fun;
   }, [fun]);
 
-  const newFun = React.useCallback((... args) => {
-    funRef.current?.(... args);
+  const newFun = React.useCallback((...args) => {
+    funRef.current?.(...args);
   }, []);
 
   return { fun: newFun };

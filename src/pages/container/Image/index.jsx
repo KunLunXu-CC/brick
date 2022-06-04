@@ -14,7 +14,7 @@ const Bast = () => (
       error="加载失败"
       style={{ width: '90%', height: '300px', border: '2px solid red' }}
       loading={(
-        <div style={{ width: '100%', height: '100%', background: 'red' }}></div>
+        <div style={{ width: '100%', height: '100%', background: 'red' }} />
       )}
     />
   </div>
@@ -24,15 +24,21 @@ const Bast = () => (
 const WithFile = () => {
   const [file, setFile] = useState(null);
 
-  const onChange = e => {
+  const onChange = (e) => {
     const { files } = e.target.files;
     setFile(files[0]);
   };
 
   return (
     <div>
-      <input type="file" onChange={onChange}/>
-      <Image src={file} style={{ width: '90%', height: '300px' }}/>
+      <input
+        type="file"
+        onChange={onChange}
+      />
+      <Image
+        src={file}
+        style={{ width: '90%', height: '300px' }}
+      />
     </div>
   );
 };

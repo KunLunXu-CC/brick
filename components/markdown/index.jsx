@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import Preview from './Preview';
 import MdEditor from './MdEditor';
@@ -11,7 +10,7 @@ const PREVIEW_TYPE = {
   mind: 'mind', // 思维导图
 };
 
-const Markdown = props => {
+const Markdown = (props) => {
   const [innerValue, setInnerValue] = React.useState(props.defaultValue); // 内部值
   const [previewType, setPreviewType] = React.useState(PREVIEW_TYPE.none); // 预览类型
   const value = React.useMemo(() => props.value || innerValue); // 组件值
@@ -49,7 +48,7 @@ const Markdown = props => {
           </div> */}
         </div>
       </div>
-      {previewType !== PREVIEW_TYPE.none ?
+      {previewType !== PREVIEW_TYPE.none ? (
         <VariableContainer
           layout
           margin={{ left: '20%' }}
@@ -58,8 +57,11 @@ const Markdown = props => {
           constraintSize={{ width: 100 }}
           defaultParams={{ width: '50%' }}
           className="qyrc-markdown-preview-wrapper">
-          <Preview type={previewType}>{value}</Preview>
-        </VariableContainer> : null}
+          <Preview type={previewType}>
+            {value}
+          </Preview>
+        </VariableContainer>
+      ) : null}
     </div>
   );
 };

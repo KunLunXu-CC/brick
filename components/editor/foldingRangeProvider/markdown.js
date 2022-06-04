@@ -9,7 +9,7 @@ const CODE_MARK = {
 };
 
 // 处理行
-const handleLines = lines => {
+const handleLines = (lines) => {
   let isCodeBlock = false; // 标记是否是代码块部分
 
   return lines.reduce((total, line, index) => {
@@ -67,7 +67,7 @@ const appendCodeBlockFoldingRanges = ({ restData, line, results }) => {
   }
 
   // 结束: codeMark 为代码块结束标记
-  const end = restData.find(ele => ele.codeMark === CODE_MARK.END);
+  const end = restData.find((ele) => ele.codeMark === CODE_MARK.END);
 
   end && results.push({
     end: end.lineNum,
@@ -77,7 +77,7 @@ const appendCodeBlockFoldingRanges = ({ restData, line, results }) => {
 };
 
 // model: https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ITextModel.html
-export default model => {
+export default (model) => {
   const lines = handleLines(model.getLinesContent());
   const results = [];
 

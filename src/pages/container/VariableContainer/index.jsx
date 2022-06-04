@@ -4,7 +4,7 @@ import Layout from './Layout';
 
 export default () => (
   <React.Fragment>
-    <Base/>
-    <Layout/>
+    <Base />
+    <Layout />
   </React.Fragment>
 );

@@ -35,7 +35,9 @@ export default React.memo(({ value, lang }) => {
         />
       </div>
       <pre>
-        <code ref={codeRef} className={`language-${lang} qyrc-markdown-preview-code-body`}>
+        <code
+          ref={codeRef}
+          className={`language-${lang} qyrc-markdown-preview-code-body`}>
           {value}
         </code>
       </pre>

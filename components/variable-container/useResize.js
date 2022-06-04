@@ -70,8 +70,8 @@ const parseParams = ({ target }) => {
  */
 const parseConstraintSize = ({ target, constraintSize }) => {
   let { width, height } = {
-    ... DEFAULT_OPTION.constraintSize,
-    ... constraintSize,
+    ...DEFAULT_OPTION.constraintSize,
+    ...constraintSize,
   };
   const parentRect = target.parentNode.getBoundingClientRect();
   const reg = /%$/;
@@ -89,8 +89,8 @@ const parseConstraintSize = ({ target, constraintSize }) => {
  */
 const parseMargin = ({ target, margin }) => {
   let { left, right, top, bottom } = {
-    ... DEFAULT_OPTION.margin,
-    ... margin,
+    ...DEFAULT_OPTION.margin,
+    ...margin,
   };
   const parentRect = target.parentNode.getBoundingClientRect();
   const reg = /%$/;
@@ -112,6 +112,7 @@ const parseMargin = ({ target, margin }) => {
  */
 const setCursor = ({ target, operationType }) => {
   const cursor = OPERATION_TYPE_MAP_CURSOR[operationType] || 'inherit';
+
   if (cursor !== target.style.cursor) {
     setCursor.cursor = true;
     target.style.cursor = cursor; // eslint-disable-line
@@ -159,9 +160,9 @@ const getOperationType = ({
     { conds: inTop, value: 'top' },
     { conds: event.type === 'mousedown' && inDrag, value: 'drag' },
     { conds: true, value: null },
-  ].filter(v => ([... operationList, null].includes(v.value)));
+  ].filter((v) => ([...operationList, null].includes(v.value)));
 
-  return possibilities.find(v => v.conds).value;
+  return possibilities.find((v) => v.conds).value;
 };
 
 /**
@@ -224,7 +225,7 @@ const getBoundary = ({ margin, target, operationType, constraintSize }) => {
  */
 const correctClient = (e, boundary) => {
   const correctValue = (v, min, max) => (
-    _.sortBy([v, min, max], v => v)[1]
+    _.sortBy([v, min, max], (v) => v)[1]
   );
   return {
     clientX: correctValue(e.clientX, boundary.left, boundary.right),
@@ -262,7 +263,7 @@ const getParams = ({
       conds: true,
       value: 0,
     },
-  ].find(v => v.conds).value;
+  ].find((v) => v.conds).value;
   const offsetH = [
     {
       conds: /top/i.test(operationType),
@@ -276,7 +277,7 @@ const getParams = ({
       conds: true,
       value: 0,
     },
-  ].find(v => v.conds).value;
+  ].find((v) => v.conds).value;
   const offsetX = /(left|drag)/i.test(operationType)
     ? clientX - originClient.x
     : 0;
@@ -310,13 +311,14 @@ export default (ref, {
   operationList = DEFAULT_OPTION.operationList,
 } = {}) => {
   const [params, setParams] = useState({
-    ... DEFAULT_OPTION.defaultParams,
-    ... defaultParams,
+    ...DEFAULT_OPTION.defaultParams,
+    ...defaultParams,
   });
   useEffect(() => {
     if (!ref || !ref.current) {
       return;
     }
+
     const target = ref.current;
 
     let tem = null;           // 临时值: 每次更新 params 时和 tem 进行比较, 不相同才更新
@@ -327,10 +329,11 @@ export default (ref, {
     let originClient = { x: 0, y: 0 };  // 操控点
 
     // 鼠标悬停(mousemove): 处理操作类型、cursor 状态
-    const onHover = event => {
+    const onHover = (event) => {
       if (lock) {
         return false;
       }
+
       operationType = getOperationType({
         event,
         target,
@@ -342,7 +345,7 @@ export default (ref, {
     };
 
     // 操作处理中(mousemove): 计算设置 params
-    const onHanding = e => {
+    const onHanding = (e) => {
       e.preventDefault();
       const _params = getParams({
         e,
@@ -366,8 +369,9 @@ export default (ref, {
     };
 
     // 操作开始(mousedown): 开始操作前处理相关业务
-    const onMousedown = e => {
+    const onMousedown = (e) => {
       onHover(e);
+
       if (!operationType) {
         return false;
       }

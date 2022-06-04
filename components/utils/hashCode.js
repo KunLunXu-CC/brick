@@ -4,7 +4,7 @@
  * @param {String} str 字符串
  * @returns {Number} 生成的 code
  */
-export default ({ str = '' }) => [... str].reduce((total, ele, index) => {
+export default ({ str = '' }) => [...str].reduce((total, ele, index) => {
   const char = str.charCodeAt(index);
   return (((total << 5) - total) + char) | 0;
 }, 0);

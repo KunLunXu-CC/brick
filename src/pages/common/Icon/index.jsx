@@ -11,9 +11,17 @@ const onClick = () => {
 
 export default () => (
   <div style={{ padding: 100 }}>
-    <Icon type="icon-guanbi6" />关闭 <br/><br/>
-    <Icon type="icon-docker" onClick={onClick}/>
-      docker
-    <br/><br/>
+    <Icon type="icon-guanbi6" />
+    关闭
+    {' '}
+    <br />
+    <br />
+    <Icon
+      type="icon-docker"
+      onClick={onClick}
+    />
+    docker
+    <br />
+    <br />
   </div>
 );

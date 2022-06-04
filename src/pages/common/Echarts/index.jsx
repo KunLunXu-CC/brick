@@ -46,18 +46,20 @@ export default () => {
 
   return (
     <div className="demo-echarts">
-      <Button onClick={onToggle}>切换</Button>
+      <Button onClick={onToggle}>
+        切换
+      </Button>
       <Echarts
         height={500}
         option={option}
         on={[
           {
             eventName: 'click',
-            handler: (... args) => console.log('---->>> click', ... args),
+            handler: (...args) => console.log('---->>> click', ...args),
           },
           {
             eventName: 'mousemove',
-            handler: (... args) => console.log('---->>> mousemove', ... args),
+            handler: (...args) => console.log('---->>> mousemove', ...args),
           },
         ]}
       />

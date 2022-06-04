@@ -40,7 +40,7 @@ module.exports = {
   },
   // react 和 react-dom 不打包
   externals: {
-    react: {
+    'react': {
       root: 'React',
       commonjs2: 'react',
       commonjs: 'react',
@@ -111,7 +111,7 @@ module.exports = {
     `),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      __DEBUG__: false,
+      '__DEBUG__': false,
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,

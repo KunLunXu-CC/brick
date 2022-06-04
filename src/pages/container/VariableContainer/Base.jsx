@@ -40,7 +40,7 @@ const Link = styled.div`
 export default () => {
   const [params, setParams] = useState({ width: 200 });
 
-  const onResize = params => {
+  const onResize = (params) => {
     setParams(params);
   };
 
@@ -50,7 +50,9 @@ export default () => {
 
   return (
     <Container>
-      <Link onClick={onReset}>宽度最大化</Link>
+      <Link onClick={onReset}>
+        宽度最大化
+      </Link>
       <Body>
         <VariableContainer
           params={params}

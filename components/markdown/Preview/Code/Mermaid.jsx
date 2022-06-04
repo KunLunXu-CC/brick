@@ -9,9 +9,9 @@ mermaid.parseError = (err, hash) => console.log(
 );
 
 // see: https://github.com/mermaid-js/mermaid
-export default React.memo(props => {
+export default React.memo((props) => {
   const mermaidId = React.useRef(
-    'mermaid-x-x-x-x'.replace(/x/ig, () => Math.ceil(new Date().getTime() * Math.random()))
+    'mermaid-x-x-x-x'.replace(/x/ig, () => Math.ceil(new Date().getTime() * Math.random())),
   );
 
   React.useEffect(() => {

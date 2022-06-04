@@ -26,38 +26,32 @@ export default () => {
   }, []);
 
   // 完成
-  const onSave = args => {
+  const onSave = (args) => {
     console.log('----> 保存 ctr+s', args);
   };
 
   const onChange = React.useCallback(({ value, editor, event }) => {
     console.log(
-      '%c [onChange] [  value, editor, event ]-50', 'font-size:13px; background:pink; color:#bf2c9f;',
-      { value, editor, event }
+      '%c [onChange]',
+      { value, editor, event },
     );
     setValue(value);
   }, []);
 
   // 完成
-  const onResize = React.useCallback(args => {
+  const onResize = React.useCallback((args) => {
     console.log('----> onResize', args);
   }, []);
 
-  const onCreated = React.useCallback(args => {
+  const onCreated = React.useCallback((args) => {
     editorRef.current = args.editor;
     console.log('----> onCreated', args);
   }, []);
 
   // 完成
-  const onKeyDown = React.useCallback(args => {
+  const onKeyDown = React.useCallback((args) => {
     console.log('----> onKeyDown', args);
   }, []);
-
-  // 预览内容
-  const onView = () => {
-    const value = editorRef.current.getValue();
-    console.log('------------>> 预览', value);
-  };
 
   // 重置 options
   const resetOptions = React.useCallback(() => setOptions({
@@ -69,7 +63,7 @@ export default () => {
     <Card
       style={{ width }}
       className="demo-editor"
-      title={
+      title={(
         <>
           <Select
             allowClear
@@ -77,11 +71,21 @@ export default () => {
             placeholder="主题"
             onChange={setTheme}
             style={{ width: 100 }}>
-            <Select.Option value="vs">vs</Select.Option>
-            <Select.Option value="vs-dark">vs-dark</Select.Option>
-            <Select.Option value="hc-black">hc-black</Select.Option>
-            <Select.Option value="dark-pro">dark-pro</Select.Option>
-          </Select> &emsp;
+            <Select.Option value="vs">
+              vs
+            </Select.Option>
+            <Select.Option value="vs-dark">
+              vs-dark
+            </Select.Option>
+            <Select.Option value="hc-black">
+              hc-black
+            </Select.Option>
+            <Select.Option value="dark-pro">
+              dark-pro
+            </Select.Option>
+          </Select>
+          {' '}
+          &emsp;
           <Select
             showSearch
             allowClear
@@ -89,15 +93,31 @@ export default () => {
             placeholder="语言"
             style={{ width: 100 }}
             onChange={setLanguage}>
-            {LANGUAGES.map(v => (
-              <Select.Option value={v.id} key={v.id}>{v.id}</Select.Option>
+            {LANGUAGES.map((v) => (
+              <Select.Option
+                value={v.id}
+                key={v.id}>
+                {v.id}
+              </Select.Option>
             ))}
-          </Select> &emsp;
-          <Button type="primary" onClick={onAppendValue}>追加</Button> &emsp;
-          <Button type="primary" onClick={resetOptions}>重置 OPT</Button>
+          </Select>
+          {' '}
+          &emsp;
+          <Button
+            type="primary"
+            onClick={onAppendValue}>
+            追加
+          </Button>
+          {' '}
+          &emsp;
+          <Button
+            type="primary"
+            onClick={resetOptions}>
+            重置 OPT
+          </Button>
         </>
-      }
-      extra={<PlusOutlined onClick={setWidth.bind(null, `${Number.parseInt(width, 10) + 5}%`)}/>}>
+      )}
+      extra={<PlusOutlined onClick={setWidth.bind(null, `${Number.parseInt(width, 10) + 5}%`)} />}>
       <div className="demo-editor-body">
         <Editor
           theme={theme}
