@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/qianyin925/qyrc/compare/v1.4.15...v2.1.0) (2022-06-29)
+
+
+### Features
+
+* 【【qyrc】markdown】 ([4b4b192](https://github.com/qianyin925/qyrc/commit/4b4b192ed25e02cc1da0524290a7bee353f84279))
+* 【qyrc】markdow-preview 优化 ([d1a71d0](https://github.com/qianyin925/qyrc/commit/d1a71d0310f68b731b158b4dd7f0f2abe61608e5))
+* markdow preview 组件目录调整 ([d104cfa](https://github.com/qianyin925/qyrc/commit/d104cfae5b279a9121445bd13e2caffe85e3df40))
+* markdown preview code block rewrite ([75c97e7](https://github.com/qianyin925/qyrc/commit/75c97e75b14fe39bbc2eb92f5fdda9d6fbe7ddb7))
+* resize rewrite ([aad790c](https://github.com/qianyin925/qyrc/commit/aad790c42f5f2ad985074da98c0005dde2f4445d))
+* update qy-norm ([ff8dc0b](https://github.com/qianyin925/qyrc/commit/ff8dc0b0ebcf7a5bbff10261a0b9288e38fa7d1d))
+* useStateHook -> useHooks ([1459dec](https://github.com/qianyin925/qyrc/commit/1459deca5243233ed4c289c11bce66cef612bd2d))
+
+
+### Bug Fixes
+
+* md preview 代码块内容不显示 ([3592c25](https://github.com/qianyin925/qyrc/commit/3592c25e65aa26f46c4ec1423931c571cdbb4856))
+
+## [2.0.0](https://github.com/qianyin925/qyrc/compare/v1.4.15...v2.0.0) (2022-06-29)
+
+
+### Features
+
+* 【【qyrc】markdown】 ([4b4b192](https://github.com/qianyin925/qyrc/commit/4b4b192ed25e02cc1da0524290a7bee353f84279))
+* 【qyrc】markdow-preview 优化 ([d1a71d0](https://github.com/qianyin925/qyrc/commit/d1a71d0310f68b731b158b4dd7f0f2abe61608e5))
+* markdow preview 组件目录调整 ([d104cfa](https://github.com/qianyin925/qyrc/commit/d104cfae5b279a9121445bd13e2caffe85e3df40))
+* markdown preview code block rewrite ([75c97e7](https://github.com/qianyin925/qyrc/commit/75c97e75b14fe39bbc2eb92f5fdda9d6fbe7ddb7))
+* resize rewrite ([aad790c](https://github.com/qianyin925/qyrc/commit/aad790c42f5f2ad985074da98c0005dde2f4445d))
+* update qy-norm ([ff8dc0b](https://github.com/qianyin925/qyrc/commit/ff8dc0b0ebcf7a5bbff10261a0b9288e38fa7d1d))
+* useStateHook -> useHooks ([1459dec](https://github.com/qianyin925/qyrc/commit/1459deca5243233ed4c289c11bce66cef612bd2d))
+
+
+### Bug Fixes
+
+* md preview 代码块内容不显示 ([3592c25](https://github.com/qianyin925/qyrc/commit/3592c25e65aa26f46c4ec1423931c571cdbb4856))
+
 ### [1.4.15](https://github.com/qianyin925/qyrc/compare/v1.4.14...v1.4.15) (2021-07-03)
 
 ### [1.4.14](https://github.com/qianyin925/qyrc/compare/v1.4.13...v1.4.14) (2021-04-06)
