@@ -5,3 +5,4 @@ es
 lib
 .eslintcache
 .DS_Store
+build
