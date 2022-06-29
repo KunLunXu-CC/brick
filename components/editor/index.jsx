@@ -23,6 +23,7 @@ const propTypes = {
 
   value: PropTypes.string,
   theme: PropTypes.string,
+  actions: PropTypes.array,
   options: PropTypes.object,
   language: PropTypes.string,
   className: PropTypes.string,
@@ -146,6 +147,15 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
       editorRef.current?.updateOptions(props.options);
     }
   }, [props.options]);
+
+  // 添加 action: https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.IStandaloneCodeEditor.html#addAction
+  React.useEffect(() => {
+    if (_.isArray(props.actions) && editorRef.current) {
+      props.actions.forEach((action) => {
+        editorRef.current.addAction(action);
+      });
+    }
+  }, [editorRef.current, props.actions]);
 
   // 自定义暴露给父组件的实例值
   React.useImperativeHandle(ref, () => ({

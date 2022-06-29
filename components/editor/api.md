@@ -60,6 +60,15 @@ scss、 shell、 sol、 aes、 sparql、 sql、 st、 swift、 systemverilog、 
 }
 ```
 
+### actions
+
+> https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.IStandaloneCodeEditor.html#addAction
+> https://microsoft.github.io/monaco-editor/playground.html#interacting-with-the-editor-adding-an-action-to-an-editor-instance
+
+- 描述: 设置编辑器 action, 可添加上下文菜单(右键菜单)
+- 类型: Object[]
+- 默认值: ---
+
 ### className
 
 - 描述: 编辑器外容器 className

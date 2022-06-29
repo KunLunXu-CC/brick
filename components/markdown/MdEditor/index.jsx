@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import actions from './actions';
 import { Editor } from '../..';
 
 // 初始默认 options
@@ -68,6 +69,7 @@ export default React.memo((props) => {
   return (
     <Editor
       ref={editorRef}
+      actions={actions}
       options={OPTIONS}
       onPaste={onPaste}
       value={props.value}
