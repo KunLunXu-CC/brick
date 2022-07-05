@@ -43,7 +43,7 @@
     "highlight.js": "^11.0.1",
     "lodash": "^4.17.21",
     "markdown-to-jsx": "^7.1.7",
-    "mermaid": "^8.11.0",
+    "mermaid": "^9.1.2",
     "monaco-editor": "^0.33.0",
     "omit.js": "^2.0.2",
     "prop-types": "^15.7.2"
