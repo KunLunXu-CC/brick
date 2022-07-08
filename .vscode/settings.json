@@ -5,6 +5,7 @@
     "source.fixAll.stylelint": true // 根据 eslint 配置进行格式化, 需要安装 stylelint 插件
   },
   "cSpell.words": [
-    "hljs"
+    "hljs",
+    "kunlunxu"
   ]
 }

@@ -1,6 +1,6 @@
 {
-  "name": "qyrc",
-  "version": "2.1.0",
+  "name": "@kunlunxu/brick",
+  "version": "2.2.0",
   "description": "react components",
   "private": false,
   "files": [

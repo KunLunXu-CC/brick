@@ -26,16 +26,16 @@
 
 ```js
 import React from "react"
-import { Scrollbar } from "qyrc"
-import "qyrc/dist/qyrc.min.css"
+import { Scrollbar } from "@kunlunxu/brick"
+import "@kunlunxu/brick/dist/qyrc.min.css"
 ```
 
 - 按需加载: 手动加载样式模块
 
 ```js
 import React from "react"
-import { Scrollbar } from "qyrc"
-import "qyrc/lib/scrollbar/style"
+import { Scrollbar } from "@kunlunxu/brick"
+import "@kunlunxu/brick/lib/scrollbar/style"
 ```
 
 - 按需加载: 通过 babel-plugin-import 实现
@@ -45,7 +45,7 @@ import "qyrc/lib/scrollbar/style"
 module.exports = {
   plugins: [
     ["babel-plugin-import", {
-      "libraryName": "qyrc",
+      "libraryName": "@kunlunxu/brick",
       "libraryDirectory": "es",
       "style": true
     },'cuke-ui'],
@@ -62,5 +62,5 @@ module.exports = {
 ```js
 // 按需引入组件
 import React from "react"
-import { Scrollbar } from "qyrc"
+import { Scrollbar } from "@kunlunxu/brick"
 ```
