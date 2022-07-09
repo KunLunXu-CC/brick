@@ -3,7 +3,15 @@
   "editor.codeActionsOnSave": { // 代码自动格式配置
     "source.fixAll.eslint": true, // 根据 eslint 配置进行格式化, 需要安装 eslint 插件
     "source.fixAll.stylelint": true // 根据 eslint 配置进行格式化, 需要安装 stylelint 插件
-  },
+},
+  // stylelint 插件允许检查的文件
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "sass",
+  ],
   "cSpell.words": [
     "hljs",
     "kunlunxu"
