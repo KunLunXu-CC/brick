@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+npx klx-codelint # 代码校验(eslint、stylelint)
 npx klx-commitlint # commit message 校验(调用commitlint)
