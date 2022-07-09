@@ -1,4 +1,4 @@
-.qyrc-image {
+.brick-image {
   overflow: hidden;
   position: relative;
 
@@ -10,7 +10,7 @@
     position: absolute;
   }
 
-  .qyrc-image-bg {
+  .brick-image-bg {
     opacity: 0;
     width: 100%;
     height: 100%;
@@ -22,7 +22,7 @@
     }
   }
 
-  .qyrc-image-bg.qyrc-image-bg-show {
+  .brick-image-bg.brick-image-bg-show {
     opacity: 1;
   }
 }

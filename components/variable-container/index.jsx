@@ -92,7 +92,7 @@ const VariableBlock =  React.forwardRef((props, ref) => {
     <div
       style={state.containerStyle}
       ref={ref || state.targetRef}
-      className={classNames('qyrc-variable-block', props.className)}
+      className={classNames('brick-variable-block', props.className)}
       {... omit(props, filterPropKeys)}>
       {props.children}
     </div>

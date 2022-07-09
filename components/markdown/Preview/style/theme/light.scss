@@ -1,15 +1,15 @@
 // 整体设置
-.qyrc-markdown-preview-light {
+.brick-markdown-preview-light {
   color: #333;
   padding: 20px;
   line-height: 2;
   font-size: 16px;
   background: #fff;
-  font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 // 标题设置
-.qyrc-markdown-preview-light {
+.brick-markdown-preview-light {
   h1 {
     margin: 20px 0;
     font-size: 30px;
@@ -38,7 +38,7 @@
 }
 
 // code `` 提示内容
-.qyrc-markdown-preview-light code:not(.qyrc-markdown-preview-code-body) {
+.brick-markdown-preview-light code:not(.brick-markdown-preview-code-body) {
   color: #ff502c;
   font-size: .87em;
   padding: .065em .4em;
@@ -46,7 +46,7 @@
 }
 
 // 代码块部分
-.qyrc-markdown-preview-light .qyrc-markdown-preview-code {
+.brick-markdown-preview-light .brick-markdown-preview-code {
   padding: 0;
   margin: 20px 0;
   overflow: hidden;
@@ -61,15 +61,18 @@
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
+
   /* 滑块颜色 */
   ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(#424853, 0.8);
   }
+
   /* 滑轨两头的监听按钮颜色 */
   ::-webkit-scrollbar-button {
     background-color: aqua;
   }
+
   /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
   ::-webkit-scrollbar-corner {
     background-color: chartreuse;
@@ -132,10 +135,10 @@
 
     // 鼠标 hover 显示 lang copy
     &:hover {
-      .qyrc-markdown-preview-code-header-lang {
+      .brick-markdown-preview-code-header-lang {
         opacity: 1 !important;
       }
-      .qyrc-markdown-preview-code-header-copy {
+      .brick-markdown-preview-code-header-copy {
         opacity: 1 !important;
       }
     }
@@ -143,7 +146,7 @@
 }
 
 // 表格
-.qyrc-markdown-preview-light table {
+.brick-markdown-preview-light table {
   $color-border: #dfdfdf;
 
   width: 100%;
@@ -167,7 +170,7 @@
 }
 
 // 快引用
-.qyrc-markdown-preview-light blockquote {
+.brick-markdown-preview-light blockquote {
   padding: 10px 20px;
   background: #f6f6f6;
   margin: { top: 10px; left: 0 };
@@ -175,7 +178,7 @@
 }
 
 // checkbox 样式
-.qyrc-markdown-preview-light input[type=checkbox] {
+.brick-markdown-preview-light input[type=checkbox] {
   width: 16px;
   height: 16px;
   margin-right: 4px;
@@ -231,7 +234,7 @@
 }
 
 // 折叠面板
-.qyrc-markdown-preview-light details {
+.brick-markdown-preview-light details {
   margin: 10px 0;
   padding: 10px 20px;
   background: #f6f6f6;
@@ -245,17 +248,17 @@
 }
 
 // 图片设置
-.qyrc-markdown-preview-light img {
+.brick-markdown-preview-light img {
   max-width: 100%;
 }
 
 // mermaid 样式设置
-.qyrc-markdown-preview-mermaid {
+.brick-markdown-preview-mermaid {
   text-align: center;
 }
 
 // echarts 样式
-.qyrc-markdown-preview-echarts {
+.brick-markdown-preview-echarts {
   position: relative;
 
   &-main {
@@ -266,11 +269,11 @@
     position: absolute;
   }
 
-  &:not(.qyrc-error) {
+  &:not(.brick-error) {
     height: 400px;
   }
 
-  &.qyrc-error {
+  &.brick-error {
     color:#f5222d;
     line-height: 2;
     text-align: center;

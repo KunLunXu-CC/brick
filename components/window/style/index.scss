@@ -1,4 +1,4 @@
-.qyrc-window {
+.brick-window {
   z-index: 2;
   position: absolute;
   overflow: hidden;
@@ -7,14 +7,14 @@
   box-shadow: 0px 0px 30px 0px rgba($color: #333, $alpha: 0.3);
 };
 
-.qyrc-window-body {
+.brick-window-body {
   position: relative;
   width: 100%;
   height: 100%;
 };
 
 /* 内容 */
-.qyrc-window-content {
+.brick-window-content {
   position: absolute;
   z-index: 0;
   top: 0;
@@ -25,7 +25,7 @@
 }
 
 /* 工具栏 */
-.qyrc-window-tool {
+.brick-window-tool {
   position: absolute;
   z-index: 1;
   cursor: pointer;
@@ -59,6 +59,6 @@
 }
 
 // 最大化时设置
-.qyrc-window.qyrc-window-max {
+.brick-window.brick-window-max {
   border-radius: 0px;
 }

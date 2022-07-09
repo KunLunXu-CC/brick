@@ -26,9 +26,9 @@ const Icon = (props) => {
       style={props.style}
       onClick={state.onClick}
       className={classNames(
-        'qyrc-icon',
+        'brick-icon',
         props.className,
-        { 'qyrc-icon-btn': _.isFunction(props.onClick) },
+        { 'brick-icon-btn': _.isFunction(props.onClick) },
       )}
       aria-hidden="true" >
       <use xlinkHref={`#${props.type}`}  />

@@ -19,13 +19,13 @@ export default React.memo((props) => {
 
   return (
     <div
-      className={classNames('qyrc-markdown-preview-echarts', {
-        'qyrc-error': !option,
+      className={classNames('brick-markdown-preview-echarts', {
+        'brick-error': !option,
       })}>
       {option ? (
         <Echarts
           option={option}
-          className="qyrc-markdown-preview-echarts-main"
+          className="brick-markdown-preview-echarts-main"
         />
       ) : 'echarts 解析错误'
       }

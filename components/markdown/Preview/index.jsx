@@ -20,8 +20,8 @@ const Markdown = (props) => {
 
   // 组件最外层 className
   const className = useMemo(() => classNames(
-    'qyrc-markdown-preview',
-    `qyrc-markdown-preview-${props.theme}`,
+    'brick-markdown-preview',
+    `brick-markdown-preview-${props.theme}`,
     props.className,
   ), [props.className, props.theme]);
 

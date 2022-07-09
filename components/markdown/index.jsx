@@ -16,7 +16,7 @@ const Markdown = (props) => {
   const value = React.useMemo(() => props.value || innerValue); // 组件值
 
   // 切换预览模式
-  const togglePreview = React.useCallback(type => {
+  const togglePreview = React.useCallback((type) => {
     setPreviewType(previewType === type ? PREVIEW_TYPE.none : type);
   }, [previewType]);
 
@@ -27,22 +27,22 @@ const Markdown = (props) => {
   }, [props.onChange]);
 
   return (
-    <div className='qyrc-markdown'>
-      <div className='qyrc-markdown-editor'>
+    <div className='brick-markdown'>
+      <div className='brick-markdown-editor'>
         <MdEditor
           value={value}
           onChange={onChange}
           onSave={props.onSave}
           onInsertImages={props.onInsertImages}
         />
-        <div className='qyrc-markdown-tool'>
+        <div className='brick-markdown-tool'>
           <div
-            className="qyrc-markdown-tool-item"
+            className="brick-markdown-tool-item"
             onClick={togglePreview.bind(null, PREVIEW_TYPE.html)}>
             <Icon type="icon-yulan" />
           </div>
           {/* <div
-            className="qyrc-markdown-tool-item"
+            className="brick-markdown-tool-item"
             onClick={togglePreview.bind(null, PREVIEW_TYPE.mind)}>
             思
           </div> */}
@@ -56,7 +56,7 @@ const Markdown = (props) => {
           style={{ height: '100%' }}
           constraintSize={{ width: 100 }}
           defaultParams={{ width: '50%' }}
-          className="qyrc-markdown-preview-wrapper">
+          className="brick-markdown-preview-wrapper">
           <Preview type={previewType}>
             {value}
           </Preview>

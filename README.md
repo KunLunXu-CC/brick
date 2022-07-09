@@ -5,7 +5,8 @@
   <br/><br/>
 </div>
 
-预览: https://qianyin925.github.io/qyrc
+
+预览: https://KunLunXu0-0.github.io/brick
 
 ## 特性
 
@@ -27,7 +28,7 @@
 ```js
 import React from "react"
 import { Scrollbar } from "@kunlunxu/brick"
-import "@kunlunxu/brick/dist/qyrc.min.css"
+import "@kunlunxu/brick/dist/brick.min.css"
 ```
 
 - 按需加载: 手动加载样式模块

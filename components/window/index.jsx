@@ -100,9 +100,9 @@ const useHooks = (props) => {
 
   // 窗体最外层 class
   const windowClass = useMemo(() => classNames(
-    'qyrc-window',
-    { 'qyrc-window-max': isMax },
-    { 'qyrc-window-min': isMin },
+    'brick-window',
+    { 'brick-window-max': isMax },
+    { 'brick-window-min': isMin },
     props.className,
   ), [props.className, isMin, isMax]);
 
@@ -160,27 +160,27 @@ const Window = (props) => {
       style={{ ...props.style }}
       className={state.windowClass}
       {...omit(props, filterPropKeys)}>
-      <div className={classNames('qyrc-window-body')}>
+      <div className={classNames('brick-window-body')}>
         <span
           style={{ ...state.toolPosition, ...props.toolStyle }}
-          className={classNames('qyrc-window-tool', props.toolClassName)}>
+          className={classNames('brick-window-tool', props.toolClassName)}>
           <Icon
             type="icon-guanbi6-copy"
             onClick={state.onClose}
-            className="qyrc-window-tool-item qyrc-window-tool-close"
+            className="brick-window-tool-item brick-window-tool-close"
           />
           <Icon
             type="icon-suoxiao"
             onClick={state.onMin}
-            className="qyrc-window-tool-item qyrc-window-tool-min"
+            className="brick-window-tool-item brick-window-tool-min"
           />
           <Icon
             onClick={state.onMax}
-            className="qyrc-window-tool-item qyrc-window-tool-max"
+            className="brick-window-tool-item brick-window-tool-max"
             type={state.isMax ? 'icon-suoxiao2' : 'icon-fangda1'}
           />
         </span>
-        <div className={classNames('qyrc-window-content')}>
+        <div className={classNames('brick-window-content')}>
           {props.children}
         </div>
       </div>

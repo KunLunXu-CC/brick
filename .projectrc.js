@@ -3,7 +3,7 @@ import * as pages from './src/pages';
 export default {
   logo: {             // logo 配置
     img: void 0,      // logo 配置图片: require('*/**/*.png')
-    title: 'QYRC', // 标题
+    title: 'KLX 组件库', // 标题
   },
   // footer: () => ('footer'),  // 组件
   // header: () => ('header'),  // 组件

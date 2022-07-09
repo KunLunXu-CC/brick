@@ -19,25 +19,25 @@ export default React.memo(({ value, lang }) => {
   }, [value, lang]);
 
   return (
-    <div className="qyrc-markdown-preview-code">
-      <div className="qyrc-markdown-preview-code-header">
-        <div className="qyrc-markdown-preview-code-header-red" />
-        <div className="qyrc-markdown-preview-code-header-yellow" />
-        <div className="qyrc-markdown-preview-code-header-green" />
-        <div className="qyrc-markdown-preview-code-header-lang">
+    <div className="brick-markdown-preview-code">
+      <div className="brick-markdown-preview-code-header">
+        <div className="brick-markdown-preview-code-header-red" />
+        <div className="brick-markdown-preview-code-header-yellow" />
+        <div className="brick-markdown-preview-code-header-green" />
+        <div className="brick-markdown-preview-code-header-lang">
           {lang}
         </div>
         <Icon
           title="复制代码"
           type="icon-copy"
           onClick={handleCopy}
-          className="qyrc-markdown-preview-code-header-copy"
+          className="brick-markdown-preview-code-header-copy"
         />
       </div>
       <pre>
         <code
           ref={codeRef}
-          className={`language-${lang} qyrc-markdown-preview-code-body`}>
+          className={`language-${lang} brick-markdown-preview-code-body`}>
           {value}
         </code>
       </pre>

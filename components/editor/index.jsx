@@ -160,7 +160,7 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
       onResize={onResize}
       onKeyDown={onKeyDown}
       ref={editorContainerRef}
-      className={classNames('qyrc-editor', props.className)}
+      className={classNames('brick-editor', props.className)}
       {...omit(props, filterPropKeys)}
     />
   );

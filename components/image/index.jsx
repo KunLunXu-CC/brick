@@ -58,8 +58,8 @@ const useHooks = (props) => {
   const containerRef = useRef(null);
 
   const imgClass = useMemo(() => classNames(
-    'qyrc-image-bg',
-    { 'qyrc-image-bg-show': !['loading', 'error'].includes(img) },
+    'brick-image-bg',
+    { 'brick-image-bg-show': !['loading', 'error'].includes(img) },
   ), [img]);
 
   // 读取 src
@@ -101,7 +101,7 @@ const ImageContainer = (props) => {
   return (
     <div
       {...omit(props, filterPropKeys)}
-      className={classNames('qyrc-image', props.className)}
+      className={classNames('brick-image', props.className)}
       style={{ width: props.width, height: props.height, ...props.style }}>
       {state.img === 'loading' ? props.loading : null}
       {state.img === 'error' ? props.error : null}
@@ -114,7 +114,7 @@ const ImageContainer = (props) => {
       </div>
       <div
         style={props.bodyStyle}
-        className={classNames('qyrc-image-body', props.bodyClassName)} >
+        className={classNames('brick-image-body', props.bodyClassName)} >
         {props.children}
       </div>
     </div>

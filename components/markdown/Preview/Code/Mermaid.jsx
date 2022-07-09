@@ -19,7 +19,7 @@ export default React.memo((props) => {
   }, [mermaidId, props.value]);
 
   return (
-    <div className={`${mermaidId.current} qyrc-markdown-preview-mermaid`}>
+    <div className={`${mermaidId.current} brick-markdown-preview-mermaid`}>
       {props.value}
     </div>
   );

@@ -68,7 +68,7 @@ const Echarts = (props) => {
     <Resize
       ref={state.containerRef}
       onResize={state.onResize}
-      className={classNames('qyrc-echarts', props.className)}
+      className={classNames('brick-echarts', props.className)}
       style={{ height: props.height, width: props.width, ...props.style }}
       {...omit(props, filterPropKeys)}
     />

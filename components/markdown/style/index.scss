@@ -1,16 +1,16 @@
-.qyrc-markdown {
+.brick-markdown {
   height: 100%;
   display: flex;
   overflow: hidden;
 }
 
 // 编辑器
-.qyrc-markdown-editor {
+.brick-markdown-editor {
   flex: 1;
   position: relative;
 
   // 编辑器
-  .qyrc-editor {
+  .brick-editor {
     inset: 0;
     position: absolute;
     overflow: hidden;
@@ -18,7 +18,7 @@
 }
 
 // 工具
-.qyrc-markdown-tool {
+.brick-markdown-tool {
   display: flex;
   justify-content: flex-end;
 
@@ -27,7 +27,7 @@
   bottom: 16px;
   position: absolute;
 
-  .qyrc-markdown-tool-item {
+  .brick-markdown-tool-item {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,12 +47,12 @@
 
 
 // 预览
-.qyrc-markdown-preview-wrapper {
+.brick-markdown-preview-wrapper {
   height: 100%;
   overflow: hidden;
   position: relative;
 
-  .qyrc-markdown-preview {
+  .brick-markdown-preview {
     inset: 0;
     position: absolute;
     overflow: auto;
