@@ -13,7 +13,7 @@ const PREVIEW_TYPE = {
 const Markdown = (props) => {
   const [innerValue, setInnerValue] = React.useState(props.defaultValue); // 内部值
   const [previewType, setPreviewType] = React.useState(PREVIEW_TYPE.none); // 预览类型
-  const value = React.useMemo(() => props.value || innerValue); // 组件值
+  const value = React.useMemo(() => props.value || innerValue); // 组件值, 外面值 || 内部值
 
   // 切换预览模式
   const togglePreview = React.useCallback((type) => {
@@ -21,9 +21,9 @@ const Markdown = (props) => {
   }, [previewType]);
 
   // 编辑器 change 事件
-  const onChange = React.useCallback(({ value: newValue }) => {
-    setInnerValue(newValue);
-    props.onChange?.(newValue);
+  const onChange = React.useCallback((args) => {
+    setInnerValue(args.value);
+    props.onChange?.(args);
   }, [props.onChange]);
 
   return (

@@ -20,9 +20,8 @@ export default () => {
 
   return (
     <Markdown
-      value={testMd}
       onSave={onSave}
-      defaultValue={'testMd'}
+      defaultValue={testMd}
       onInsertImages={onInsertImages}
     />
   );
