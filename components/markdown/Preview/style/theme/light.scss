@@ -6,10 +6,8 @@
   font-size: 16px;
   background: #fff;
   font-family: 'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
 
-// 标题设置
-.brick-markdown-preview-light {
+  // 标题设置
   h1 {
     margin: 20px 0;
     font-size: 30px;
@@ -17,7 +15,11 @@
     line-height: 1.5;
   }
 
-  h2, h3, h4, h5, h6 {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     padding: 5px 0;
     color: #666;
     border-bottom: 1px dashed #ddd;
@@ -26,256 +28,267 @@
     &::before {
       content: '#';
       color: #ff6d6d;
-      padding: {right: 10px};
+      padding: {
+        right: 10px;
+      };
     }
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     &:nth-child(1) {
       margin-top: 0;
     }
   }
-}
 
-// code `` 提示内容
-.brick-markdown-preview-light code:not(.brick-markdown-preview-code-body) {
-  color: #ff502c;
-  font-size: .87em;
-  padding: .065em .4em;
-  background-color: #fff5f5;
-}
-
-// 代码块部分
-.brick-markdown-preview-light .brick-markdown-preview-code {
-  padding: 0;
-  margin: 20px 0;
-  overflow: hidden;
-
-  font-size: 14px;
-  line-height: 1.8;
-
-  border-radius: 8px;
-  background: #282c34;
-
-  /* 滚动条的滑轨背景颜色 */
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
+  // 图片设置
+  img {
+    max-width: 100%;
   }
 
-  /* 滑块颜色 */
-  ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(#424853, 0.8);
-  }
+  // 折叠面板
+  details {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background: #f6f6f6;
+    border-left: 5px solid #657b83;
 
-  /* 滑轨两头的监听按钮颜色 */
-  ::-webkit-scrollbar-button {
-    background-color: aqua;
-  }
-
-  /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
-  ::-webkit-scrollbar-corner {
-    background-color: chartreuse;
-  }
-
-  pre {
-    margin: 0;
-  }
-
-  &-header {
-    height: 36px;
-    display: flex;
-    align-items: center;
-    background: #21252b;
-    padding: { left: 10px; };
-
-    %dot {
-      width: 12px;
-      height: 12px;
-      margin: 0 4px;
-      border-radius: 50%;
-    }
-
-    &-red {
-      @extend %dot;
-      background: #fc625d;
-    }
-
-    &-yellow {
-      @extend %dot;
-      background: #fdbc40;
-    }
-
-    &-green {
-      @extend %dot;
-      background: #35cd4b;
-    }
-
-    &-lang {
-      flex: 1;
-      opacity: 0;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.4s;
-      padding: { left: 25px };
-      color: rgba($color: #fff, $alpha: 0.8);
-    }
-
-    &-copy {
-      opacity: 0;
-      margin: 0 10px;
+    summary {
+      color: #666;
+      outline: none;
       cursor: pointer;
-      transition: all 0.4s;
-      color: rgba($color: #fff, $alpha: 0.8);
+    }
+  }
 
-      &:hover{
-        color: rgba($color: #fff, $alpha: 0.5);
+  // code `` 提示内容
+  code:not(.brick-markdown-preview-code-body) {
+    color: #ff502c;
+    font-size: 0.87em;
+    padding: 0.065em 0.4em;
+    background-color: #fff5f5;
+  }
+
+  // 代码块部分
+  .brick-markdown-preview-code {
+    padding: 0;
+    margin: 20px 0;
+    overflow: hidden;
+
+    font-size: 14px;
+    line-height: 1.8;
+
+    border-radius: 8px;
+    background: #282c34;
+
+    // 滚动条宽高
+    ::-webkit-scrollbar {
+      height: 10px;
+      width: 10px;
+    }
+
+    /* 滚动条的滑轨背景颜色 */
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    /* 滑块 */
+    ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(#424853, 0.8);
+    }
+
+    pre {
+      margin: 0;
+    }
+
+    &-header {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      background: #21252b;
+      padding: {
+        left: 10px;
+      };
+
+      %dot {
+        width: 12px;
+        height: 12px;
+        margin: 0 4px;
+        border-radius: 50%;
+      }
+
+      &-red {
+        @extend %dot;
+        background: #fc625d;
+      }
+
+      &-yellow {
+        @extend %dot;
+        background: #fdbc40;
+      }
+
+      &-green {
+        @extend %dot;
+        background: #35cd4b;
+      }
+
+      &-lang {
+        flex: 1;
+        opacity: 0;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.4s;
+        color: rgba($color: #fff, $alpha: 80%);
+        padding: {
+          left: 25px;
+        };
+      }
+
+      &-copy {
+        opacity: 0;
+        margin: 0 10px;
+        cursor: pointer;
+        transition: all 0.4s;
+        color: rgba($color: #fff, $alpha: 80%);
+      }
+
+      &-copy:hover {
+        color: rgba($color: #fff, $alpha: 50%);
       }
     }
 
     // 鼠标 hover 显示 lang copy
-    &:hover {
+    &-header:hover {
       .brick-markdown-preview-code-header-lang {
         opacity: 1 !important;
       }
+
       .brick-markdown-preview-code-header-copy {
         opacity: 1 !important;
       }
     }
-  };
-}
+  }
 
-// 表格
-.brick-markdown-preview-light table {
-  $color-border: #dfdfdf;
+  // 表格
+  table {
+    $color-border: #dfdfdf;
 
-  width: 100%;
-  margin: 40px 0;
-  border-collapse:collapse;
-  border: 1px solid $color-border;
-
-  th {
-    color: #666;
-    padding: 0 10px;
-    text-align: left;
-    font-weight: bold;
-    background-color: #f7f7f7;
+    width: 100%;
+    margin: 40px 0;
+    border-collapse: collapse;
     border: 1px solid $color-border;
+
+    th {
+      color: #666;
+      padding: 0 10px;
+      text-align: left;
+      font-weight: bold;
+      background-color: #f7f7f7;
+      border: 1px solid $color-border;
+    }
+
+    td {
+      padding: 0 10px;
+      border: 1px solid $color-border;
+    }
   }
 
-  td {
-    padding: 0 10px;
-    border: 1px solid $color-border;
-  }
-}
-
-// 快引用
-.brick-markdown-preview-light blockquote {
-  padding: 10px 20px;
-  background: #f6f6f6;
-  margin: { top: 10px; left: 0 };
-  border-left: 5px solid #657b83;
-}
-
-// checkbox 样式
-.brick-markdown-preview-light input[type=checkbox] {
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  margin-bottom: 2px;
-  vertical-align: middle;
-
-  position: relative;
-
-  &::before {
-    content: '';
-    display: block;
-
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
-
-    border-radius: 2px;
-    background-color: #fff;
-    border: 1px solid #d9d9d9;
+  // 快引用
+  blockquote {
+    padding: 10px 20px;
+    background: #f6f6f6;
+    border-left: 5px solid #657b83;
+    margin: {
+      top: 10px;
+      left: 0;
+    };
   }
 
-  &::after {
-    content: '';
-    margin: auto;
-    display: block;
+  // checkbox 样式
+  input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+    vertical-align: middle;
 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 2px;
-    position: absolute;
+    position: relative;
 
-    border: 0;
-    width:6px;
-    height: 10px;
+    &::before {
+      content: '';
+      display: block;
 
-    transform: rotate(45deg);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+
+      border-radius: 2px;
+      background-color: #fff;
+      border: 1px solid #d9d9d9;
+    }
+
+    &::after {
+      content: '';
+      margin: auto;
+      display: block;
+
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 2px;
+      position: absolute;
+
+      border: 0;
+      width: 6px;
+      height: 10px;
+
+      transform: rotate(45deg);
+    }
+
+    &[checked]::before {
+      border: 0;
+      background-color: #1890ff;
+    }
+
+    &[checked]::after {
+      background-color: #1890ff;
+      border: 2px solid #fff;
+      border-top: 0;
+      border-left: 0;
+    }
   }
 
-  &[checked]::before{
-    border: 0;
-    background-color: #1890ff;
-  }
-
-  &[checked]::after{
-    background-color: #1890ff;
-    border: 2px solid #fff;
-    border-top: 0;
-    border-left: 0;
-  }
-}
-
-// 折叠面板
-.brick-markdown-preview-light details {
-  margin: 10px 0;
-  padding: 10px 20px;
-  background: #f6f6f6;
-  border-left: 5px solid #657b83;
-
-  summary {
-    color: #666;
-    outline: none;
-    cursor: pointer;
-  }
-}
-
-// 图片设置
-.brick-markdown-preview-light img {
-  max-width: 100%;
-}
-
-// mermaid 样式设置
-.brick-markdown-preview-mermaid {
-  text-align: center;
-}
-
-// echarts 样式
-.brick-markdown-preview-echarts {
-  position: relative;
-
-  &-main {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
-  }
-
-  &:not(.brick-error) {
-    height: 400px;
-  }
-
-  &.brick-error {
-    color:#f5222d;
-    line-height: 2;
+  // mermaid 样式设置
+  .brick-markdown-preview-mermaid {
     text-align: center;
+  }
+
+  // echarts 样式
+  .brick-markdown-preview-echarts {
+    position: relative;
+
+    &-main {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+    }
+
+    &:not(.brick-error) {
+      height: 400px;
+    }
+
+    &.brick-error {
+      color: #f5222d;
+      line-height: 2;
+      text-align: center;
+    }
   }
 }

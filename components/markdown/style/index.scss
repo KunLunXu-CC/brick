@@ -37,14 +37,13 @@
     height: 30px;
     cursor: pointer;
     border-radius: 50%;
-    background: rgba($color: #fff, $alpha: 0.8);
+    background: rgba($color: #fff, $alpha: 80%);
 
     &:not(:first-child) {
       margin-left: 20px;
     }
   }
 }
-
 
 // 预览
 .brick-markdown-preview-wrapper {

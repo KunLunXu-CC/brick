@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Image } from '@components';
 import '@components/image/style';
-import './inde.scss';
 
 // eslint-disable-next-line
 const Img = 'https://www.qianyin925.com/service/static/images/pro.dGltZy5qcGVnMTU4MzU4NzkzNDA3Mg==.jpeg';
