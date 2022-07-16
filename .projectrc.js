@@ -1,4 +1,5 @@
-import * as pages from './src/pages';
+import React from 'react'
+import * as Pages from './src/Pages';
 
 export default {
   logo: {             // logo 配置
@@ -14,7 +15,7 @@ export default {
       key: 'home',
       title: '首页',
       icon: 'HomeOutlined',
-      routers: [{ path: '/', component: pages.Home, exact: true }],
+      routes: [{ path: '/', element: <Pages.Home /> }],
     },
     {
       title: '通用',
@@ -25,25 +26,25 @@ export default {
           key: 'icon',
           title: '图标',
           url: '/common/icon',
-          routers: [{ path: '/common/icon', component: pages.Icon }],
+          routes: [{ path: '/common/icon', element: <Pages.Icon /> }],
         },
         {
           key: 'editor',
           title: '编辑器',
           url: '/common/editor',
-          routers: [{ path: '/common/editor', component: pages.Editor }],
+          routes: [{ path: '/common/editor', element: <Pages.Editor /> }],
         },
         {
           key: 'echarts',
           title: 'Echarts',
           url: '/common/echarts',
-          routers: [{ path: '/common/echarts', component: pages.Echarts }],
+          routes: [{ path: '/common/echarts', element: <Pages.Echarts /> }],
         },
         {
           key: 'markdown',
           title: 'Markdown',
           url: '/common/markdown',
-          routers: [{ path: '/common/markdown', component: pages.Markdown }],
+          routes: [{ path: '/common/markdown', element: <Pages.Markdown /> }],
         }
       ],
     },
@@ -56,8 +57,8 @@ export default {
           title: '可变容器',
           key: 'variableContainer',
           url: '/container/variable-container',
-          routers: [{
-            component: pages.VariableContainer,
+          routes: [{
+            element: <Pages.VariableContainer />,
             path: '/container/variable-container',
           }],
         },
@@ -65,19 +66,19 @@ export default {
           title: '窗体',
           key: 'window',
           url: '/container/window',
-          routers: [{ path: '/container/window', component: pages.Window }],
+          routes: [{ path: '/container/window', element: <Pages.Window /> }],
         },
         {
           title: '图片',
           key: 'image',
           url: '/container/image',
-          routers: [{ path: '/container/image', component: pages.Image }],
+          routes: [{ path: '/container/image', element: <Pages.Image /> }],
         },
         {
           key: 'resize',
           title: '监听 Resize',
           url: '/container/resize',
-          routers: [{ path: '/container/resize', component: pages.Resize }],
+          routes: [{ path: '/container/resize', element: <Pages.Resize /> }],
         },
       ],
     },
