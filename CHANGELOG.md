@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.3](https://github.com/KunLunXu0-0/brick/compare/v2.2.2...v2.2.3) (2022-07-17)
+
+
+### Features
+
+* 🎸 update klx-cra ([c53c923](https://github.com/KunLunXu0-0/brick/commit/c53c92375039675b8343517e4281d18cc1ad71a6))
+* 🎸 update lock ([ffee253](https://github.com/KunLunXu0-0/brick/commit/ffee253c3faf82c19ca482ea1a9e19d47b1458cc))
+* 🎸 update npm ([832201a](https://github.com/KunLunXu0-0/brick/commit/832201a0630bed5aa19d4f2590a986b907fa33c2))
+
 ### [2.2.2](https://github.com/KunLunXu0-0/brick/compare/v2.2.1...v2.2.2) (2022-07-10)
 
 ### [2.2.1](https://github.com/KunLunXu0-0/brick/compare/v2.1.0...v2.2.1) (2022-07-10)
