@@ -77,18 +77,13 @@ module.exports = {
           'sass-loader',
         ],
       },
-      { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
       {
-        test: /\.(jpg|jpeg|png|gif|cur|ico)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              // 遇到图片  生成一个images文件夹  名字.后缀的图片
-              name: 'images/[name][hash:8].[ext]',
-            },
-          },
-        ],
+        // 图片、字体
+        test: [/\.(png|jpg|gif|svg)$/, /\.(ttf|woff|eot)$/],
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[hash].[ext]',
+        },
       },
     ],
   },
