@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.4](https://github.com/KunLunXu0-0/brick/compare/v2.2.3...v2.2.4) (2022-07-18)
+
+
+### Features
+
+* 🎸 update klx-cra ([48c5b45](https://github.com/KunLunXu0-0/brick/commit/48c5b45189774da3de851100d5b6e8dbe34343dc))
+
 ### [2.2.3](https://github.com/KunLunXu0-0/brick/compare/v2.2.2...v2.2.3) (2022-07-17)
 
 
