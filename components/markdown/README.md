@@ -30,6 +30,12 @@
 类型: async ({ event, files, editor }) => href || href[]
 默认值:
 
+### mdToJsxOptions
+
+描述: 预览 md 插件 markdown-to-jsx 配置, 参考 https://www.npmjs.com/package/markdown-to-jsx
+类型: Object
+默认值: 无
+
 ## TODO LIST
 
 [ ] 思维导图

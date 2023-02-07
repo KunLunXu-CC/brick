@@ -57,7 +57,7 @@ const Markdown = (props) => {
           constraintSize={{ width: 100 }}
           defaultParams={{ width: '50%' }}
           className="brick-markdown-preview-wrapper">
-          <Preview type={previewType}>
+          <Preview options={props.mdToJsxOptions} type={previewType}>
             {value}
           </Preview>
         </VariableContainer>
