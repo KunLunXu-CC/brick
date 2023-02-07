@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.6](https://github.com/KunLunXu0-0/brick/compare/v2.2.5...v2.2.6) (2023-02-07)
+
+
+### Bug Fixes
+
+* 🐛 无法配置 markdown Preview 参数 ([4a1bacd](https://github.com/KunLunXu0-0/brick/commit/4a1bacd16dfdcf581f64ce6518adcd0d895463c0))
+
 ### [2.2.5](https://github.com/KunLunXu0-0/brick/compare/v2.2.4...v2.2.5) (2022-07-18)
 
 ### [2.2.4](https://github.com/KunLunXu0-0/brick/compare/v2.2.3...v2.2.4) (2022-07-18)
