@@ -69,14 +69,22 @@ const useHooks = (props, ref) => {
     ...props.params,
   }), [params, props.params]);
 
-  const containerStyle = useMemo(() => ({
-    width: _params.width,
-    height: _params.height,
-    transform: !props.layout
-      ? `translate(${_params.offsetX}px, ${_params.offsetY}px)`
-      : void 0,
-    ...props.style,
-  }), [_params]);
+  const containerStyle = useMemo(() => {
+    if (targetRef.current && !props.layout) {
+      targetRef.current.parentNode.style.position = 'relative';
+    }
+
+    return {
+      width: _params.width,
+      height: _params.height,
+      ...(props.layout ? {} : {
+        position: 'absolute',
+        top: _params.offsetY,
+        left: _params.offsetX,
+      }),
+      ...props.style,
+    };
+  }, [_params]);
 
   // 监听内部状态的变更, 触发 onChange 事件
   useEffect(() => {
@@ -90,8 +98,8 @@ const VariableBlock =  React.forwardRef((props, ref) => {
   const state = useHooks(props, ref);
   return (
     <div
+      ref={state.targetRef}
       style={state.containerStyle}
-      ref={ref || state.targetRef}
       className={classNames('brick-variable-block', props.className)}
       {... omit(props, filterPropKeys)}>
       {props.children}

@@ -25,6 +25,7 @@ const filterPropKeys = [
 
 // props 默认值
 const defaultProps = {
+  showShadow: true,
   toolPosition: { top: 5, left: 5 },
   minParams: { width: 100, height: 100, offsetX: 50, offsetY: 50 },
 };
@@ -42,6 +43,7 @@ const propTypes = {
 
   isMax: PropTypes.bool,
   isMin: PropTypes.bool,
+  showShadow: PropTypes.bool,
 
   onResize: PropTypes.func,
   onMax: PropTypes.func,
@@ -103,6 +105,7 @@ const useHooks = (props) => {
     'brick-window',
     { 'brick-window-max': isMax },
     { 'brick-window-min': isMin },
+    { 'brick-window-shadow': props.showShadow },
     props.className,
   ), [props.className, isMin, isMax]);
 

@@ -314,6 +314,7 @@ export default (ref, {
     ...DEFAULT_OPTION.defaultParams,
     ...defaultParams,
   });
+
   useEffect(() => {
     if (!ref || !ref.current) {
       return;

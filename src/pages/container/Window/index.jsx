@@ -7,7 +7,9 @@ import './index.scss';
 export default () => (
   <div className="window-demo">
     <Window defaultParams={{ width: '50%', height: '50%' }}>
-      <div className="window-demo-body" />
+      <div className="window-demo-body">
+        content
+      </div>
     </Window>
   </div>
 );
