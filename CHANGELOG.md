@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.7](https://github.com/KunLunXu0-0/brick/compare/v2.2.6...v2.2.7) (2023-04-04)
+
+
+### Bug Fixes
+
+* 🐛  编辑器预览下面一整块无法点击 ([91468ca](https://github.com/KunLunXu0-0/brick/commit/91468ca7d9a4200bcd569e040371ee60cd25d9f7))
+* 🐛 元素超出被隐藏了 ([fcdf326](https://github.com/KunLunXu0-0/brick/commit/fcdf326ebb100319ccaa17617e4bf7d7c14f4d88))
+
 ### [2.2.6](https://github.com/KunLunXu0-0/brick/compare/v2.2.5...v2.2.6) (2023-02-07)
 
 
