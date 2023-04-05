@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.9](https://github.com/KunLunXu0-0/brick/compare/v2.2.8...v2.2.9) (2023-04-05)
+
+
+### Features
+
+* 🎸 修改 window 组件配置 ([f98f919](https://github.com/KunLunXu0-0/brick/commit/f98f91907b595cf8130c49df93e90e71e2874ea4))
+
 ### [2.2.8](https://github.com/KunLunXu0-0/brick/compare/v2.2.7...v2.2.8) (2023-04-04)
 
 ### [2.2.7](https://github.com/KunLunXu0-0/brick/compare/v2.2.6...v2.2.7) (2023-04-04)
