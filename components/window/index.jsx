@@ -19,14 +19,18 @@ const filterPropKeys = [
   'minParams',
   'toolStyle',
   'maxParams',
-  'toolPosition',
   'toolClassName',
 ];
 
 // props 默认值
 const defaultProps = {
-  showShadow: true,
-  toolPosition: { top: 5, left: 5 },
+  isPure: false,
+  tool: {
+    top: 10,
+    left: 10,
+    size: 12,
+    width: 60,
+  },
   minParams: { width: 100, height: 100, offsetX: 50, offsetY: 50 },
 };
 
@@ -43,16 +47,18 @@ const propTypes = {
 
   isMax: PropTypes.bool,
   isMin: PropTypes.bool,
-  showShadow: PropTypes.bool,
+  isPure: PropTypes.bool,
 
   onResize: PropTypes.func,
   onMax: PropTypes.func,
   onMin: PropTypes.func,
   onClose: PropTypes.func,
-  toolPosition: PropTypes.shape({
-    top: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    left: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  }),
+  tool: {
+    top: PropTypes.number,
+    left: PropTypes.number,
+    size: PropTypes.number,
+    width: PropTypes.number,
+  },
   style: PropTypes.object,
   toolStyle: PropTypes.object,
   className: PropTypes.string,
@@ -69,11 +75,16 @@ const useHooks = (props) => {
     history: [],
   }), []);
 
-  // 过滤工具栏位置属性
-  const toolPosition = useMemo(() => {
-    const { left, right, top, bottom } = props.toolPosition;
-    return { left, right, top, bottom };
-  }, [props.toolPosition]);
+  const toolStyle = useMemo(() => {
+    const tool = { ...defaultProps.tool, ...(props.tool || {}) };
+    return {
+      'top': tool.top,
+      'left': tool.left,
+      'width': tool.width,
+      '--icon-size': `${tool.size}px`,
+      ...props.toolStyle,
+    };
+  }, []);
 
   // 点击关闭触发
   const onClose = (e) => {
@@ -105,7 +116,7 @@ const useHooks = (props) => {
     'brick-window',
     { 'brick-window-max': isMax },
     { 'brick-window-min': isMin },
-    { 'brick-window-shadow': props.showShadow },
+    { 'brick-window-pure': props.isPure },
     props.className,
   ), [props.className, isMin, isMax]);
 
@@ -150,7 +161,7 @@ const useHooks = (props) => {
     statics.minHandled = true;
   }, [isMin]);
 
-  return { onClose, onMin, onMax, onResize, params, toolPosition, windowClass };
+  return { onClose, onMin, onMax, onResize, params, windowClass, toolStyle };
 };
 
 const Window = (props) => {
@@ -165,11 +176,11 @@ const Window = (props) => {
       {...omit(props, filterPropKeys)}>
       <div className={classNames('brick-window-body')}>
         <span
-          style={{ ...state.toolPosition, ...props.toolStyle }}
+          style={state.toolStyle}
           className={classNames('brick-window-tool', props.toolClassName)}>
           <Icon
-            type="icon-guanbi6-copy"
             onClick={state.onClose}
+            type="icon-guanbi6-copy"
             className="brick-window-tool-item brick-window-tool-close"
           />
           <Icon

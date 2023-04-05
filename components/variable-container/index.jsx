@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import React, { useRef, useEffect, useMemo } from 'react';
 
 import useResize from './useResize';
@@ -99,8 +98,8 @@ const VariableBlock =  React.forwardRef((props, ref) => {
   return (
     <div
       ref={state.targetRef}
+      className={props.className}
       style={state.containerStyle}
-      className={classNames('brick-variable-block', props.className)}
       {... omit(props, filterPropKeys)}>
       {props.children}
     </div>

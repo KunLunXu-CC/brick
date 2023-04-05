@@ -98,11 +98,11 @@
 - 类型:  String
 - 默认值: ---
 
-### 1.17 toolPosition
+### 1.17 too
 
-- 描述: 工具块使用 position absolute, 通过改参数设置工具块的位置, 当然其实该功能的实现完全能够通过 toolStyle 实现, 只是这样更加语义化些
+- 描述: 工具栏配置
 - 类型:  Object
-- 默认值: { top: 10, left: 5 }
+- 默认值: { top: 10, left: 5, size: 14, width: 60 }
 
 ### 1.18 toolStyle
 
@@ -116,8 +116,8 @@
 - 类型:  String
 - 默认值: ---
 
-### 1.20 showShadow
+### 1.20 isPure
 
-- 描述: 是否显示投影
+- 描述: 是否纯净版(无投影、圆角、overflow)
 - 类型:  boolean
 - 默认值: ---
