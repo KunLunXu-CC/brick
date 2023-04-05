@@ -115,3 +115,9 @@
 - 描述: 为工具块追加 className
 - 类型:  String
 - 默认值: ---
+
+### 1.20 showShadow
+
+- 描述: 是否显示投影
+- 类型:  boolean
+- 默认值: ---
