@@ -1,3 +1,5 @@
+import './index.scss';
+
 // 主题
 import './theme';
 

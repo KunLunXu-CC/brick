@@ -1,12 +1,17 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import MarkdownToJsx from 'markdown-to-jsx';
+import { Icon } from '../..';
 
 import Code from './Code';
 
 const Markdown = (props) => {
+  const previewRef = useRef();
+
+  const handleCopy = useCallback(() => {}, []);
+
   // 合并计算 options
   const options = useMemo(() => _.merge(
     {
@@ -26,11 +31,21 @@ const Markdown = (props) => {
   ), [props.className, props.theme]);
 
   return (
-    <MarkdownToJsx
-      options={options}
-      className={className}>
-      {props.children || ''}
-    </MarkdownToJsx>
+    <div className='brick-markdown-preview-wrapper'>
+      <MarkdownToJsx
+        ref={previewRef}
+        options={options}
+        className={className}>
+        {props.children || ''}
+      </MarkdownToJsx>
+      <div className='brick-markdown-preview-copy'>
+        <Icon
+          title="复制代码"
+          type="icon-copy"
+          onClick={handleCopy}
+        />
+      </div>
+    </div>
   );
 };
 
