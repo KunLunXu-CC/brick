@@ -1,16 +1,39 @@
 import _ from 'lodash';
+import juice from 'juice';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import React, { useCallback, useMemo, useRef } from 'react';
-import MarkdownToJsx from 'markdown-to-jsx';
-import { Icon } from '../..';
-
 import Code from './Code';
+import classNames from 'classnames';
+import MarkdownToJsx from 'markdown-to-jsx';
+import getAllCSS from '../../utils/getAllCSS';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { Icon } from '../..';
 
 const Markdown = (props) => {
   const previewRef = useRef();
 
-  const handleCopy = useCallback(() => {}, []);
+  const handleCopy = useCallback(async () => {
+    const sourceHtml = previewRef.current.outerHTML;
+    const css = getAllCSS();
+
+    const options = {
+      removeStyleTags: true,     // 移除 Style 标签(暂时无法生效, 已有人提交 issues: https://github.com/Automattic/juice/issues/470)
+      inlinePseudoElements: true, // 是否将伪元素转为 span 标签
+    };
+    const transform = juice(`<style>${css}</style>${sourceHtml}`, options);
+    const resHtml = transform
+      .replace(/<style>[\s\S]*?<\/style>/, '') // 先手动移除 Style
+      .replace(/(?<=\/?)div(?=[\s>])/ig, 'section'); // div 标签转为 section
+
+    // 复制: 将文本内容以 text/html、text/plain 格式写入剪切板
+    await navigator.clipboard.write([
+      new window.ClipboardItem({
+        'text/html': new Blob([resHtml], { type: 'text/html' }),
+        'text/plain': new Blob([resHtml], { type: 'text/plain' }),
+      }),
+    ]);
+
+    window.alert('复制成功!!!');
+  }, []);
 
   // 合并计算 options
   const options = useMemo(() => _.merge(
@@ -31,13 +54,14 @@ const Markdown = (props) => {
   ), [props.className, props.theme]);
 
   return (
-    <div className='brick-markdown-preview-wrapper'>
-      <MarkdownToJsx
+    <>
+      <div
         ref={previewRef}
-        options={options}
         className={className}>
-        {props.children || ''}
-      </MarkdownToJsx>
+        <MarkdownToJsx options={options}>
+          {props.children || ''}
+        </MarkdownToJsx>
+      </div>
       <div className='brick-markdown-preview-copy'>
         <Icon
           title="复制代码"
@@ -45,7 +69,7 @@ const Markdown = (props) => {
           onClick={handleCopy}
         />
       </div>
-    </div>
+    </>
   );
 };
 
