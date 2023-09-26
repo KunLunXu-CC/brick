@@ -8,6 +8,24 @@ import getAllCSS from '../../utils/getAllCSS';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { Icon } from '../..';
 
+const COPY_CUSTOM_STYLE = `
+  <style>
+    @media (prefers-color-scheme: light) {
+
+    }
+    @media (prefers-color-scheme: dark) {
+      .brick-markdown-preview-light * {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .brick-markdown-preview-light blockquote {
+        background: #3b3456;
+        border-color: #241f3a;
+      }
+    }
+  </style>
+`;
+
 const Markdown = (props) => {
   const previewRef = useRef();
 
@@ -20,15 +38,17 @@ const Markdown = (props) => {
       inlinePseudoElements: true, // 是否将伪元素转为 span 标签
     };
     const transform = juice(`<style>${css}</style>${sourceHtml}`, options);
-    const resHtml = transform
+    const replaceHtml = transform
       .replace(/<style>[\s\S]*?<\/style>/, '') // 先手动移除 Style
       .replace(/(?<=\/?)div(?=[\s>])/ig, 'section'); // div 标签转为 section
+
+    const copyContent = [`${COPY_CUSTOM_STYLE}${replaceHtml}`];
 
     // 复制: 将文本内容以 text/html、text/plain 格式写入剪切板
     await navigator.clipboard.write([
       new window.ClipboardItem({
-        'text/html': new Blob([resHtml], { type: 'text/html' }),
-        'text/plain': new Blob([resHtml], { type: 'text/plain' }),
+        'text/html': new Blob([copyContent], { type: 'text/html' }),
+        'text/plain': new Blob([copyContent], { type: 'text/plain' }),
       }),
     ]);
 

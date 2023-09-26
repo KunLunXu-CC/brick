@@ -1,18 +1,20 @@
 // 整体设置
 .brick-markdown-preview-light {
-  color: #333;
   padding: 20px;
-  line-height: 2;
-  font-size: 16px;
   background: #fff;
-  font-family: 'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  * {
+    color: #252933;
+    font-size: 16px;
+    line-height: 1.75;
+    font-family: 'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
 
   // 标题设置
   h1 {
     margin: 20px 0;
     font-size: 30px;
     font-weight: 700;
-    line-height: 1.5;
   }
 
   h2,
@@ -22,7 +24,6 @@
   h6 {
     padding: 5px 0;
     margin: 40px 0;
-    color: #666;
     border-bottom: 1px dashed #ddd;
 
     &::before {
@@ -79,7 +80,6 @@
     overflow: hidden;
 
     font-size: 14px;
-    line-height: 1.8;
 
     border-radius: 8px;
     background: #282c34;
@@ -183,8 +183,9 @@
     border: 1px solid $color-border;
 
     th {
+      padding: 6px 10px;
+
       color: #666;
-      padding: 0 10px;
       text-align: left;
       font-weight: bold;
       background-color: #f7f7f7;
@@ -192,7 +193,7 @@
     }
 
     td {
-      padding: 0 10px;
+      padding: 6px 10px;
       border: 1px solid $color-border;
     }
   }
@@ -211,8 +212,8 @@
 
   // checkbox 样式
   input[type='checkbox'] {
-    width: 16px;
-    height: 16px;
+    width: 1em;
+    height: 1em;
     margin-right: 4px;
     margin-bottom: 2px;
     vertical-align: middle;
@@ -288,7 +289,6 @@
 
     &.brick-error {
       color: #f5222d;
-      line-height: 2;
       text-align: center;
     }
   }
