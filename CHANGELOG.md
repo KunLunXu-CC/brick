@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/KunLunXu0-0/brick/compare/v2.2.9...v2.3.0) (2023-09-27)
+
+
+### Features
+
+* 🎸 Markdown Preview 新增复制按钮 ([d19cf0e](https://github.com/KunLunXu0-0/brick/commit/d19cf0e1a74477b6b82ab5e90eaec3de65fdf9c2))
+
 ### [2.2.9](https://github.com/KunLunXu0-0/brick/compare/v2.2.8...v2.2.9) (2023-04-05)
 
 
