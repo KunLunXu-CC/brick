@@ -26,6 +26,7 @@ const Icon = (props) => {
       style={props.style}
       onClick={state.onClick}
       className={classNames(
+        props.type,
         'brick-icon',
         props.className,
         { 'brick-icon-btn': _.isFunction(props.onClick) },

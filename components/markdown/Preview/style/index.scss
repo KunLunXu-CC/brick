@@ -1,4 +1,14 @@
 .brick-markdown-preview-copy {
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -24,8 +34,16 @@
     background-color: #efefef;
   }
 
+  &[disabled] {
+    pointer-events: none;
+  }
+
   .brick-icon {
     font-size: 16px;
     color: rgba($color: #000, $alpha: 80%);
+  }
+
+  .icon-loading {
+    animation: 1s linear infinite spin;
   }
 }
