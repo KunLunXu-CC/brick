@@ -3,15 +3,14 @@
   padding: 20px;
   background: #fff;
 
-  * {
-    color: #252933;
-    font-size: 16px;
-    line-height: 1.75;
-    font-family: 'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
+  color: #252933;
+  font-size: 16px;
+  line-height: 1.75;
+  font-family: 'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   // 标题设置
   h1 {
+    color: inherit;
     margin: 20px 0;
     font-size: 30px;
     font-weight: 700;
@@ -22,6 +21,7 @@
   h4,
   h5,
   h6 {
+    color: inherit;
     padding: 5px 0;
     margin: 40px 0;
     border-bottom: 1px dashed #ddd;
@@ -55,8 +55,8 @@
   details {
     margin: 10px 0;
     padding: 10px 20px;
-    background: #f6f6f6;
-    border-left: 5px solid #657b83;
+    border-left: 5px solid #ff7a45;
+    background: rgb(217 217 217 / 20%);
 
     summary {
       color: #666;
@@ -70,7 +70,8 @@
     color: #ff502c;
     font-size: 0.87em;
     padding: 0.065em 0.4em;
-    background-color: #fff5f5;
+    border-radius: 2px;
+    background-color: rgb(231 100 50 / 8%);
   }
 
   // 代码块部分
@@ -79,7 +80,7 @@
     margin: 20px 0;
     overflow: hidden;
 
-    font-size: 14px;
+    font-size: 13px;
 
     border-radius: 8px;
     background: #282c34;
@@ -201,8 +202,8 @@
   // 快引用
   blockquote {
     padding: 10px 20px;
-    background: #f6f6f6;
-    border-left: 5px solid #657b83;
+    border-left: 5px solid #ff7a45;
+    background: rgb(217 217 217 / 20%);
     margin: {
       left: 0;
       right: 0;

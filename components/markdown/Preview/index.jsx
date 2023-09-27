@@ -14,13 +14,8 @@ const COPY_CUSTOM_STYLE = `
 
     }
     @media (prefers-color-scheme: dark) {
-      .brick-markdown-preview-light * {
+      .brick-markdown-preview-light {
         color: rgba(255, 255, 255, 0.85);
-      }
-
-      .brick-markdown-preview-light blockquote {
-        background: #3b3456;
-        border-color: #241f3a;
       }
     }
   </style>
