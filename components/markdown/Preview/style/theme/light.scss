@@ -22,7 +22,10 @@
   h5,
   h6 {
     color: inherit;
+    line-height: 1.42;
+
     margin-top: 1.35em;
+    padding-bottom: 0.4em;
     border-bottom: 1px dashed #ddd;
 
     &:not(h1)::before {
@@ -195,14 +198,16 @@
 
   // 快引用
   blockquote {
-    padding: 10px 20px;
-    border-left: 5px solid #ff7a45;
+    color: #666;
+    padding: 1px 1.2em;
+    border-left: 0.25em solid #ff7a45;
     background: rgb(217 217 217 / 20%);
-    margin: {
-      left: 0;
-      right: 0;
-      top: 10px;
-    };
+
+    margin: 1.375em 0;
+
+    > p {
+      margin: 0.65em 0;
+    }
   }
 
   // checkbox 样式
@@ -271,10 +276,7 @@
     position: relative;
 
     &-main {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       position: absolute;
     }
 
