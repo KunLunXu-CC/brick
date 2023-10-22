@@ -43,22 +43,44 @@
     margin: 1.375em 0;
   }
 
+  // 列表
+  ul,
+  ol {
+    padding-left: 1.75em;
+    margin-block-end: 1em;
+    margin-block-start: 1em;
+
+    ul,
+    ol {
+      margin-block-end: 0;
+      margin-block-start: 0;
+    }
+  }
+
   // 图片设置
   img {
     max-width: 100%;
   }
 
-  // 折叠面板
-  details {
-    margin: 10px 0;
-    padding: 10px 20px;
-    border-left: 5px solid #ff7a45;
+  // 快引用、折叠面板
+  details,
+  blockquote {
+    margin: 1.375em 0;
+    padding: 1px 1.2em;
+
+    color: #666;
+    border-left: 0.25em solid #ff7a45;
     background: rgb(217 217 217 / 20%);
+
+    > p {
+      margin: 0.65em 0;
+    }
 
     summary {
       color: #666;
       outline: none;
       cursor: pointer;
+      margin: 0.65em 0;
     }
   }
 
@@ -193,20 +215,6 @@
     td {
       padding: 6px 10px;
       border: 1px solid $color-border;
-    }
-  }
-
-  // 快引用
-  blockquote {
-    color: #666;
-    padding: 1px 1.2em;
-    border-left: 0.25em solid #ff7a45;
-    background: rgb(217 217 217 / 20%);
-
-    margin: 1.375em 0;
-
-    > p {
-      margin: 0.65em 0;
     }
   }
 
