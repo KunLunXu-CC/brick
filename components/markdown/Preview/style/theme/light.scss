@@ -89,25 +89,25 @@
     color: #ff502c;
     font-size: 0.87em;
     padding: 0.065em 0.4em;
-    border-radius: 2px;
+    border-radius: 0.125em;
     background-color: rgb(231 100 50 / 8%);
   }
 
   // 代码块部分
   .brick-markdown-preview-code {
     padding: 0;
-    margin: 20px 0;
+    margin: 1.25em 0;
     overflow: hidden;
 
-    font-size: 13px;
+    font-size: 0.8133em;
 
-    border-radius: 8px;
+    border-radius: 0.5em;
     background: #282c34;
 
     // 滚动条宽高
     ::-webkit-scrollbar {
-      height: 10px;
-      width: 10px;
+      height: 0.625em;
+      width: 0.625em;
     }
 
     /* 滚动条的滑轨背景颜色 */
@@ -117,7 +117,7 @@
 
     /* 滑块 */
     ::-webkit-scrollbar-thumb {
-      border-radius: 4px;
+      border-radius: 0.25em;
       background-color: rgba(#424853, 0.8);
     }
 
@@ -126,18 +126,18 @@
     }
 
     &-header {
-      height: 36px;
+      height: 2.25em;
       display: flex;
       align-items: center;
       background: #21252b;
       padding: {
-        left: 10px;
+        left: 0.625em;
       };
 
       %dot {
-        width: 12px;
-        height: 12px;
-        margin: 0 4px;
+        width: 0.75em;
+        height: 0.75em;
+        margin: 0 0.25em;
         border-radius: 50%;
       }
 
@@ -159,18 +159,18 @@
       &-lang {
         flex: 1;
         opacity: 0;
-        font-size: 14px;
         font-weight: 500;
+        font-size: 0.875em;
         transition: all 0.4s;
         color: rgba($color: #fff, $alpha: 80%);
         padding: {
-          left: 25px;
+          left: 1.5em;
         };
       }
 
       &-copy {
         opacity: 0;
-        margin: 0 10px;
+        margin: 0 0.625em;
         cursor: pointer;
         transition: all 0.4s;
         color: rgba($color: #fff, $alpha: 80%);
@@ -203,7 +203,7 @@
     border: 1px solid $color-border;
 
     th {
-      padding: 6px 10px;
+      padding: 6px 0.625em;
 
       color: #666;
       text-align: left;
@@ -213,7 +213,7 @@
     }
 
     td {
-      padding: 6px 10px;
+      padding: 6px 0.625em;
       border: 1px solid $color-border;
     }
   }
@@ -256,7 +256,7 @@
 
       border: 0;
       width: 6px;
-      height: 10px;
+      height: 0.625em;
 
       transform: rotate(45deg);
     }
