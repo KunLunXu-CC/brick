@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/KunLunXu0-0/brick/compare/v2.3.0...v2.3.1) (2023-10-23)
+
+
+### Features
+
+* 🎸 md preview style ([5602c9c](https://github.com/KunLunXu0-0/brick/commit/5602c9c6962e68de86f36af2ad35afdd33cfd1ad))
+* 🎸 md preview style: add px2em function ([9722e03](https://github.com/KunLunXu0-0/brick/commit/9722e03c36c82dbd42015c29b34a6e95e93e3313))
+* 🎸 update md preview style ([26c002c](https://github.com/KunLunXu0-0/brick/commit/26c002cc6293b6b18cbd7138e69022937261a04d))
+* 🎸 update md preview style blockquote ([346200c](https://github.com/KunLunXu0-0/brick/commit/346200c5196dcb3c4e8ba647cad8159b0734c34c))
+* 🎸 update md preview style with blockquote ([11621a5](https://github.com/KunLunXu0-0/brick/commit/11621a5326ad9fce97ee3c746642161c8740e1cb))
+* 🎸 update md preview style with code ([a7b60f2](https://github.com/KunLunXu0-0/brick/commit/a7b60f2eb5204491b22eb7958c43a19eae4803a9))
+* 🎸 update md preview style with table ([2e5b341](https://github.com/KunLunXu0-0/brick/commit/2e5b341266d3e22e68f029012bed582dd86c7fb7))
+* 🎸 update md preview style with title ([d6a2200](https://github.com/KunLunXu0-0/brick/commit/d6a2200fd283c3e6cf0fbf0d3d8d8671bf38033d))
+
 ## [2.3.0](https://github.com/KunLunXu0-0/brick/compare/v2.2.9...v2.3.0) (2023-09-27)
 
 
