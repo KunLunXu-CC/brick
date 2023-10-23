@@ -6,16 +6,13 @@
   line-height: 1.7;
   font-size: 16px;
   font-family: 'Microsoft Yahei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  padding: 1.25em;
   background: #fff;
 
-  // 标题设置
-  @for $i from 0 through 5 {
-    h#{$i + 1} {
-      font-size: 1.625 - $i * 0.125 + em;
-    }
-  }
+  padding: {
+    left: 1.25em;
+    right: 1.25em;
+    bottom: 1.25em;
+  };
 
   h1,
   h2,
@@ -294,6 +291,13 @@
     &.brick-error {
       color: #f5222d;
       text-align: center;
+    }
+  }
+
+  // 标题设置
+  @for $i from 0 through 5 {
+    h#{$i + 1} {
+      font-size: 1.625 - $i * 0.125 + em;
     }
   }
 }
