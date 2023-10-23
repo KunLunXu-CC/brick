@@ -15,6 +15,7 @@ const COPY_CUSTOM_STYLE = `
     }
     @media (prefers-color-scheme: dark) {
       .brick-markdown-preview-light {
+        font-size: 13px;
         color: rgba(255, 255, 255, 0.85);
       }
     }
