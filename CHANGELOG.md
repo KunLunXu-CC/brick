@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com/KunLunXu0-0/brick/compare/v2.3.2...v2.3.3) (2023-10-24)
+
+
+### Features
+
+* 🎸 update md preview style ([6d15a2e](https://github.com/KunLunXu0-0/brick/commit/6d15a2e30626c80f31620c44b02c90901718ad2b))
+
 ### [2.3.2](https://github.com/KunLunXu0-0/brick/compare/v2.3.1...v2.3.2) (2023-10-24)
 
 
