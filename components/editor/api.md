@@ -78,6 +78,12 @@ scss、 shell、 sol、 aes、 sparql、 sql、 st、 swift、 systemverilog、 
 - 类型: Function ==> ({ event, value, editor }) => {}
 - 默认值: ---
 
+### onCopy
+
+- 描述: 编辑器执行 ctr + c 事件(复制)
+- 类型: Function ==> ({ event, value, editor }) => {}
+- 默认值: ---
+
 ### onKeyDown
 
 - 描述: 编辑器鼠标按下事件

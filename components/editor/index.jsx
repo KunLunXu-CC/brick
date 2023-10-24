@@ -86,7 +86,21 @@ const Editor = React.memo(React.forwardRef((props, ref) => {
       });
     }
 
-    // 2. 调用 props.onKeyDown
+    // 2. 复制 ctr + c
+    if (
+      props.onCopy &&
+      (event.ctrlKey || event.metaKey) &&
+      event.keyCode === 67
+    ) {
+      event.preventDefault();
+      props.onCopy({
+        event,
+        editor: editorRef.current,
+        value: editorRef.current.getValue(),
+      });
+    }
+
+    // 3. 调用 props.onKeyDown
     props.onKeyDown?.({
       event,
       editor: editorRef.current,

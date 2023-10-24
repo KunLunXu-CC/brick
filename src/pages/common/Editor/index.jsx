@@ -26,9 +26,13 @@ export default () => {
   }, []);
 
   // 完成
-  const onSave = (args) => {
-    console.log('----> 保存 ctr+s', args);
-  };
+  const onSave = React.useCallback((args) => {
+    console.log('----> 保存 ctr + s', args);
+  }, []);
+
+  const onCopy = React.useCallback((args) => {
+    console.log('----> 复制 ctr + c', args);
+  }, []);
 
   const onChange = React.useCallback(({ value, editor, event }) => {
     console.log(
@@ -122,6 +126,7 @@ export default () => {
         <Editor
           theme={theme}
           value={value}
+          onCopy={onCopy}
           onSave={onSave}
           options={options}
           language={language}
