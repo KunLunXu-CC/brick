@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.2](https://github.com/KunLunXu0-0/brick/compare/v2.3.1...v2.3.2) (2023-10-24)
+
+
+### Features
+
+* 🎸 editor add onCopy props ([1359f3a](https://github.com/KunLunXu0-0/brick/commit/1359f3a11be618c0739064965abfca6000de8605))
+
 ### [2.3.1](https://github.com/KunLunXu0-0/brick/compare/v2.3.0...v2.3.1) (2023-10-23)
 
 
