@@ -8,6 +8,7 @@ import getAllCSS from '../../utils/getAllCSS';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Icon } from '../..';
 
+// 复制后, 追加的样式
 const COPY_CUSTOM_STYLE = `
   <style>
     @media (prefers-color-scheme: light) {
@@ -15,11 +16,17 @@ const COPY_CUSTOM_STYLE = `
     }
     @media (prefers-color-scheme: dark) {
       .brick-markdown-preview-light {
-        font-size: 13px;
         color: rgba(255, 255, 255, 0.85);
       }
     }
   </style>
+`;
+
+// 复制前样式修正
+const RESET_CSS = `
+  .brick-markdown-preview-light {
+    font-size: 14px;
+  }
 `;
 
 const Markdown = (props) => {
@@ -37,7 +44,7 @@ const Markdown = (props) => {
         removeStyleTags: true,     // 移除 Style 标签(暂时无法生效, 已有人提交 issues: https://github.com/Automattic/juice/issues/470)
         inlinePseudoElements: true, // 是否将伪元素转为 span 标签
       };
-      const transform = juice(`<style>${css}</style>${sourceHtml}`, options);
+      const transform = juice(`<style>${css}${RESET_CSS}</style>${sourceHtml}`, options);
       const replaceHtml = transform
         .replace(/<style>[\s\S]*?<\/style>/, '') // 先手动移除 Style
         .replace(/(?<=\/?)div(?=[\s>])/ig, 'section'); // div 标签转为 section
