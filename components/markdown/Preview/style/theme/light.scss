@@ -219,56 +219,9 @@
 
   // checkbox 样式
   input[type='checkbox'] {
-    width: 1em;
-    height: 1em;
     font-size: 0.9em;
     margin: 0 0.25em 0.15em 0;
     vertical-align: middle;
-
-    overflow: hidden;
-    position: relative;
-
-    &::before {
-      content: '';
-      display: block;
-
-      inset: 0;
-      position: absolute;
-
-      border-radius: 0.125em;
-      background-color: #fff;
-      border: 0.0625em solid #d9d9d9;
-    }
-
-    &::after {
-      content: '';
-      margin: auto;
-      display: block;
-
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0.175em;
-      position: absolute;
-
-      border: 0;
-      width: 0.375em;
-      height: 0.625em;
-
-      transform: rotate(45deg);
-    }
-
-    &[checked]::before {
-      border: 0;
-      background-color: #1890ff;
-    }
-
-    &[checked]::after {
-      background-color: #1890ff;
-      border: 0.125em solid #fff;
-      border-top: 0;
-      border-left: 0;
-    }
   }
 
   // mermaid 样式设置

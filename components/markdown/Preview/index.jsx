@@ -29,11 +29,12 @@ const RESET_CSS = `
 `;
 
 // 获取样式规则
+// TODO: Echarts 图表不行
 const getCSSRules = () => {
   const currentRules = [...document.styleSheets]
     .reduce((total, styleSheet) => {
       const list = [...styleSheet.cssRules].map((rule) => {
-        if (/brick-markdown-preview/.test(rule.cssText)) {
+        if (/(brick-markdown-preview|hljs|mermaid)[\W$]/.test(rule.cssText)) {
           return rule.cssText;
         }
 
