@@ -1,4 +1,5 @@
 import React from 'react';
+import omit from 'omit.js';
 import Preview from './Preview';
 import MdEditor from './MdEditor';
 import { VariableContainer, Icon } from '..';
@@ -9,6 +10,16 @@ const PREVIEW_TYPE = {
   html: 'html', // html
   mind: 'mind', // 思维导图
 };
+
+// omit 需要过滤 props key 列表
+const filterPropKeys = [
+  'value',
+  'onSave',
+  'onChange',
+  'onInsertImages',
+  'defaultValue',
+  'mdToJsxOptions',
+];
 
 const Markdown = (props) => {
   const [innerValue, setInnerValue] = React.useState(props.defaultValue); // 内部值
@@ -27,7 +38,9 @@ const Markdown = (props) => {
   }, [props.onChange]);
 
   return (
-    <div className='brick-markdown'>
+    <div
+      {...omit(props, filterPropKeys)}
+      className='brick-markdown'>
       <div className='brick-markdown-editor'>
         <MdEditor
           value={value}
@@ -57,7 +70,9 @@ const Markdown = (props) => {
           constraintSize={{ width: 100 }}
           defaultParams={{ width: '50%' }}
           className="brick-markdown-preview-wrapper">
-          <Preview options={props.mdToJsxOptions} type={previewType}>
+          <Preview
+            options={props.mdToJsxOptions}
+            type={previewType}>
             {value}
           </Preview>
         </VariableContainer>
