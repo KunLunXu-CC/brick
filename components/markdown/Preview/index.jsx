@@ -113,7 +113,7 @@ const Markdown = (props) => {
         className='brick-markdown-preview-copy'>
         <Icon
           title="复制代码"
-          type={copying ? 'icon-loading' : 'icon-copy'}
+          type={copying ? 'icon-loading' : 'icon-weixingongzhonghao'}
         />
       </div>
     </>
