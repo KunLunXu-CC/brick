@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.10](https://github.com/KunLunXu0-0/brick/compare/v2.3.9...v2.3.10) (2024-02-14)
+
 ### [2.3.9](https://github.com/KunLunXu0-0/brick/compare/v2.3.8...v2.3.9) (2024-02-14)
 
 ### [2.3.8](https://github.com/KunLunXu0-0/brick/compare/v2.3.7...v2.3.8) (2024-02-14)
