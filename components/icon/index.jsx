@@ -1,16 +1,8 @@
 import _ from 'lodash';
-import React from 'react';
+import renderSvg from './renderSvg';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import '../assets/iconfont/iconfont.js';
-
-const useState = (props) => {
-  const onClick = (...args) => {
-    _.isFunction(props.onClick) && props.onClick(...args);
-  };
-
-  return { onClick };
-};
 
 const propTypes = {
   type: PropTypes.string,
@@ -20,11 +12,18 @@ const propTypes = {
 };
 
 const Icon = (props) => {
-  const state = useState(props);
+  const handleClick = useCallback((...args) => {
+    _.isFunction(props.onClick) && props.onClick(...args);
+  }, [props.onClick]);
+
+  useEffect(() => {
+    renderSvg();
+  }, []);
+
   return (
     <svg
       style={props.style}
-      onClick={state.onClick}
+      onClick={handleClick}
       className={classNames(
         props.type,
         'brick-icon',
