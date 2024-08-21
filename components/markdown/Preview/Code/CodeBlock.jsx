@@ -1,6 +1,6 @@
 import React from 'react';
 import hljs from 'highlight.js';
-import Icon from '../../icon';
+import Icon from '../../../icon';
 
 export default React.memo(({ value, lang }) => {
   const codeRef = React.useRef(null);

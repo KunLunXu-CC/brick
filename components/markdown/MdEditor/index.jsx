@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { Editor } from '../..';
+import Editor from '../../editor';
 
 // 初始默认 options
 const OPTIONS = {
