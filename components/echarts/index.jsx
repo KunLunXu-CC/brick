@@ -3,7 +3,7 @@ import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as echarts from 'echarts';
-import { Resize } from '..';
+import Resize from '../resize';
 import '../resize/style';
 
 // omit 需要过滤 props key 列表
@@ -62,7 +62,7 @@ const useHooks = (props) => {
   return { containerRef, echartsInstance, onResize };
 };
 
-const Echarts = (props) => {
+const ECharts = (props) => {
   const state = useHooks(props);
   return (
     <Resize
@@ -75,9 +75,9 @@ const Echarts = (props) => {
   );
 };
 
-Echarts.defaultProps = {};
+ECharts.defaultProps = {};
 
-Echarts.propTypes =  {
+ECharts.propTypes =  {
   on: PropTypes.array,
   style: PropTypes.object,
   option: PropTypes.object,
@@ -89,4 +89,4 @@ Echarts.propTypes =  {
   ]),
 };
 
-export default React.memo(Echarts);
+export default React.memo(ECharts);

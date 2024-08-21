@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Echarts } from '../../..';
+import ECharts from '../../../echarts';
 
 // see: https://echarts.apache.org/examples/zh/index.html
 export default React.memo((props) => {
@@ -23,7 +23,7 @@ export default React.memo((props) => {
         'brick-error': !option,
       })}>
       {option ? (
-        <Echarts
+        <ECharts
           option={option}
           className="brick-markdown-preview-echarts-main"
         />

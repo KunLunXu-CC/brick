@@ -5,7 +5,7 @@ import Code from './Code';
 import classNames from 'classnames';
 import MarkdownToJsx from 'markdown-to-jsx';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Icon } from '../..';
+import Icon from '../icon';
 
 // 复制后, 追加的样式
 const COPY_CUSTOM_STYLE = `
@@ -29,7 +29,7 @@ const RESET_CSS = `
 `;
 
 // 获取样式规则
-// TODO: Echarts 图表不行
+// TODO: ECharts 图表不行
 const getCSSRules = () => {
   const currentRules = [...document.styleSheets]
     .reduce((total, styleSheet) => {

@@ -1,11 +1,11 @@
 import React from 'react';
-import Echarts from './Echarts';
+import ECharts from './ECharts';
 import Mermaid from './Mermaid';
 import CodeBlock from './CodeBlock';
 
 // 自定义语言和对应渲染组件映射表, 默认使用 CodeBlock 进行处理
 const CUSTOM_LANG_MAP_RENDER = {
-  echarts: Echarts,
+  echarts: ECharts,
   mermaid: Mermaid,
 };
 

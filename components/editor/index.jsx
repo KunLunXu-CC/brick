@@ -5,7 +5,7 @@ import * as monaco from 'monaco-editor';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import useCacheFun from '../hooks/useCacheFun';
-import { Resize } from '..';
+import Resize from '../resize';
 import './foldingRangeProvider';
 import './theme';
 

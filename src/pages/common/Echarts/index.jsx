@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { Echarts } from '@components';
+import { ECharts } from '@components';
 import './index.scss';
 
 const setting = {
@@ -49,7 +49,7 @@ export default () => {
       <Button onClick={onToggle}>
         切换
       </Button>
-      <Echarts
+      <ECharts
         height={500}
         option={option}
         on={[

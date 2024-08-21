@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { useState, useMemo, useEffect } from 'react';
 
-import { Icon, VariableContainer } from '..';
+import Icon from '../icon';
+import VariableContainer from '../variable-container';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [

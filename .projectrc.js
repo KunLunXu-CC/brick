@@ -36,9 +36,9 @@ export default {
         },
         {
           key: 'echarts',
-          title: 'Echarts',
+          title: 'ECharts',
           url: '/common/echarts',
-          routes: [{ path: '/common/echarts', element: <Pages.Echarts /> }],
+          routes: [{ path: '/common/echarts', element: <Pages.ECharts /> }],
         },
         {
           key: 'markdown',

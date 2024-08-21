@@ -2,7 +2,8 @@ import React from 'react';
 import omit from 'omit.js';
 import Preview from './Preview';
 import MdEditor from './MdEditor';
-import { VariableContainer, Icon } from '..';
+import Icon from '../icon';
+import VariableContainer from '../variable-container';
 
 // 预览类型
 const PREVIEW_TYPE = {

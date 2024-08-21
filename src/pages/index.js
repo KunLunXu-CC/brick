@@ -2,7 +2,7 @@ export { default as Home } from './Home';
 
 export { default as Editor } from './common/Editor';
 
-export { default as Echarts } from './common/Echarts';
+export { default as ECharts } from './common/ECharts';
 
 export { default as Icon } from './common/Icon';
 
