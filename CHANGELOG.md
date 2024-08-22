@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.1](https://github.com/KunLunXu0-0/brick/compare/v2.6.0...v2.6.1) (2024-08-22)
+
+
+### Bug Fixes
+
+* 🐛 按需加载组件导入报错 ([33d83aa](https://github.com/KunLunXu0-0/brick/commit/33d83aacc35347005eacf8a49e9629e85f3ceb43))
+
 ## [2.6.0](https://github.com/KunLunXu0-0/brick/compare/v2.5.1...v2.6.0) (2024-08-21)
 
 ### [2.5.1](https://github.com/KunLunXu0-0/brick/compare/v2.5.0...v2.5.1) (2024-02-25)
