@@ -4,7 +4,7 @@ export { default as Editor } from './editor';
 
 export { default as Resize } from './resize';
 
-export { default as ECharts } from './echarts';
+export { default as ECharts } from './e-charts';
 
 export { default as Markdown } from './markdown';
 

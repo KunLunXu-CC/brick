@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import ECharts from '../../../echarts';
+import ECharts from '../../../e-charts';
 
 // see: https://echarts.apache.org/examples/zh/index.html
 export default React.memo((props) => {

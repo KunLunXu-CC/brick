@@ -5,5 +5,5 @@ import './theme';
 
 // 其他组件样式
 import '../../../icon/style';
-import '../../../echarts/style';
+import '../../../e-charts/style';
 import '../../../editor/style';
