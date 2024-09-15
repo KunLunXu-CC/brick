@@ -43,17 +43,37 @@
     margin: 1.375em 0;
   }
 
-  // 列表
-  ul,
+  ul {
+    padding-left: 1.75em;
+    margin-block-end: 1em;
+    margin-block-start: 1em;
+    list-style: disc outside none;
+
+    ul {
+      list-style: circle outside none;
+      margin-block-end: 0;
+      margin-block-start: 0;
+
+      ul {
+        list-style: square outside none;
+      }
+    }
+  }
+
   ol {
     padding-left: 1.75em;
     margin-block-end: 1em;
     margin-block-start: 1em;
+    list-style: decimal outside none;
 
-    ul,
     ol {
+      list-style: lower-roman outside none;
       margin-block-end: 0;
       margin-block-start: 0;
+
+      ol {
+        list-style: lower-latin outside none;
+      }
     }
   }
 
