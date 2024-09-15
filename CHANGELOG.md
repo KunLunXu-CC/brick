@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.6.2](https://github.com/KunLunXu0-0/brick/compare/v2.6.1...v2.6.2) (2024-09-15)
+
+
+### Bug Fixes
+
+* 🐛 antd 下 li 前面的序号或者小圆点不见了 ([a473f22](https://github.com/KunLunXu0-0/brick/commit/a473f220f91f65c680e683cd62a559890bdad793))
+
 ### [2.6.1](https://github.com/KunLunXu0-0/brick/compare/v2.6.0...v2.6.1) (2024-08-22)
 
 
