@@ -7,13 +7,13 @@ on:
   workflow_dispatch:
     inputs:
       release_as:
-        description: 'Optional version to release, for example 2.6.5'
-        required: false
+        description: 'Version to release, for example 2.6.5'
+        required: true
         type: string
 
 jobs:
   release:
-    if: ${{ github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, 'chore(release):') }}
+    if: "${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'release: ') }}"
     runs-on: ubuntu-latest
 
     permissions:
@@ -41,15 +41,30 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Create version commit and tag
+      - name: Resolve release version
+        id: resolve
         run: |
-          if [ -n "${RELEASE_AS}" ]; then
-            npm run release -- --release-as "${RELEASE_AS}"
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            RELEASE_VERSION="${INPUT_RELEASE_AS}"
           else
-            npm run release
+            COMMIT_SUBJECT="$(git log -1 --pretty=%s)"
+            RELEASE_VERSION="$(printf '%s' "${COMMIT_SUBJECT}" | sed -nE 's/^release: ([0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?)$/\1/p')"
           fi
+
+          if [ -z "${RELEASE_VERSION}" ]; then
+            echo "Release commit message must be: release: x.y.z"
+            echo "Example: release: 9.1.2"
+            exit 1
+          fi
+
+          echo "version=${RELEASE_VERSION}" >> "$GITHUB_OUTPUT"
         env:
-          RELEASE_AS: ${{ github.event.inputs.release_as }}
+          INPUT_RELEASE_AS: ${{ github.event.inputs.release_as }}
+
+      - name: Create version commit and tag
+        run: npx --no-install standard-version --release-as "${RELEASE_VERSION}"
+        env:
+          RELEASE_VERSION: ${{ steps.resolve.outputs.version }}
 
       - name: Read release metadata
         id: release
@@ -80,7 +95,7 @@ jobs:
           echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Push version commit and tag
-        run: git push --follow-tags
+        run: git push origin HEAD:${{ github.ref_name }} --follow-tags
 
       - name: Create GitHub Release
         run: gh release create "${TAG}" --title "${TAG}" --notes-file "${RUNNER_TEMP}/release_notes.md"
