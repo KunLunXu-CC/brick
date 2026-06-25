@@ -51,6 +51,7 @@ const getCSSRules = () => {
 const Markdown = (props) => {
   const previewRef = useRef();
   const [copying, setCoping] = useState(false);
+  const theme = props.theme ?? 'light';
 
   const handleCopy = useCallback(() => {
     setCoping(true);
@@ -94,9 +95,9 @@ const Markdown = (props) => {
   // 组件最外层 className
   const className = useMemo(() => classNames(
     'brick-markdown-preview',
-    `brick-markdown-preview-${props.theme}`,
+    `brick-markdown-preview-${theme}`,
     props.className,
-  ), [props.className, props.theme]);
+  ), [props.className, theme]);
 
   return (
     <>
@@ -118,10 +119,6 @@ const Markdown = (props) => {
       </div>
     </>
   );
-};
-
-Markdown.defaultProps = {
-  theme: 'light',
 };
 
 Markdown.propTypes = {

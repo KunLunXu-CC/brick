@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { useState, useEffect } from 'react';
+import { useCallback, useRef } from 'react';
+import { useEventListener, useRafState, useThrottleFn } from 'ahooks';
 
 // 该 hook 默认参数
 const DEFAULT_OPTION = {
@@ -46,6 +47,8 @@ const OPERATION_TYPE_MAP_CURSOR = {
   leftBottom: 'sw-resize',
   rightBottom: 'se-resize',
 };
+
+const THROTTLE_WAIT = 16;
 
 /**
  * 解析 params: 因为支持百分比所以需要将值转为数值
@@ -310,92 +313,115 @@ export default (ref, {
   defaultParams = DEFAULT_OPTION.defaultParams,
   operationList = DEFAULT_OPTION.operationList,
 } = {}) => {
-  const [params, setParams] = useState({
+  const [params, setParams] = useRafState({
     ...DEFAULT_OPTION.defaultParams,
     ...defaultParams,
   });
 
-  useEffect(() => {
-    if (!ref || !ref.current) {
-      return;
+  const stateRef = useRef({
+    tem: null,
+    lock: false,
+    boundary: null,
+    operationType: null,
+    preParams: null,
+    originClient: { x: 0, y: 0 },
+  });
+
+  // 鼠标悬停(mousemove): 处理操作类型、cursor 状态
+  const onHover = useCallback((event) => {
+    const target = ref && ref.current;
+    const state = stateRef.current;
+
+    if (!target) {
+      return false;
     }
 
-    const target = ref.current;
+    if (state.lock) {
+      return false;
+    }
 
-    let tem = null;           // 临时值: 每次更新 params 时和 tem 进行比较, 不相同才更新
-    let lock = false;         // 锁定状态(是否正在操作)、避免多次操作
-    let boundary = null;      // 存储边界值
-    let operationType = null; // 当前操作类型
-    let preParams = null;     // 上一次参数(操作前、鼠标按下时更新)
-    let originClient = { x: 0, y: 0 };  // 操控点
+    state.operationType = getOperationType({
+      event,
+      target,
+      threshold,
+      dragHeight,
+      operationList,
+    });
+    setCursor({ target, operationType: state.operationType });
+  }, [ref, threshold, dragHeight, operationList]);
 
-    // 鼠标悬停(mousemove): 处理操作类型、cursor 状态
-    const onHover = (event) => {
-      if (lock) {
-        return false;
-      }
+  // 操作处理中(mousemove): 计算设置 params
+  const onHanding = useCallback((e) => {
+    const state = stateRef.current;
 
-      operationType = getOperationType({
-        event,
-        target,
-        threshold,
-        dragHeight,
-        operationList,
-      });
-      setCursor({ target, operationType });
-    };
+    if (!state.lock) {
+      return false;
+    }
 
-    // 操作处理中(mousemove): 计算设置 params
-    const onHanding = (e) => {
-      e.preventDefault();
-      const _params = getParams({
-        e,
-        boundary,
-        preParams,
-        originClient,
-        operationType,
-      });
+    e.preventDefault();
+    const _params = getParams({
+      e,
+      boundary: state.boundary,
+      preParams: state.preParams,
+      originClient: state.originClient,
+      operationType: state.operationType,
+    });
 
-      if (!_.isEqual(_params, tem)) {
-        tem = _params;
-        setParams(_params);
-      }
-    };
+    if (!_.isEqual(_params, state.tem)) {
+      state.tem = _params;
+      setParams(_params);
+    }
+  }, [setParams]);
 
-    // 操作结束(mouseup): 结束操作后处理相关业务
-    const onStop = () => {
-      lock = false;
-      window.removeEventListener('mouseup', onStop);
-      window.removeEventListener('mousemove', onHanding);
-    };
+  const { run: throttledMousemove } = useThrottleFn((event) => {
+    if (stateRef.current.lock) {
+      return onHanding(event);
+    }
 
-    // 操作开始(mousedown): 开始操作前处理相关业务
-    const onMousedown = (e) => {
-      onHover(e);
+    return onHover(event);
+  }, { wait: THROTTLE_WAIT });
 
-      if (!operationType) {
-        return false;
-      }
-
-      lock = true;
-      // 在这边计算下列值, 而不是在 getParams 是因为下列值只需要在操作前进行计算, 每次都进行计算影响性能
-      preParams = parseParams({ target });
-      originClient = getOriginClient({ e, target, operationType });
-      boundary = getBoundary({ margin, target, operationType, constraintSize });
-      window.addEventListener('mouseup', onStop);
-      window.addEventListener('mousemove', onHanding);
-    };
-
-    window.addEventListener('mousedown', onMousedown);
-    window.addEventListener('mousemove', onHover);
-
-    return () => {
-      window.removeEventListener('mouseup', onStop);
-      window.removeEventListener('mousemove', onHanding);
-      window.removeEventListener('mousedown', onMousedown);
-      window.removeEventListener('mousemove', onHover);
-    };
+  // 操作结束(mouseup): 结束操作后处理相关业务
+  const onStop = useCallback(() => {
+    stateRef.current.lock = false;
   }, []);
+
+  // 操作开始(mousedown): 开始操作前处理相关业务
+  const { run: onMousedown } = useThrottleFn((e) => {
+    const target = ref && ref.current;
+    const state = stateRef.current;
+
+    if (!target) {
+      return false;
+    }
+
+    onHover(e);
+
+    if (!state.operationType) {
+      return false;
+    }
+
+    state.lock = true;
+    // 在这边计算下列值, 而不是在 getParams 是因为下列值只需要在操作前进行计算, 每次都进行计算影响性能
+    state.preParams = parseParams({ target });
+    state.originClient = getOriginClient({
+      e,
+      target,
+      operationType: state.operationType,
+    });
+    state.boundary = getBoundary({
+      margin,
+      target,
+      constraintSize,
+      operationType: state.operationType,
+    });
+  }, {
+    wait: THROTTLE_WAIT,
+  });
+
+  useEventListener('mouseup', onStop);
+  useEventListener('mousedown', onMousedown);
+  useEventListener('mousemove', throttledMousemove);
 
   return params;
 };

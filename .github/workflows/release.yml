@@ -1,0 +1,97 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      release_as:
+        description: 'Optional version to release, for example 2.6.5'
+        required: false
+        type: string
+
+jobs:
+  release:
+    if: ${{ github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, 'chore(release):') }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create version commit and tag
+        run: |
+          if [ -n "${RELEASE_AS}" ]; then
+            npm run release -- --release-as "${RELEASE_AS}"
+          else
+            npm run release
+          fi
+        env:
+          RELEASE_AS: ${{ github.event.inputs.release_as }}
+
+      - name: Read release metadata
+        id: release
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v${VERSION}"
+
+          node <<'NODE'
+          const fs = require('fs');
+          const version = require('./package.json').version;
+          const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
+          const escaped = version.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const heading = new RegExp(`^#{2,3} .*${escaped}.*$`, 'm');
+          const match = changelog.match(heading);
+          let notes = '';
+
+          if (match) {
+            const start = match.index;
+            const rest = changelog.slice(start + match[0].length);
+            const next = rest.search(/^#{2,3} \[?\d+\.\d+\.\d+/m);
+            notes = `${match[0]}\n${next === -1 ? rest : rest.slice(0, next)}`.trim();
+          }
+
+          fs.writeFileSync(process.env.RUNNER_TEMP + '/release_notes.md', notes || `Release v${version}`);
+          NODE
+
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Push version commit and tag
+        run: git push --follow-tags
+
+      - name: Create GitHub Release
+        run: gh release create "${TAG}" --title "${TAG}" --notes-file "${RUNNER_TEMP}/release_notes.md"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.release.outputs.tag }}
+
+      - name: Build npm package
+        run: npm run build:publish
+
+      - name: Publish npm package
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Button } from 'antd';
 import { ECharts } from '@components';
 import './index.scss';

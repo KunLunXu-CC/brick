@@ -38,6 +38,7 @@
     "react-dom": ">=18.2.0"
   },
   "dependencies": {
+    "ahooks": "^3.9.7",
     "classnames": "^2.3.1",
     "echarts": "^5.3.3",
     "highlight.js": "^11.6.0",

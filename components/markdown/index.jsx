@@ -26,6 +26,7 @@ const Markdown = (props) => {
   const [innerValue, setInnerValue] = React.useState(props.defaultValue); // 内部值
   const [previewType, setPreviewType] = React.useState(PREVIEW_TYPE.none); // 预览类型
   const value = React.useMemo(() => props.value || innerValue); // 组件值, 外面值 || 内部值
+  const theme = props.theme ?? 'light';
 
   // 切换预览模式
   const togglePreview = React.useCallback((type) => {
@@ -72,8 +73,9 @@ const Markdown = (props) => {
           defaultParams={{ width: '50%' }}
           className="brick-markdown-preview-wrapper">
           <Preview
-            options={props.mdToJsxOptions}
-            type={previewType}>
+            theme={theme}
+            type={previewType}
+            options={props.mdToJsxOptions}>
             {value}
           </Preview>
         </VariableContainer>
