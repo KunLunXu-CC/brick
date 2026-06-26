@@ -26,7 +26,9 @@ const DIR = {
   // 输入目录
   scss: path.resolve(__dirname, '../components/**/*.scss'),
   buildSrc: path.resolve(__dirname, '../components/**/style/*.scss'),
-  style: path.resolve(__dirname, '../components/**/style/index.js'),
+  style: path.resolve(__dirname, '../components/**/style/**/index.js'),
+  highlightTheme: path.resolve(__dirname, '../node_modules/highlight.js/styles/atom-one-dark.css'),
+  highlightThemeDest: 'markdown/Preview/style/theme',
 
   // 输入目录
   lib: path.resolve(__dirname, '../lib'),
@@ -39,6 +41,13 @@ gulp.task('copyScss', () => gulp
   .src(DIR.scss)
   .pipe(gulp.dest(DIR.lib))
   .pipe(gulp.dest(DIR.es)),
+);
+
+// 拷贝第三方 css 到组件库产物内, 避免消费者解析组件库的内部依赖路径
+gulp.task('copyHighlightTheme', () => gulp
+  .src(DIR.highlightTheme)
+  .pipe(gulp.dest(path.resolve(DIR.lib, DIR.highlightThemeDest)))
+  .pipe(gulp.dest(path.resolve(DIR.es, DIR.highlightThemeDest))),
 );
 
 // 对 scss 进行编译后拷贝
@@ -56,6 +65,7 @@ gulp.task('copyCss', () => gulp
 const createCssJs = (basename) => gulp
   .src(DIR.style)
   .pipe(replace(/\.scss/, '.css'))
+  .pipe(replace('highlight.js/styles/atom-one-dark.css', './atom-one-dark.css'))
   .pipe(rename({ basename }))
   .pipe(gulp.dest(DIR.lib))
   .pipe(gulp.dest(DIR.es));
@@ -93,6 +103,7 @@ gulp.task('dist', () => gulp
 gulp.task('default', gulp.parallel(
   'dist',
   'copyCss',
+  'copyHighlightTheme',
   'copyScss',
   'createCssIndex',
   'createCssEntry',
