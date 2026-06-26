@@ -60,6 +60,7 @@ const createCssJs = (basename) => gulp
   .pipe(gulp.dest(DIR.lib))
   .pipe(gulp.dest(DIR.es));
 
+
 // 创建 style/index.js, 发布产物中默认样式入口引用编译后的 css
 gulp.task('createCssIndex', () => createCssJs('index'));
 
