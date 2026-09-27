@@ -2,6 +2,13 @@ import _ from 'lodash';
 import { useCallback, useRef } from 'react';
 import { useEventListener, useRafState, useThrottleFn } from 'ahooks';
 
+export const DEFAULT_PARAMS = {
+  offsetX: 0,
+  offsetY: 0,
+  width: 200,
+  height: 200,
+};
+
 // 该 hook 默认参数
 const DEFAULT_OPTION = {
   threshold: 5,
@@ -16,12 +23,7 @@ const DEFAULT_OPTION = {
     right: 0,
     bottom: 0,
   },
-  defaultParams: {
-    offsetX: 0,
-    offsetY: 0,
-    width: 200,
-    height: 200,
-  },
+  defaultParams: DEFAULT_PARAMS,
   operationList: [
     'top',
     'left',

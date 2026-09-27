@@ -2,10 +2,12 @@ import _ from 'lodash';
 import omit from 'omit.js';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useReducer } from 'react';
 
 import Icon from '../icon';
 import VariableContainer from '../variable-container';
+import { DEFAULT_PARAMS } from '../variable-container/useResize';
+import { completeParams, createGeometry, updateGeometry } from './geometry';
 
 // omit 需要过滤 props key 列表
 const filterPropKeys = [
@@ -67,14 +69,19 @@ const propTypes = {
 };
 
 const useHooks = (props) => {
-  const [isMin, setIsMin] = useState(!!props.isMin);
-  const [isMax, setIsMax] = useState(!!props.isMax);
-  const [params, setParams] = useState(null);
-  const statics = useMemo(() => ({
-    maxHandled: false,
-    minHandled: false,
-    history: [],
-  }), []);
+  const [innerIsMin, setIsMin] = useState(false);
+  const [innerIsMax, setIsMax] = useState(false);
+  const isMin = _.has(props, 'isMin') ? !!props.isMin : innerIsMin;
+  const isMax = _.has(props, 'isMax') ? !!props.isMax : innerIsMax;
+  const minParams = props.minParams ?? defaultProps.minParams;
+  const [geometry, dispatch] = useReducer(updateGeometry, {
+    defaults: completeParams(props.defaultParams, DEFAULT_PARAMS),
+    isMin,
+    isMax,
+    minParams,
+    maxParams: props.maxParams,
+  }, createGeometry);
+  const { params } = geometry;
 
   const toolStyle = useMemo(() => {
     const tool = { ...defaultProps.tool, ...(props.tool || {}) };
@@ -108,7 +115,7 @@ const useHooks = (props) => {
 
   // params 变更时触发
   const onResize = (params) => {
-    setParams({ ...params });
+    dispatch({ type: 'resize', params });
     _.isFunction(props.onResize) && props.onResize(params);
   };
 
@@ -121,48 +128,16 @@ const useHooks = (props) => {
     props.className,
   ), [props.className, isMin, isMax]);
 
-  // 处理 props.isMax props.isMin
+  // 同时处理两种状态；纯 reducer 在 StrictMode 重复执行时不会重复保存快照。
   useEffect(() => {
-    setIsMin(!!props.isMin);
-  }, [props.isMin]);
+    dispatch({
+      type: 'transition', isMin, isMax, minParams, maxParams: props.maxParams,
+    });
+  }, [isMin, isMax, minParams, props.maxParams]);
 
-  useEffect(() => {
-    setIsMax(!!props.isMax);
-  }, [props.isMax]);
-
-  // 最大化处理
-  useEffect(() => {
-    if (!!isMax) {
-      statics.history.push({ ...params });
-      setParams({
-        offsetX: 0,
-        offsetY: 0,
-        width: '100%',
-        height: '100%',
-        ...props.maxParams,
-      });
-    } else if (statics.maxHandled) {
-      setParams({ ...params, ...statics.history.pop() });
-    }
-
-    // 标记是否处理过
-    statics.maxHandled = true;
-  }, [isMax]);
-
-  // 最小化处理
-  useEffect(() => {
-    if (!!isMin) {
-      statics.history.push({ ...params });
-      setParams(props.minParams);
-    } else if (statics.minHandled) {
-      setParams({ ...params, ...statics.history.pop() });
-    }
-
-    // 标记是否处理过
-    statics.minHandled = true;
-  }, [isMin]);
-
-  return { onClose, onMin, onMax, onResize, params, windowClass, toolStyle };
+  return {
+    onClose, onMin, onMax, onResize, params, isMax, windowClass, toolStyle,
+  };
 };
 
 const Window = (props) => {
