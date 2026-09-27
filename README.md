@@ -40,6 +40,7 @@ import { Scrollbar } from "@kunlunxu/brick"
 import "@kunlunxu/brick/lib/scrollbar/style"
 ```
 
+
 - 按需加载: 通过 babel-plugin-import 实现
 
 ```js
