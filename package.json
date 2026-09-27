@@ -74,5 +74,10 @@
     "progress-bar-webpack-plugin": "^2.1.0",
     "sass-loader": "^13.0.2",
     "webpack": "^5.73.0"
+  },
+  "overrides": {
+    "mermaid": {
+      "dompurify": "3.4.13"
+    }
   }
 }
