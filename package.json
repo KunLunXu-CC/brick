@@ -25,13 +25,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KunLunXu0-0/brick.git"
+    "url": "git+https://github.com/KunLunXu-CC/brick.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/KunLunXu0-0/brick/issues"
+    "url": "https://github.com/KunLunXu-CC/brick/issues"
   },
   "peerDependencies": {
     "react": ">=18.2.0",

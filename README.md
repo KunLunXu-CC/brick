@@ -6,7 +6,7 @@
 </div>
 
 
-预览: https://KunLunXu0-0.github.io/brick
+预览: https://KunLunXu-CC.github.io/brick
 
 ## 特性
 
