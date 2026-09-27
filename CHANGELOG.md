@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.7.8](https://github.com/KunLunXu-CC/brick/compare/v2.7.5...v2.7.8) (2026-09-27)
+
+
+### Bug Fixes
+
+* **window:** 修复最小化恢复和最大化状态切换 ([e772795](https://github.com/KunLunXu-CC/brick/commit/e772795dba5bda303250e02f32c3ae25143af665))
+
 ### [2.7.5](https://github.com/KunLunXu0-0/brick/compare/v2.7.4...v2.7.5) (2026-06-26)
 
 ### [2.7.4](https://github.com/KunLunXu0-0/brick/compare/v2.7.2...v2.7.4) (2026-06-26)
